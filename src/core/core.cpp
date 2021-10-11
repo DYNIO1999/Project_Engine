@@ -4,6 +4,10 @@ using namespace DEngine;
 EngineCore::EngineCore(){
  window =nullptr;
  fullscreen = true;
+ deltatime = 0.0f;
+ monitor = nullptr;
+ currentTime =0;
+ lastTime =0;
  //engineWinManager = new WindowManager(window,WINDOW_WIDTH, WINDOW_HEIGHT);
 
 }
@@ -32,13 +36,17 @@ bool EngineCore::initWindow(){
         std::cout << "Failed to initialize GLAD" << std::endl;
         return false;
     }
+    monitor =  glfwGetPrimaryMonitor();
+    glfwGetWindowSize( window,&SCREEN_WIDTH ,&SCREEN_HEIGHT);
+    glfwGetWindowPos( window,&SCREEN_POS_X, &SCREEN_POS_Y);
     glViewport(0, 0,WINDOW_WIDTH, WINDOW_HEIGHT);
+
     return true;
 }
 void EngineCore::mainLoop(){
 
     ////?
-    const char *vertexShaderSource = "#version 400 core\n"
+    const char *vertexShaderSource = "#version 450 core\n"
                                      "layout (location = 0) in vec3 aPos;\n"
                                      "void main()\n"
                                     "{\n"
@@ -59,7 +67,7 @@ void EngineCore::mainLoop(){
     }
 
     const char *fragmentShaderSource = 
-    "#version 400 core\n"
+    "#version 450 core\n"
     "out vec4 FragColor;\n"
     "void main()\n"
     "{\n"
@@ -112,19 +120,30 @@ void EngineCore::mainLoop(){
 
     glBindBuffer(GL_ARRAY_BUFFER, 0); 
     glBindVertexArray(0); 
-
     while (!glfwWindowShouldClose(window))
     {
+        
         processInput();
+
+        //draw
+
+        //update
+        currentTime = glfwGetTime();
+    if(currentTime - lastTime >= 1.0/ENGINE_FPS_CAP){
+        lastTime = currentTime;
+        std::cout<<"TEST:"<<currentTime<<std::endl;
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
-        //glUseProgram(shaderProgram);
-        //glBindVertexArray(VAO);
-        //glDrawArrays(GL_TRIANGLES, 0, 3);
+        glUseProgram(shaderProgram);
+        glBindVertexArray(VAO);
+        glDrawArrays(GL_TRIANGLES, 0, 3);
 
         glfwPollEvents();
         glfwSwapBuffers(window);
+    }
+    
+        
     }
     glDeleteShader(vertexShader);
     glDeleteShader(fragmentShader);
@@ -139,18 +158,34 @@ void EngineCore::run(){
     cleanup();
 }
 void EngineCore::processInput(){
+    if(glfwGetKey(window,GLFW_KEY_ESCAPE )== GLFW_PRESS){
+        glfwSetWindowShouldClose(window, GLFW_TRUE);
+    }
     if (glfwGetKey(window, GLFW_KEY_F1) == GLFW_PRESS){
         if(fullscreen==false){
-        glfwSetWindowSize(window, 1600, 900);
+        glfwSetWindowMonitor(window, nullptr,  SCREEN_POS_X, SCREEN_POS_Y, SCREEN_WIDTH, SCREEN_HEIGHT, 0 );
+        int temp1;
+        int temp2;
+        glfwGetFramebufferSize( window, &temp1, &temp2);
+        glViewport( 0, 0, temp1, temp2);
+    
         fullscreen= true;    
-        }else if(fullscreen == true){
+        }
+    }
+    if(glfwGetKey(window, GLFW_KEY_F2) == GLFW_PRESS){
+        if(fullscreen == true){
+        glfwGetWindowSize( window,&SCREEN_WIDTH ,&SCREEN_HEIGHT);
+        glfwGetWindowPos( window,&SCREEN_POS_X, &SCREEN_POS_Y);
         
-        glfwSetWindowSize(window, 1000, 1000);
+        const GLFWvidmode * mode = glfwGetVideoMode(monitor);
+        glfwSetWindowMonitor(window, monitor, 0, 0, mode->width, mode->height, 0);
+        int temp1;
+        int temp2;
+        glfwGetFramebufferSize( window, &temp1, &temp2);
+        glViewport( 0, 0, temp1, temp2);
+
         fullscreen = false;
         }
-        //glfwSetWindowMonitor()
-        //engineWinManager->changeWinSize(1000,500);
+        
     }
-
-        //glfwSetWindowShouldClose(window, true);
 }

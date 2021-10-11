@@ -14,10 +14,15 @@ namespace DEngine{
         WINDOW_HEIGHT = 720,
     };
 
+    enum FRAME_RATE{
+        ENGINE_FPS_CAP = 60,
+    };
+
     class EngineCore
     {
     private:
         GLFWwindow *window;
+        GLFWmonitor* monitor;
 
         bool initWindow();
         void mainLoop();
@@ -27,10 +32,21 @@ namespace DEngine{
 
 
 
+
+
         EngineCore(const EngineCore &) = delete;
         EngineCore &operator=(const EngineCore &) = delete;
 
     public:
+        int SCREEN_WIDTH;
+        int SCREEN_HEIGHT;
+        int SCREEN_POS_X;
+        int SCREEN_POS_Y;
+
+        float currentTime;
+        float lastTime;
+
+        float deltatime; 
         //WindowManager* engineWinManager;
         bool fullscreen; 
         void run();
