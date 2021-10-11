@@ -30,10 +30,6 @@ namespace DEngine{
 
         void processInput(); 
 
-
-
-
-
         EngineCore(const EngineCore &) = delete;
         EngineCore &operator=(const EngineCore &) = delete;
 
@@ -41,12 +37,7 @@ namespace DEngine{
         int SCREEN_WIDTH;
         int SCREEN_HEIGHT;
         int SCREEN_POS_X;
-        int SCREEN_POS_Y;
-
-        float currentTime;
-        float lastTime;
-
-        float deltatime; 
+        int SCREEN_POS_Y; 
         //WindowManager* engineWinManager;
         bool fullscreen; 
         void run();
