@@ -2,7 +2,10 @@
 using namespace DEngine;
 
 EngineCore::EngineCore(){
- window =nullptr;   
+ window =nullptr;
+ fullscreen = true;
+ //engineWinManager = new WindowManager(window,WINDOW_WIDTH, WINDOW_HEIGHT);
+
 }
 EngineCore::~EngineCore(){
 
@@ -15,6 +18,7 @@ bool EngineCore::initWindow(){
     }
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+    glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE);
 
     window= glfwCreateWindow(WINDOW_WIDTH,WINDOW_HEIGHT, "DEngine", nullptr, nullptr);
     
@@ -34,7 +38,7 @@ bool EngineCore::initWindow(){
 void EngineCore::mainLoop(){
 
     ////?
-    const char *vertexShaderSource = "#version 460 core\n"
+    const char *vertexShaderSource = "#version 400 core\n"
                                      "layout (location = 0) in vec3 aPos;\n"
                                      "void main()\n"
                                     "{\n"
@@ -55,7 +59,7 @@ void EngineCore::mainLoop(){
     }
 
     const char *fragmentShaderSource = 
-    "#version 460 core\n"
+    "#version 400 core\n"
     "out vec4 FragColor;\n"
     "void main()\n"
     "{\n"
@@ -115,9 +119,9 @@ void EngineCore::mainLoop(){
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
-        glUseProgram(shaderProgram);
-        glBindVertexArray(VAO);
-        glDrawArrays(GL_TRIANGLES, 0, 3);
+        //glUseProgram(shaderProgram);
+        //glBindVertexArray(VAO);
+        //glDrawArrays(GL_TRIANGLES, 0, 3);
 
         glfwPollEvents();
         glfwSwapBuffers(window);
@@ -135,6 +139,18 @@ void EngineCore::run(){
     cleanup();
 }
 void EngineCore::processInput(){
-    if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
-        glfwSetWindowShouldClose(window, true);
+    if (glfwGetKey(window, GLFW_KEY_F1) == GLFW_PRESS){
+        if(fullscreen==false){
+        glfwSetWindowSize(window, 1600, 900);
+        fullscreen= true;    
+        }else if(fullscreen == true){
+        
+        glfwSetWindowSize(window, 1000, 1000);
+        fullscreen = false;
+        }
+        //glfwSetWindowMonitor()
+        //engineWinManager->changeWinSize(1000,500);
+    }
+
+        //glfwSetWindowShouldClose(window, true);
 }

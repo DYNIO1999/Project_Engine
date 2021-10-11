@@ -5,6 +5,7 @@
 #include <GLAD/glad.h>
 #include <glfw3.h>
 //OWN headers
+#include "winsize.h"
 
 namespace DEngine{
     enum WINDOW_SIZE
@@ -30,12 +31,10 @@ namespace DEngine{
         EngineCore &operator=(const EngineCore &) = delete;
 
     public:
-        //bool window_open;
-
+        //WindowManager* engineWinManager;
+        bool fullscreen; 
         void run();
-
         EngineCore();
-        //window_open = true;     
-    ~EngineCore();
+        ~EngineCore();
 };
 }
