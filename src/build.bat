@@ -11,10 +11,10 @@ SET assembly=engine
 REM flags, to show warnings etc
 SET compilerFlags=-Wall 
 REM include headers from other libs and local ones. -I and path
-SET includeFlags=-Isrc -I..\dependencies\GLFW\include -I..\dependencies\GLAD\include
+SET includeFlags=-Isrc -Icore -I..\dependencies\GLFW\include -I..\dependencies\GLAD\include
 REM include lib to the linker need to be careful about ordering.
 SET linkerFlags=-L..\dependencies\GLFW\lib -lglfw3 -lopengl32 -lgdi32 -luser32 -lkernel32
 
 
 ECHO "Building %assembly%..."
-g++ %cppFilenames% glad.c -o %assembly% %compilerFlags% %includeFlags% %linkerFlags%
+g++ %cppFilenames%  glad.c -o %assembly% %compilerFlags% %includeFlags% %linkerFlags% 
