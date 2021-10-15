@@ -21,4 +21,4 @@ REM include lib to the linker need to be careful about ordering.
 SET linkerFlags=-L..\dependencies\SFML\lib -lsfml-window-s -lsfml-system-s -lopengl32 -lwinmm -lgdi32 -lsfml-graphics-s -lsfml-system-s -lsfml-window-s -lopengl32 -lfreetype -lsfml-audio-s -lsfml-system-s -lopenal32 -lflac -lvorbisenc -lvorbisfile -lvorbis -logg -lsfml-network-s -lsfml-system-s -lws2_32 -lsfml-system-s -lwinmm
 
 ECHO "Building %assembly%..."
-g++ %cppFilenames% -o %assembly% %compilerFlags% %includeFlags% %linkerFlags%
+g++ %cppFilenames%  -o %assembly% %compilerFlags% %includeFlags% %linkerFlags% 
