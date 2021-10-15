@@ -15,7 +15,7 @@ REM flags, to show warnings etc
 SET compilerFlags=-Wall 
 
 REM include headers from other libs and local ones. -I and path
-SET includeFlags=-Isrc -I..\dependencies\SFML\include
+SET includeFlags=-Isrc -I..\dependencies\SFML\include -I..\dependencies\ImGUI
 
 REM include lib to the linker need to be careful about ordering.
 SET linkerFlags=-L..\dependencies\SFML\lib -lsfml-window-s -lsfml-system-s -lopengl32 -lwinmm -lgdi32 -lsfml-graphics-s -lsfml-system-s -lsfml-window-s -lopengl32 -lfreetype -lsfml-audio-s -lsfml-system-s -lopenal32 -lflac -lvorbisenc -lvorbisfile -lvorbis -logg -lsfml-network-s -lsfml-system-s -lws2_32 -lsfml-system-s -lwinmm
