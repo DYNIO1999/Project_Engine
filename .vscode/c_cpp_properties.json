@@ -4,8 +4,7 @@
             "name": "Win32",
             "includePath": [
                 "${default}",
-                "${workspaceFolder}/dependencies/GLFW/include",
-                "${workspaceFolder}/dependencies/GLAD/include"
+                "${workspaceFolder}/dependencies/SFML/include"
             ],
             "defines": [
                 "_DEBUG",
