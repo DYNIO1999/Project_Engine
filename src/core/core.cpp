@@ -106,6 +106,8 @@ void Engine::draw(TimeStep deltatime)
         test.b = static_cast<sf::Uint8>(color[2] * 255.f);
         obj->setColor(test);
     }
+    //ADDEEDDDDD
+    //TEST
     if (ImGui::SliderFloat2("Position", pos,0,1280))
     {
         obj->setPosition(pos[0],pos[1]);
