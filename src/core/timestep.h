@@ -1,5 +1,5 @@
 #pragma once
-namespace DEngine{
+//namespace DEngine{
 class TimeStep
 {
 private:
@@ -8,4 +8,4 @@ public:
     ~TimeStep(){};
     float m_time;
 };
-};
+//};

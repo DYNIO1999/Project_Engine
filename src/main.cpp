@@ -2,7 +2,7 @@
 #include "core/core.h"
 int main()
 {
-    DEngine::Engine* engine = new DEngine::Engine();
+    Engine* engine = new Engine();
     engine->run();
     delete engine;
 }

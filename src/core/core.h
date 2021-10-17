@@ -9,12 +9,18 @@
 
 #include "timestep.h"
 
-namespace DEngine{
+#include "../scenes/scene_manager.h"
+#include "../scenes/world_scene.h"
+#include "../objects/object.h"
+#include "../objects/drawable.h"
 
+//namespace DEngine{
 enum SCREEN_SIZE{
     SCREEN_WIDTH = 1280,
     SCREEN_HEIGHT = 720
 };
+
+class Scene;
 
 class Engine
 {
@@ -36,6 +42,7 @@ public:
     void setFullScreen(bool fullscreen);
     void checkScreenModes();
 
+    SceneManager* m_scene_manager;
     sf::Clock testclock;
     TimeStep m_lasttime;
     TimeStep m_currenttime; 
@@ -43,6 +50,10 @@ public:
     sf::VideoMode* m_video_mode;
     std::vector<sf::VideoMode> modes;
     int counter;
+    Object *obj;
+    float color[3] = {0.0f, 0.0f, 0.0f};
+    float pos[2] ={0.0f,0.0f};
+    float size[2] = {0.0f, 0.0f};
 };
-};
+//};
 

@@ -1,11 +1,12 @@
 #include "core.h"
 
-using namespace DEngine;
+//using namespace DEngine;
 Engine::Engine(){
     m_window =nullptr;
     m_video_mode =nullptr;
     m_lasttime.m_time=0.0f;
     counter=0;
+    m_scene_manager = new SceneManager(this);
 }   
 Engine::~Engine(){
 
@@ -18,12 +19,17 @@ void Engine::run(){
 }
 
 void Engine::mainLoop(){
+    m_scene_manager->pushScene(new World_Scene);
+    obj = new Drawable(TRIANGLE, 100, 100, 100, 100, sf::Color::Green);
+
+
     sf::Clock clock;
     while (m_window->isOpen()){
         float time =clock.getElapsedTime().asSeconds();
         TimeStep timestep = time- m_lasttime.m_time;
         m_lasttime = time;
         //std::cout << timestep.m_time << '\n';
+        //std::cout << "SIZE SCENE STACK" << m_scene_manager->m_Scene_Stack.size()<< std::endl;
         proccessEvents(timestep);
         draw(timestep);
     }
@@ -45,6 +51,9 @@ ImGui::SFML::Init(*m_window);
 
 }
 void Engine::proccessEvents(TimeStep deltatime){
+    m_scene_manager->m_Scene_Stack.back()->processEvents();
+    obj->processEvents();
+    
     sf::Event event;
     ImGui::SFML::ProcessEvent(event);
     while (m_window->pollEvent(event))
@@ -56,10 +65,10 @@ void Engine::proccessEvents(TimeStep deltatime){
 
         }
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num0)){
-            setFullScreen(true);
+            //setFullScreen(true);
         }
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::Num1)){
-            changeWinSize(modes[1].width, modes[1].height, modes[1].bitsPerPixel);
+            //changeWinSize(modes[1].width, modes[1].height, modes[1].bitsPerPixel);
         }
     }
     
@@ -83,21 +92,42 @@ void Engine::draw(TimeStep deltatime)
     ImGui::Text("counter = %d", counter);
 
     ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
+    ImGui::Text("Delta time %f", deltatime.m_time);
     ImGui::End();
    
-    ImGui::Begin("Hello,"); // Create a window called "Hello, world!" and append into it.
-    ImGui::Text("This is"); // Display some text (you can use a format strings too)
+    ImGui::Begin("Primitive Editor"); // Create a window called "Hello, world!" and append into it.
+    if (ImGui::ColorEdit3("Background color", color))
+    {
+        // this code gets called if color value changes, so
+        // the background color is upgraded automatically!
+        sf::Color test;
+        test.r = static_cast<sf::Uint8>(color[0] * 255.f);
+        test.g = static_cast<sf::Uint8>(color[1] * 255.f);
+        test.b = static_cast<sf::Uint8>(color[2] * 255.f);
+        obj->setColor(test);
+    }
+    if (ImGui::SliderFloat2("Position", pos,0,1280))
+    {
+        obj->setPosition(pos[0],pos[1]);
+    }
+    if (ImGui::SliderFloat2("Size", size,0, 1280))
+    {
+        obj->setSize(size[0], size[1]);
+    }
     ImGui::End();
+    obj->draw(*m_window);
     m_window->draw(shape);
     ImGui::SFML::Render(*m_window);
     m_window->display();
 }
 
 void Engine::cleanUp(){
-    std::cout << "Clearing Data!" << '\n';
+    std::cout << "Clearing whole Engine!" << '\n';
     ImGui::SFML::Shutdown();
     delete m_window;
     delete m_video_mode;
+    delete m_scene_manager;
+    m_scene_manager=nullptr;
     m_window = nullptr;
     m_video_mode= nullptr;
 }
