@@ -51,9 +51,13 @@ public:
     std::vector<sf::VideoMode> modes;
     int counter;
     Object *obj;
+    Object *obj2;
     float color[3] = {0.0f, 0.0f, 0.0f};
+    float color2[3] = {0.0f, 0.0f, 0.0f};
     float pos[2] ={0.0f,0.0f};
     float size[2] = {0.0f, 0.0f};
+    float pos1[2] = {0.0f, 0.0f};
+    float size1[2] = {0.0f, 0.0f};
 };
 //};
 

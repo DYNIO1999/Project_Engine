@@ -20,10 +20,10 @@ void Engine::run(){
 
 void Engine::mainLoop(){
     m_scene_manager->pushScene(new World_Scene);
-    obj = new Drawable(TRIANGLE, 100, 100, 100, 100, sf::Color::Green);
+    obj = new Drawable(RECTANGLE, 100, 100, 100, 100, sf::Color::Green);
+    obj2 = new Drawable(200,200,sf::Color::Red,POINT);
 
-
-    sf::Clock clock;
+        sf::Clock clock;
     while (m_window->isOpen()){
         float time =clock.getElapsedTime().asSeconds();
         TimeStep timestep = time- m_lasttime.m_time;
@@ -53,6 +53,7 @@ ImGui::SFML::Init(*m_window);
 void Engine::proccessEvents(TimeStep deltatime){
     m_scene_manager->m_Scene_Stack.back()->processEvents();
     obj->processEvents();
+    obj2->processEvents();
     
     sf::Event event;
     ImGui::SFML::ProcessEvent(event);
@@ -76,8 +77,6 @@ void Engine::proccessEvents(TimeStep deltatime){
 void Engine::draw(TimeStep deltatime)
 {
     m_window->clear(sf::Color::Black);
-    sf::CircleShape shape(50.f);
-    shape.setFillColor(sf::Color(100, 250, 50));
     sf::Time test;
     //test.m_microseconds = deltatime.m_time * 1000000;
     //ImGui::SFML::Update((*m_window), test.asSeconds());
@@ -96,7 +95,7 @@ void Engine::draw(TimeStep deltatime)
     ImGui::End();
    
     ImGui::Begin("Primitive Editor"); // Create a window called "Hello, world!" and append into it.
-    if (ImGui::ColorEdit3("Background color", color))
+    if (ImGui::ColorEdit3("Triangle color", color))
     {
         // this code gets called if color value changes, so
         // the background color is upgraded automatically!
@@ -105,6 +104,17 @@ void Engine::draw(TimeStep deltatime)
         test.g = static_cast<sf::Uint8>(color[1] * 255.f);
         test.b = static_cast<sf::Uint8>(color[2] * 255.f);
         obj->setColor(test);
+    }
+    if (ImGui::ColorEdit3("Circle color", color2))
+    {
+        // this code gets called if color value changes, so
+        // the background color is upgraded automatically!
+        sf::Color test;
+        test.r = static_cast<sf::Uint8>(color2[0] * 255.f);
+        test.g = static_cast<sf::Uint8>(color2[1] * 255.f);
+        test.b = static_cast<sf::Uint8>(color2[2] * 255.f);
+        obj2->setColor(test);
+
     }
     //ADDEEDDDDD
     //TEST
@@ -116,9 +126,19 @@ void Engine::draw(TimeStep deltatime)
     {
         obj->setSize(size[0], size[1]);
     }
+
+    if (ImGui::SliderFloat2("Position", pos1, 0, 1280))
+    {
+        obj2->setPosition(pos1[0], pos1[1]);
+    }
+    if (ImGui::SliderFloat2("Size", size1, 0, 1280))
+    {
+        obj2->setSize(size1[0], size1[1]);
+    }
+
     ImGui::End();
     obj->draw(*m_window);
-    m_window->draw(shape);
+    obj2->draw(*m_window);
     ImGui::SFML::Render(*m_window);
     m_window->display();
 }
