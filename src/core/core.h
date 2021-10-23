@@ -11,8 +11,9 @@
 
 #include "../scenes/scene_manager.h"
 #include "../scenes/world_scene.h"
-#include "../objects/object.h"
-#include "../objects/drawable.h"
+#include "entitylist.h"
+#include "../objects/player.h"
+//#include "../objects/drawable.h"
 
 //namespace DEngine{
 enum SCREEN_SIZE{
@@ -49,9 +50,12 @@ public:
     sf::RenderWindow* m_window;
     sf::VideoMode* m_video_mode;
     std::vector<sf::VideoMode> modes;
+
+
+    EntityList* m_entity_manager;
     int counter;
-    Object *obj;
-    Object *obj2;
+    //Object *obj;
+    //Object *obj2;
     float color[3] = {0.0f, 0.0f, 0.0f};
     float color2[3] = {0.0f, 0.0f, 0.0f};
     float pos[2] ={0.0f,0.0f};

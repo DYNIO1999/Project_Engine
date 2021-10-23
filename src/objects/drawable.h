@@ -1,8 +1,7 @@
 #pragma once
 //#include <vector>
-#include "static_object.h"
 
-
+/*
 enum PRIMITIVE_TYPE
 {
     SQAURE,
@@ -225,6 +224,15 @@ public:
             m_vertices[2].position.y = y + m_height;
         }
     }
+    sf::Vector2f getPos()
+    {
+    }
+    sf::Vector2f getSize()
+    {
+    }
+    sf::Vector2f getColor()
+    {
+    }
     int m_primitivetype;
     //int m_points_count;
     sf::Vertex* m_vertices;
@@ -233,3 +241,4 @@ private:
     sf::CircleShape* m_circle;
     Point2D* points;
 };
+*/
