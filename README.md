@@ -4,8 +4,6 @@
 
 ### ENGINE ###
 # Niedziela
-- Zaimplementuj klasę PrimitiveRenderer, którą wyposażysz w funkcjonalność rysowania prymitywów. W tym celu wykorzystaj możliwości wybranej przez siebie  biblioteki graficznej []
-- Przerobic klase na PrimitiveRenderer bez obiektu.
 
 - Rozszerz funkcjonalność klasy PrimitiveRenderer o kolejną metodę rysującą odcinek, która będzie wykorzystywała przedstawiony w instrukcji algorytm przyrostowy Zweryfikuj poprawność działania metody dla różnych przypadków nachylenia odcinków. Porównaj uzyskane rezultaty z tymi otrzymanymi z użyciem domyślnego algorytmu wbudowanego w bibliotekę graficzną.
 
@@ -26,19 +24,24 @@ metody umożliwiające:
 umożliwiającą narysowanie linii łamanej otwartej lub zamkniętej. Metoda ta powinna przyjmować przez parametr zbiór punktów typu Point2D lub zbiór odcinków
 typu LineSegment (np. na zasadzie obiektu klasy vector).
 
+- Zaimplementowac podstawowe transfomacje (2D)
 - Lista objektow na danej scenie oraz lista scen.
 
-### GAME ###
-# Sobota
 
+### GAME ###
+# 
+- Zaimplementowac podstawowe transfomacje (2D)
 - Poruszanie się po świecie,
   + Dodac testowy obiekt/klase gracza
   + Zrobic poruszanie WASD w jednym kierunku
   + Wstepna kolizja
   + Tilemap
+  + Kamera ktora porusza sie za naszym graczem
+  
 - Ograniczona interakcja ze światem,
   + Kolizja postaci z mapa
 - Przejście ze sceny świata do sceny walki,
   + Dodanie kilku wrogow
   + System walki 
 - Podstawowe grafiki postaci i niektórych przeciwników.
+- Zapisywanie swiata i wgrywanie

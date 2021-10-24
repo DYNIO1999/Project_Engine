@@ -8,6 +8,7 @@ Engine::Engine(){
     counter=0;
     m_scene_manager = new SceneManager(this);
     m_entity_manager = new EntityList();
+    m_primitives_render = new PrimitiveRenderer();
 }   
 Engine::~Engine(){
 
@@ -26,6 +27,10 @@ void Engine::mainLoop(){
     Object *test = new Player(sf::Vector2f(100, 100), sf::Vector2f(100, 100));
     m_entity_manager->addEntity("Player_1", test);
     sf::Clock clock;
+    m_primitives_render->addPrimitive("RECT",new Primitive(PRIMITIVE_QUAD, sf::Vector2f(500, 500), sf::Vector2f(100, 100), sf::Color::Yellow));
+    m_primitives_render->addPrimitive("TRIANGLE",new Primitive(PRIMITIVE_TRIANGLE, sf::Vector2f(200, 300), sf::Vector2f(100, 100), sf::Color::Red));
+    m_primitives_render->addPrimitive("CIRCLE",new Primitive(PRIMITIVE_CIRCLE, sf::Vector2f(100, 500), sf::Vector2f(100, 100), sf::Color::Green));
+
     while (m_window->isOpen()){
         float time =clock.getElapsedTime().asSeconds();
         TimeStep timestep = time- m_lasttime.m_time;
@@ -105,8 +110,11 @@ void Engine::draw(TimeStep deltatime)
         test.r = static_cast<sf::Uint8>(color[0] * 255.f);
         test.g = static_cast<sf::Uint8>(color[1] * 255.f);
         test.b = static_cast<sf::Uint8>(color[2] * 255.f);
-        //obj->setColor(test);
-    }
+        if(m_primitives_render->getObject("TRIANGLE_0")){
+            m_primitives_render->getObject("TRIANGLE_0")->setColor(test);
+        }
+
+     }
     if (ImGui::ColorEdit3("Circle color", color2))
     {
         // this code gets called if color value changes, so
@@ -115,18 +123,25 @@ void Engine::draw(TimeStep deltatime)
         test.r = static_cast<sf::Uint8>(color2[0] * 255.f);
         test.g = static_cast<sf::Uint8>(color2[1] * 255.f);
         test.b = static_cast<sf::Uint8>(color2[2] * 255.f);
-        //obj2->setColor(test);
 
     }
     //ADDEEDDDDD
     //TEST
+    int selected =0;
+    ImGui::ListBox("TEST", &selected, m_primitives_render->getKeys(), m_primitives_render->getSize(), 2);
     if (ImGui::SliderFloat2("Position", pos,0,1280))
     {
-        //obj->setPosition(pos[0],pos[1]);
+        if (m_primitives_render->getObject("TRIANGLE_0"))
+        {
+            m_primitives_render->getObject("TRIANGLE_0")->setPosition(sf::Vector2f(pos[0],pos[1]));
+        }
     }
     if (ImGui::SliderFloat2("Size", size,0, 1280))
     {
-        //obj->setSize(size[0], size[1]);
+        if (m_primitives_render->getObject("TRIANGLE_0"))
+        {
+            m_primitives_render->getObject("TRIANGLE_0")->setSize(sf::Vector2f(size[0],size[1]));
+        }
     }
 
     if (ImGui::SliderFloat2("Position", pos1, 0, 1280))
@@ -138,15 +153,22 @@ void Engine::draw(TimeStep deltatime)
         //obj2->setSize(size1[0], size1[1]);
     }
     ImGui::End();
-    
+    //sf::Vertex point(sf::Vector2f(400, 400), sf::Color::Yellow);
+    //m_window->draw(&point, 1, sf::Points);
     //obj->draw(*m_window);
     //obj2->draw(*m_window);
-    m_entity_manager->draw(*m_window);
+    //m_entity_manager->draw(*m_window);
+    //
+    //m_primitives_render->getObject(0)->draw((*m_window));
+    //
+    m_primitives_render->draw(*m_window);
     ImGui::SFML::Render(*m_window);
     m_window->display();
 }
 
 void Engine::cleanUp(){
+    //m_primitives_render->PrintObjects();
+    m_primitives_render->cleanUp();
     std::cout << "Clearing whole Engine!" << '\n';
     ImGui::SFML::Shutdown();
     delete m_window;

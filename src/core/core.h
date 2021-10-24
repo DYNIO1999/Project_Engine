@@ -11,8 +11,9 @@
 
 #include "../scenes/scene_manager.h"
 #include "../scenes/world_scene.h"
-#include "entitylist.h"
+#include "../renderer/primitiveRenderer.h"
 #include "../objects/player.h"
+#include "entitylist.h"
 //#include "../objects/drawable.h"
 
 //namespace DEngine{
@@ -51,7 +52,7 @@ public:
     sf::VideoMode* m_video_mode;
     std::vector<sf::VideoMode> modes;
 
-
+    PrimitiveRenderer* m_primitives_render;
     EntityList* m_entity_manager;
     int counter;
     //Object *obj;
