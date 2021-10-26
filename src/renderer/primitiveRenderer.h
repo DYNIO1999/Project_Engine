@@ -64,7 +64,7 @@ public:
             it->second->draw(win_ref);
         }
     }
-    const char** getKeys(){
+    /*const char** getKeys(){
         //SKONCZYC JUTRO
         unsigned int size = m_primitves.size();
         if(size>=1){
@@ -79,10 +79,10 @@ public:
         }else{
             return nullptr;
         }
-    }
-    int getSize(){
+    }*/
+    /*int getSize(){
         return m_primitves.size();
-    }
+    }*/
 };
 
 

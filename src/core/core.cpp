@@ -30,7 +30,7 @@ void Engine::mainLoop(){
     m_primitives_render->addPrimitive("RECT",new Primitive(PRIMITIVE_QUAD, sf::Vector2f(500, 500), sf::Vector2f(100, 100), sf::Color::Yellow));
     m_primitives_render->addPrimitive("TRIANGLE",new Primitive(PRIMITIVE_TRIANGLE, sf::Vector2f(200, 300), sf::Vector2f(100, 100), sf::Color::Red));
     m_primitives_render->addPrimitive("CIRCLE",new Primitive(PRIMITIVE_CIRCLE, sf::Vector2f(100, 500), sf::Vector2f(100, 100), sf::Color::Green));
-
+    m_primitives_render->addPrimitive("LINE", new Primitive(PRIMITIVE_LINE, sf::Vector2f(100, 100), sf::Vector2f(100, 200), sf::Color::Magenta));
     while (m_window->isOpen()){
         float time =clock.getElapsedTime().asSeconds();
         TimeStep timestep = time- m_lasttime.m_time;
@@ -70,13 +70,12 @@ void Engine::proccessEvents(TimeStep deltatime){
         if (event.type == sf::Event::Closed)
         {
             m_window->close();
-
         }
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num0)){
-            //setFullScreen(true);
+            setFullScreen(true);
         }
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::Num1)){
-            //changeWinSize(modes[1].width, modes[1].height, modes[1].bitsPerPixel);
+            changeWinSize(modes[1].width, modes[1].height, modes[1].bitsPerPixel);
         }
     }
     
@@ -127,13 +126,12 @@ void Engine::draw(TimeStep deltatime)
     }
     //ADDEEDDDDD
     //TEST
-    int selected =0;
-    ImGui::ListBox("TEST", &selected, m_primitives_render->getKeys(), m_primitives_render->getSize(), 2);
+    //ImGui::ListBox("TEST", &selected, m_primitives_render->getKeys(), m_primitives_render->getSize(), 2);
     if (ImGui::SliderFloat2("Position", pos,0,1280))
     {
-        if (m_primitives_render->getObject("TRIANGLE_0"))
+        if (m_primitives_render->getObject("LINE_0"))
         {
-            m_primitives_render->getObject("TRIANGLE_0")->setPosition(sf::Vector2f(pos[0],pos[1]));
+            m_primitives_render->getObject("LINE_0")->setPosition(sf::Vector2f(pos[0],pos[1]));
         }
     }
     if (ImGui::SliderFloat2("Size", size,0, 1280))
@@ -144,14 +142,14 @@ void Engine::draw(TimeStep deltatime)
         }
     }
 
-    if (ImGui::SliderFloat2("Position", pos1, 0, 1280))
+    /*if (ImGui::SliderFloat2("Position", pos1, 0, 1280))
     {
         //obj2->setPosition(pos1[0], pos1[1]);
-    }
-    if (ImGui::SliderFloat2("Size", size1, 0, 1280))
+    }*/
+    /*if (ImGui::SliderFloat2("Size", size1, 0, 1280))
     {
         //obj2->setSize(size1[0], size1[1]);
-    }
+    }*/
     ImGui::End();
     //sf::Vertex point(sf::Vector2f(400, 400), sf::Color::Yellow);
     //m_window->draw(&point, 1, sf::Points);
@@ -161,6 +159,12 @@ void Engine::draw(TimeStep deltatime)
     //
     //m_primitives_render->getObject(0)->draw((*m_window));
     //
+    //sf::View view = m_window->getDefaultView();
+    //view.zoom(0.8f);
+    //m_window->setView(view);
+    
+
+
     m_primitives_render->draw(*m_window);
     ImGui::SFML::Render(*m_window);
     m_window->display();
