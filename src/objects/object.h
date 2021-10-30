@@ -35,6 +35,15 @@ class Object{
     virtual sf::Vector2f getPos()=0;
     virtual sf::Vector2f getSize()=0;
     virtual sf::Color getColor()=0;
+    virtual void setPosition(sf::Vector2f start_pos, sf::Vector2f end_pos){
+
+    }
+    virtual sf::Vector2f getPosStartPoint(){
+        return m_pos;
+    }
+    virtual sf::Vector2f getPosEndPoint(){
+        return m_size;
+    }
     virtual float getScale(){
         return m_scale;
     }

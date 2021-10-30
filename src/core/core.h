@@ -63,6 +63,8 @@ public:
     float size[2] = {0.0f, 0.0f};
     float pos1[2] = {0.0f, 0.0f};
     float size1[2] = {0.0f, 0.0f};
+
+    float vec4f[4];
 };
 //};
 
