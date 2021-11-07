@@ -3,7 +3,6 @@
 #include "scene.h"
 #include <iostream>
 
-//namespace DEngine{
 
 class SceneManager{
     
@@ -17,4 +16,3 @@ class SceneManager{
     Engine *m_Engine_ref;
     private:
 };
-//};

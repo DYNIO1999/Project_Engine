@@ -5,7 +5,7 @@
 #include "imgui.h"
 #include "imgui-SFML.h"
 
-#include <iostream>
+
 
 #include "timestep.h"
 
@@ -13,7 +13,9 @@
 #include "../scenes/world_scene.h"
 #include "../renderer/primitiveRenderer.h"
 #include "../objects/player.h"
+#include "../input/inputhandler.h"
 #include "entitylist.h"
+#include "../json.hpp"
 //#include "../objects/drawable.h"
 
 //namespace DEngine{
@@ -52,8 +54,12 @@ public:
     sf::VideoMode* m_video_mode;
     std::vector<sf::VideoMode> modes;
 
+    //
     PrimitiveRenderer* m_primitives_render;
     EntityList* m_entity_manager;
+    InputHandler* m_input_handler;
+    //
+    
     int counter;
     //Object *obj;
     //Object *obj2;

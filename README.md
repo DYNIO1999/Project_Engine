@@ -3,26 +3,11 @@
 # ----Do zrobienia ----#
 
 ### ENGINE ###
-# 
-- Rozszerz funkcjonalność klasy PrimitiveRenderer o kolejną metodę rysującą odcinek, która będzie wykorzystywała przedstawiony w instrukcji algorytm przyrostowy Zweryfikuj poprawność działania metody dla różnych przypadków nachylenia odcinków. Porównaj uzyskane rezultaty z tymi otrzymanymi z użyciem domyślnego algorytmu wbudowanego w bibliotekę graficzną.
-- Zaimplementuj NaiveApproach  --> Sprawdz poprawnosc 
-  - Dodaj do klasy mozliwosc uzyskania obiektu i manipulacji nim
+# Wlasna opcja na pozniej jak starczy czasu... 
 - Zaimplementuj Bresenham's Algorithm
 - Zaimplementuj Wu's Algorithm
+# //
 
-- Zaimplementuj klasę LineSegment reprezentującą odcinek. Końce odcinka mogą być
-w niej przechowywane jako dwa obiekty typu Point2D. Klasa ta powinna posiadać
-metody umożliwiające:
-• odczytanie współrzędnych poszczególnych końców odcinka,
-• zmodyfikowanie współrzędnych poszczególnych końców odcinka,
-
-• narysowanie odcinka (z wyborem algorytmu rysowania: domyślny lub przyrostowy; zastosuj tu klasę PrimitiveRenderer).
-- Rozszerz funkcjonalność klasy PrimitiveRenderer o metodę (lub kilka metod)
-umożliwiającą narysowanie linii łamanej otwartej lub zamkniętej. Metoda ta powinna przyjmować przez parametr zbiór punktów typu Point2D lub zbiór odcinków
-typu LineSegment (np. na zasadzie obiektu klasy vector).
-
-- Zaimplementowac podstawowe transfomacje (2D)
-- Lista objektow na danej scenie oraz lista scen.
 
 - Rozszerz funkcjonalność klasy PrimitiveRenderer o kolejną metodę rysującą okrąg,
 która będzie wykorzystywała przedstawiony w instrukcji algorytm rysowania okręgu.
@@ -46,16 +31,23 @@ algorytm border fill, a druga flood fill. Zweryfikuj poprawność działania obu
 - (Dla chętnych) Rozszerz funkcjonalność klasy PrimitiveRenderer o metodę umożliwiającą narysowanie dowolnego wielokąta wypełnionego kolorem. W tym celu zastosuj algorytm wypełniania obszaru kolorem z kontrolą parzystości. Zweryfikuj
 poprawność działania metody.
 
-### GAME ###
-# 
 - Zaimplementowac podstawowe transfomacje (2D)
-- Poruszanie się po świecie,
+- Lista objektow na danej scenie oraz lista scen.
+
+### GAME ###
+#
+ 
+- JSON dodac do projektu
+- JSON zapis/ wcyztanie podstawowego configu/opcji
+- Zaimplementowac podstawowe transfomacje (2D)
+- Poruszanie się po świecie (velocity)
   + Dodac testowy obiekt/klase gracza
   + Zrobic poruszanie WASD w jednym kierunku
-  + Wstepna kolizja
-  + Tilemap
   + Kamera ktora porusza sie za naszym graczem
-  
+- Tilemaps
+- Wstepna kolizja
+
+
 - Ograniczona interakcja ze światem,
   + Kolizja postaci z mapa
 - Przejście ze sceny świata do sceny walki,

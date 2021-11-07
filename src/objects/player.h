@@ -8,14 +8,18 @@ public:
     Player(sf::Vector2f pos, sf::Vector2f size){
         m_player_shape.setFillColor(sf::Color::Red);
         m_pos =pos;
+        m_size = size;
         m_player_shape.setPosition(m_pos);
-        m_player_shape.setRadius(50.f);
+        m_player_shape.setSize(m_size);
     }
     ~Player(){
         
     }
-    void processEvents(){
-
+    void processEvents(TimeStep dt){
+        //std::cout<<"Updating Player"<<std::endl;
+        m_player_shape.setPosition(m_pos);
+        m_player_shape.setSize(m_size);
+        //std::cout << "Y"<< m_pos.y << std::endl;
     }
     void draw(sf::RenderWindow &win_ref){
         win_ref.draw(m_player_shape);
@@ -52,6 +56,6 @@ public:
     }
 
     public:
-    sf::CircleShape m_player_shape;
+    sf::RectangleShape m_player_shape;
 };
 

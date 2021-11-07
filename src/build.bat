@@ -12,7 +12,7 @@ REM output exe file
 SET assembly=engine
 
 REM flags, to show warnings etc
-SET compilerFlags=-Wall 
+SET compilerFlags=-Wall -std=c++11 
 
 REM include headers from other libs and local ones. -I and path
 SET includeFlags=-Isrc -I..\dependencies\SFML\include -I..\dependencies\ImGUI
