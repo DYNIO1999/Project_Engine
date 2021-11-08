@@ -10,7 +10,6 @@
 
 
 
-- Elispy
 - Grubosc lini oraz reszty
 - Dodac mozliwosc inicjacji i odpalenia 
 - 

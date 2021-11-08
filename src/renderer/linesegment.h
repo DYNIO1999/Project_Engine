@@ -9,6 +9,7 @@ public:
         m_points[0].setPointPos(start_point);
         m_points[1].setPointPos(end_point);
         m_choosen_algorithem = algorithm_index;
+        m_thickness = 4;
     }
     LineSegment() = default;
     ~LineSegment()
@@ -77,9 +78,13 @@ private:
                 if ((m_points[1].getPointPos().x <= m_points[0].getPointPos().x) && (m_points[1].getPointPos().y >= m_points[0].getPointPos().y)){
                     for (x = m_points[0].getPointPos().x; x >= m_points[1].getPointPos().x; x--)
                     {
+                        for(int k=0;k<m_thickness;k++){
+                        if(k>=(m_thickness/2)){
                         m_vertex[0].position.x = x;
-                        m_vertex[0].position.y = y + 0.5;
+                        m_vertex[0].position.y = y + 0.5 +k;
                         win_ref.draw(&m_vertex[0], 1, sf::Points);
+                        }
+                        }
                         y = y + m;
                     }
                 }
@@ -157,4 +162,5 @@ private:
     sf::Vertex m_vertex[2];
     Point2D m_points[2];
     unsigned int m_choosen_algorithem;
+    int m_thickness;
 };

@@ -40,7 +40,7 @@ void Engine::mainLoop(){
 
     m_primitives_render->addPrimitive("LINE", new Primitive(PRIMITIVE_LINE, sf::Vector2f(100,100),sf::Vector2f(200,200),sf::Color::Red,LINE_NAIVE_ALGORITHM));
     m_primitives_render->addPrimitive("CIRCLE", new Primitive(PRIMITIVE_CIRCLE, sf::Vector2f(500, 500), 50, sf::Color::Magenta, CIRCLE_SYM8_ALGORITHM));
-    m_primitives_render->addPrimitive("ELLIPSE", new Primitive(PRIMITIVE_ELLIPSE, sf::Vector2f(800,400),100,50,sf::Color::Black, ELLIPSE_SYM8_ALGORITHM));
+    m_primitives_render->addPrimitive("ELLIPSE", new Primitive(PRIMITIVE_ELLIPSE, sf::Vector2f(800,400),100,50,sf::Color::Black, ELLIPSE_SYM4_ALGORITHM));
     m_primitives_render->addPrimitive("POINT", new Primitive(PRIMITIVE_POINT, sf::Vector2f(800, 400), sf::Vector2f(0, 0), sf::Color::Red));
     m_primitives_render->addPrimitive("POINT", new Primitive(PRIMITIVE_POINT, sf::Vector2f(800, 450), sf::Vector2f(0, 0), sf::Color::Red));
     m_primitives_render->addPrimitive("POINT", new Primitive(PRIMITIVE_POINT, sf::Vector2f(800, 350), sf::Vector2f(0, 0), sf::Color::Red));

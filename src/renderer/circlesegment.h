@@ -79,10 +79,6 @@ public:
         else if (m_choosen_algorithm ==ELLIPSE_SYM4_ALGORITHM){
             DrawEllipseSym4Algo(win_ref,color);
         }
-        else if (m_choosen_algorithm == ELLIPSE_SYM8_ALGORITHM)
-        {
-            DrawEllipseSym8Algo(win_ref,color);
-        }
     }
 private:
     void InitData(){
@@ -199,10 +195,8 @@ private:
     }
     void DrawEllipseSym4Algo(sf::RenderWindow &win_ref, sf::Color color)
     {
-        /// Zrobic dla y
         m_vertex.color=color;
         int x,y;
-        if(m_radiusX>m_radiusY){
         for(x =1; x<=m_radiusX;x++){
             y = (int)(sqrt(((((-1)*(x*x))*(m_radiusY*m_radiusY))+ ((m_radiusX*m_radiusX)*(m_radiusY*m_radiusY)))/(m_radiusX*m_radiusX)));
             m_vertex.position.x = m_center_point.getPointPos().x+x;
@@ -217,34 +211,9 @@ private:
             m_vertex.position.x = m_center_point.getPointPos().x - x;
             m_vertex.position.y = m_center_point.getPointPos().y + y;
             win_ref.draw(&m_vertex, 1, sf::Points);
-        }}else{
-            //Dodac dla YYY
         }
 
     
-    }
-    void DrawEllipseSym8Algo(sf::RenderWindow &win_ref, sf::Color color)
-    {
-        int i;
-        int x, y;
-        i = 0;
-        float endAngle = 30;
-        m_vertex.color = color;
-        while (i < endAngle)
-        {
-            x = m_center_point.getPointPos().x + m_radiusX * std::cos(i);
-            y = m_center_point.getPointPos().y + m_radiusY * std::sin(i);
-            m_vertex.position.x = x+0.5;
-            m_vertex.position.y = y+0.5;
-            win_ref.draw(&m_vertex, 1, sf::Points);
-            m_vertex.color = sf::Color::Blue;
-            x = m_center_point.getPointPos().x - m_radiusX * std::cos(i);
-            y = m_center_point.getPointPos().y - m_radiusY * std::sin(i);
-            m_vertex.position.x = x + 0.5;
-            m_vertex.position.y = y + 0.5;
-            win_ref.draw(&m_vertex, 1, sf::Points);
-            i++;
-        }
     }
     sf::CircleShape* m_default_circle;
     sf::Vertex m_vertex;
