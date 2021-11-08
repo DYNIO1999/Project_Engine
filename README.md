@@ -9,13 +9,11 @@
 # //
 
 
-- Rozszerz funkcjonalność klasy PrimitiveRenderer o kolejną metodę rysującą okrąg,
-która będzie wykorzystywała przedstawiony w instrukcji algorytm rysowania okręgu.
-Wykorzystaj 4-krotną lub 8-krotną symetrię. Zweryfikuj poprawność działania metody. Porównaj uzyskane rezultaty z tymi otrzymanymi z użyciem domyślnego algorytmu wbudowanego w bibliotekę graficzną
 
-- Rozszerz funkcjonalność klasy PrimitiveRenderer o kolejną metodę rysującą elipsę
-która będzie wykorzystywała przedstawiony w instrukcji algorytm rysowania elipsy.
-Wykorzystaj 4-krotną lub 8-krotną symetrię. Zweryfikuj poprawność działania metody. Porównaj uzyskane rezultaty z tymi otrzymanymi z użyciem domyślnego algorytmu wbudowanego w bibliotekę graficzną.
+- Elispy
+- Grubosc lini oraz reszty
+- Dodac mozliwosc inicjacji i odpalenia 
+- 
 
 - Rozszerz funkcjonalność klasy PrimitiveRenderer o metodę umożliwiającą narysowanie dowolnego wielokąta (łamanej zwyczajnej zamkniętej). Metoda ta powinna
 przyjmować przez parametr zbiór punktów typu Point2D lub zbiór odcinków typu
@@ -32,12 +30,16 @@ algorytm border fill, a druga flood fill. Zweryfikuj poprawność działania obu
 poprawność działania metody.
 
 - Zaimplementowac podstawowe transfomacje (2D)
-- Lista objektow na danej scenie oraz lista scen.
 
+- Dodac ENGINE_DEMO
+  + operacje na obiektach
+  + lista obiektow
+  + wybieranie obiektu do edycji
+  + dodawanie
+- Podzielic kod do inicjacji dla silnika i gry...
 ### GAME ###
 #
  
-- JSON dodac do projektu
 - JSON zapis/ wcyztanie podstawowego configu/opcji
 - Zaimplementowac podstawowe transfomacje (2D)
 - Poruszanie się po świecie (velocity)
@@ -46,7 +48,7 @@ poprawność działania metody.
   + Kamera ktora porusza sie za naszym graczem
 - Tilemaps
 - Wstepna kolizja
-
+- Lista obiektow na danej scenie oraz lista scen
 
 - Ograniczona interakcja ze światem,
   + Kolizja postaci z mapa

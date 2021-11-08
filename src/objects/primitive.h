@@ -91,10 +91,23 @@ public:
         m_type = type;
         m_algo_type = algo_index;
         m_pos = pos;
-        m_radius = radius;
+        m_radiusX = radius;
         m_color =color;
         if (m_type == PRIMITIVE_CIRCLE){
-            m_circle =  new CircleSegment(sf::Vector2i(m_pos), m_radius,m_algo_type);
+            m_circle =  new CircleSegment(sf::Vector2i(m_pos),m_radiusX,m_algo_type);
+        }
+    }
+    Primitive(int type, sf::Vector2f pos, int radiusX, int radiusY, sf::Color color, int algo_index)
+    {
+        m_type = type;
+        m_algo_type = algo_index;
+        m_pos = pos;
+        m_radiusX = radiusX;
+        m_radiusY = radiusY;
+        m_color = color;
+        if (m_type == PRIMITIVE_ELLIPSE)
+        {
+            m_circle = new CircleSegment(sf::Vector2i(m_pos), m_radiusX,m_radiusY,m_algo_type);
         }
     }
     ~Primitive()
@@ -102,19 +115,18 @@ public:
             std::cout << "PRIMITIVE TYPE: " << m_type << '\n';
             if(m_type == PRIMITIVE_LINE)
             {
-                //safe check allocation add later
                 delete m_line;
             }else if(m_type==PRIMITIVE_LINES){
-                //safe check allocation add later
                 delete[] m_line;
             }
             else if (m_type == PRIMITIVE_CIRCLE)
             {
                 delete m_circle;
+            }else if(m_type == PRIMITIVE_ELLIPSE){
+                delete m_circle;
             }
             else
             {
-                //safe check allocation add later
                 delete[] m_vertices;
             }
         }
@@ -142,6 +154,10 @@ public:
                 }
             }
             if(m_type==PRIMITIVE_CIRCLE){
+                m_circle->draw(win_ref, m_color);
+            }
+            if (m_type == PRIMITIVE_ELLIPSE)
+            {
                 m_circle->draw(win_ref, m_color);
             }
         }
@@ -231,14 +247,24 @@ public:
                 m_line->setPos(sf::Vector2i(m_pos.x, m_pos.y), sf::Vector2i(m_size.x, m_size.y));
             }
         }
-        void setRadius(int radius)
+        void setRadiusX(int radius)
         {
-            m_radius = radius;
-            m_circle->setRadius(m_radius);
+            m_radiusX = radius;
+            m_circle->setRadX(m_radiusX);
         }
-        int getRadius(){
-            return  m_circle->getRadius();
+        int getRadiusX(){
+            return  m_circle->getRadX();
         }
+        void setRadiusY(int radius)
+        {
+            m_radiusY = radius;
+            m_circle->setRadY(m_radiusY);
+        }
+        int getRadiusY()
+        {
+            return m_circle->getRadY();
+        }
+
         sf::Vector2f getPosStartPoint()
         {
             return m_pos;
@@ -270,5 +296,6 @@ public:
     sf::Vertex *m_vertices;
     LineSegment* m_line;
     unsigned int m_algo_type;
-    int m_radius;
+    int m_radiusX;
+    int m_radiusY;
     };

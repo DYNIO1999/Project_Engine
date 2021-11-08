@@ -27,7 +27,6 @@ void Engine::mainLoop(){
     sf::Clock clock;
     //m_primitives_render->addPrimitive("RECT",new Primitive(PRIMITIVE_QUAD, sf::Vector2f(500, 500), sf::Vector2f(100, 100), sf::Color::Yellow));
     m_primitives_render->addPrimitive("TRIANGLE",new Primitive(PRIMITIVE_TRIANGLE, sf::Vector2f(200, 300), sf::Vector2f(100, 100), sf::Color::Red));
-    m_primitives_render->addPrimitive("POINT", new Primitive(PRIMITIVE_POINT, sf::Vector2f(300, 300), sf::Vector2f(0, 0), sf::Color::Red));
     //m_primitives_render->addPrimitive("CIRCLE",new Primitive(PRIMITIVE_CIRCLE, sf::Vector2f(500, 500),50,sf::Color::Magenta,CIRCLE_SIMPLE_ALGORITHM));
 
     std::vector<sf::Vector2f> arr = {sf::Vector2f(50,0),
@@ -41,6 +40,10 @@ void Engine::mainLoop(){
 
     m_primitives_render->addPrimitive("LINE", new Primitive(PRIMITIVE_LINE, sf::Vector2f(100,100),sf::Vector2f(200,200),sf::Color::Red,LINE_NAIVE_ALGORITHM));
     m_primitives_render->addPrimitive("CIRCLE", new Primitive(PRIMITIVE_CIRCLE, sf::Vector2f(500, 500), 50, sf::Color::Magenta, CIRCLE_SYM8_ALGORITHM));
+    m_primitives_render->addPrimitive("ELLIPSE", new Primitive(PRIMITIVE_ELLIPSE, sf::Vector2f(800,400),100,50,sf::Color::Black, ELLIPSE_SYM8_ALGORITHM));
+    m_primitives_render->addPrimitive("POINT", new Primitive(PRIMITIVE_POINT, sf::Vector2f(800, 400), sf::Vector2f(0, 0), sf::Color::Red));
+    m_primitives_render->addPrimitive("POINT", new Primitive(PRIMITIVE_POINT, sf::Vector2f(800, 450), sf::Vector2f(0, 0), sf::Color::Red));
+    m_primitives_render->addPrimitive("POINT", new Primitive(PRIMITIVE_POINT, sf::Vector2f(800, 350), sf::Vector2f(0, 0), sf::Color::Red));
     //InitImGui Data
     vec4f[0] = 300;
     vec4f[1]=300;

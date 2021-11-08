@@ -43,18 +43,21 @@ class Object{
         return m_scale;
     }
 
-    virtual void setTexture(sf::Texture* texture){
-    }
     virtual int getType(){
         return m_type;
     }
-    virtual void setRadius(int radius){
-        
+    virtual void setRadiusX(int radius){
     }
-    virtual int getRadius(){
+    virtual void setRadiusY(int radius){
+
+    }
+    virtual int getRadiusX(){
         return 0;
     }
-    
+    virtual int getRadiusY()
+    {
+        return 0;
+    }
     protected:
     int m_type;
     sf::Vector2f m_pos;
