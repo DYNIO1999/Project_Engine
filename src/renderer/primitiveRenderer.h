@@ -37,6 +37,7 @@ public:
     }
     void deletePrimitive(std::string key){
         delete m_primitves.find(key)->second;
+        m_primitves.erase(m_primitves.find(key));
     }
     void cleanUp(){
         for (auto it = m_primitves.begin(); it != m_primitves.end(); it++)

@@ -14,15 +14,17 @@ public:
         m_center_point.setPointPos(center_point);
         m_radiusX =radius;
         m_choosen_algorithm = algorithm_index;
+        m_thickness = 1;
         InitData();
     
     }
-    CircleSegment(sf::Vector2i center_pos, int radiusX, int radiusY, int algorithm_ind)
+    CircleSegment(sf::Vector2i center_pos, int radiusX, int radiusY, int algorithm_index)
     {
         m_center_point.setPointPos(center_pos);
         m_radiusX = radiusX;
         m_radiusY = radiusY;
-        m_choosen_algorithm = algorithm_ind;
+        m_choosen_algorithm = algorithm_index;
+        m_thickness = 1;
         InitData();
     }
 
@@ -80,6 +82,14 @@ public:
             DrawEllipseSym4Algo(win_ref,color);
         }
     }
+    int getThickness(){
+        return m_thickness;
+    }
+    void setThickness(int thickness){
+        if(thickness>0){
+            m_thickness = thickness;
+        }
+    }
 private:
     void InitData(){
         if (m_choosen_algorithm == CIRCLE_DEFAULT_ALGORITHM)
@@ -87,6 +97,7 @@ private:
             m_default_circle = new sf::CircleShape(m_radiusX);
             m_default_circle->setPosition(sf::Vector2f(m_center_point.getPointPos()));
             m_default_circle->setPointCount(100);
+            m_default_circle->setOutlineThickness(float(m_thickness));
         }
     }
     void DrawCircleSym4Algorithm(sf::RenderWindow &win_ref, sf::Color color)
@@ -94,88 +105,132 @@ private:
         int x, y, r2;
         m_vertex.color = color;
         r2 = m_radiusX * m_radiusX;
+        for (int k = 0; k < m_thickness; k++){
         m_vertex.position.x = m_center_point.getPointPos().x;
-        m_vertex.position.y = m_center_point.getPointPos().y + m_radiusX;
+        m_vertex.position.y = m_center_point.getPointPos().y + m_radiusX+k;
         win_ref.draw(&m_vertex, 1, sf::Points);
+        }
+        for (int k = 0; k < m_thickness; k++){
         m_vertex.position.x = m_center_point.getPointPos().x;
-        m_vertex.position.y = m_center_point.getPointPos().y - m_radiusX;
+        m_vertex.position.y = m_center_point.getPointPos().y - m_radiusX-k;
         win_ref.draw(&m_vertex, 1, sf::Points);
+        }
         for(x=1;x<=m_radiusX;x++){
             y = (int)sqrt(r2-(x*x)+0.5);
-            m_vertex.position.x = m_center_point.getPointPos().x + x;
-            m_vertex.position.y = m_center_point.getPointPos().y + y;
+            for (int k = 0; k < m_thickness; k++){
+            m_vertex.position.x = m_center_point.getPointPos().x + x+k;
+            m_vertex.position.y = m_center_point.getPointPos().y + y+k;
             win_ref.draw(&m_vertex, 1, sf::Points);
-            m_vertex.position.x = m_center_point.getPointPos().x + x;
-            m_vertex.position.y = m_center_point.getPointPos().y - y;
+            }
+            for (int k = 0; k < m_thickness; k++){
+            m_vertex.position.x = m_center_point.getPointPos().x + x+k;
+            m_vertex.position.y = m_center_point.getPointPos().y - y-k;
             win_ref.draw(&m_vertex, 1, sf::Points);
-            m_vertex.position.x = m_center_point.getPointPos().x -x;
-            m_vertex.position.y = m_center_point.getPointPos().y +y;
+            }
+            for (int k = 0; k < m_thickness; k++){
+            m_vertex.position.x = m_center_point.getPointPos().x - x-k;
+            m_vertex.position.y = m_center_point.getPointPos().y +y+k;
             win_ref.draw(&m_vertex, 1, sf::Points);
-            m_vertex.position.x = m_center_point.getPointPos().x -x;
-            m_vertex.position.y = m_center_point.getPointPos().y - y;
+            }
+            for (int k = 0; k < m_thickness; k++){
+            m_vertex.position.x = m_center_point.getPointPos().x - x-k;
+            m_vertex.position.y = m_center_point.getPointPos().y - y-k;
             win_ref.draw(&m_vertex, 1, sf::Points);
+            }
         }
     }
     void DrawCircleSym8Algorithm(sf::RenderWindow &win_ref, sf::Color color){
         int x , y ,r2;
         m_vertex.color = color;
         r2 = m_radiusX*m_radiusX;
+        for (int k = 0; k < m_thickness; k++){
         m_vertex.position.x = m_center_point.getPointPos().x;
-        m_vertex.position.y = m_center_point.getPointPos().y + m_radiusX;
+        m_vertex.position.y = m_center_point.getPointPos().y + m_radiusX+k;
         win_ref.draw(&m_vertex, 1, sf::Points);
+        }
+        for (int k = 0; k < m_thickness; k++){
         m_vertex.position.x = m_center_point.getPointPos().x;
-        m_vertex.position.y = m_center_point.getPointPos().y - m_radiusX;
+        m_vertex.position.y = m_center_point.getPointPos().y - m_radiusX-k;
         win_ref.draw(&m_vertex, 1, sf::Points);
-        m_vertex.position.x = m_center_point.getPointPos().x + m_radiusX;
+        }
+        for (int k = 0; k < m_thickness; k++){
+        m_vertex.position.x = m_center_point.getPointPos().x + m_radiusX+k;
         m_vertex.position.y = m_center_point.getPointPos().y;
         win_ref.draw(&m_vertex, 1, sf::Points);
-        m_vertex.position.x = m_center_point.getPointPos().x - m_radiusX;
+        }
+        for (int k = 0; k < m_thickness; k++){
+        m_vertex.position.x = m_center_point.getPointPos().x - m_radiusX-k;
         m_vertex.position.y = m_center_point.getPointPos().y;
         win_ref.draw(&m_vertex, 1, sf::Points);
+        }
         y = m_radiusX;
         x =1;
         y =(int)(sqrt(r2-1+0.5));
         while(x<y){
-            m_vertex.position.x = m_center_point.getPointPos().x+x;
-            m_vertex.position.y = m_center_point.getPointPos().y+y;
+            for (int k = 0; k < m_thickness; k++){
+            m_vertex.position.x = m_center_point.getPointPos().x+x+k;
+            m_vertex.position.y = m_center_point.getPointPos().y+y+k;
             win_ref.draw(&m_vertex, 1, sf::Points);
-            m_vertex.position.x = m_center_point.getPointPos().x + x;
-            m_vertex.position.y = m_center_point.getPointPos().y - y;
+            }
+            for (int k = 0; k < m_thickness; k++){
+            m_vertex.position.x = m_center_point.getPointPos().x + x+k;
+            m_vertex.position.y = m_center_point.getPointPos().y - y-k;
             win_ref.draw(&m_vertex, 1, sf::Points);
-            m_vertex.position.x = m_center_point.getPointPos().x  - x;
-            m_vertex.position.y = m_center_point.getPointPos().y + y;
+            }
+            for (int k = 0; k < m_thickness; k++){
+            m_vertex.position.x = m_center_point.getPointPos().x  - x-k;
+            m_vertex.position.y = m_center_point.getPointPos().y + y+k;
             win_ref.draw(&m_vertex, 1, sf::Points);
-            m_vertex.position.x = m_center_point.getPointPos().x - x;
-            m_vertex.position.y = m_center_point.getPointPos().y - y;
+            }
+            for (int k = 0; k < m_thickness; k++){
+            m_vertex.position.x = m_center_point.getPointPos().x - x-k;
+            m_vertex.position.y = m_center_point.getPointPos().y - y-k;
             win_ref.draw(&m_vertex, 1, sf::Points);
-            m_vertex.position.x = m_center_point.getPointPos().y + y;
-            m_vertex.position.y = m_center_point.getPointPos().x + x;
+            }
+            for (int k = 0; k < m_thickness; k++){
+            m_vertex.position.x = m_center_point.getPointPos().y + y+k;
+            m_vertex.position.y = m_center_point.getPointPos().x + x+k;
             win_ref.draw(&m_vertex, 1, sf::Points);
-            m_vertex.position.x = m_center_point.getPointPos().y + y;
-            m_vertex.position.y = m_center_point.getPointPos().x - x;
+            }
+            for (int k = 0; k < m_thickness; k++){
+            m_vertex.position.x = m_center_point.getPointPos().y + y+k;
+            m_vertex.position.y = m_center_point.getPointPos().x - x-k;
             win_ref.draw(&m_vertex, 1, sf::Points);
-            m_vertex.position.x = m_center_point.getPointPos().y - y;
-            m_vertex.position.y = m_center_point.getPointPos().x + x;
+            }
+            for (int k = 0; k < m_thickness; k++){
+            m_vertex.position.x = m_center_point.getPointPos().y - y-k;
+            m_vertex.position.y = m_center_point.getPointPos().x + x+k;
             win_ref.draw(&m_vertex, 1, sf::Points);
-            m_vertex.position.x = m_center_point.getPointPos().y - y;
-            m_vertex.position.y = m_center_point.getPointPos().x - x;
+            }
+            for (int k = 0; k < m_thickness; k++){
+            m_vertex.position.x = m_center_point.getPointPos().y - y-k;
+            m_vertex.position.y = m_center_point.getPointPos().x - x-k;
             win_ref.draw(&m_vertex, 1, sf::Points);
+            }
             x=x+1;
             y = (int)(sqrt(r2-(x*x)+0.5));
         }
         if(x==y){
-            m_vertex.position.x = m_center_point.getPointPos().x + x;
-            m_vertex.position.y = m_center_point.getPointPos().y + y;
+            for (int k = 0; k < m_thickness; k++){
+            m_vertex.position.x = m_center_point.getPointPos().x + x+k;
+            m_vertex.position.y = m_center_point.getPointPos().y + y+k;
             win_ref.draw(&m_vertex, 1, sf::Points);
-            m_vertex.position.x = m_center_point.getPointPos().x + x;
-            m_vertex.position.y = m_center_point.getPointPos().y - y;
+            }
+            for (int k = 0; k < m_thickness; k++){
+            m_vertex.position.x = m_center_point.getPointPos().x + x+k;
+            m_vertex.position.y = m_center_point.getPointPos().y - y-k;
             win_ref.draw(&m_vertex, 1, sf::Points);
-            m_vertex.position.x = m_center_point.getPointPos().x - x;
-            m_vertex.position.y = m_center_point.getPointPos().y + y;
+            }
+            for (int k = 0; k < m_thickness; k++){
+            m_vertex.position.x = m_center_point.getPointPos().x - x-k;
+            m_vertex.position.y = m_center_point.getPointPos().y + y+k;
             win_ref.draw(&m_vertex, 1, sf::Points);
-            m_vertex.position.x = m_center_point.getPointPos().x - x;
-            m_vertex.position.y = m_center_point.getPointPos().y - y;
+            }
+            for (int k = 0; k < m_thickness; k++){
+            m_vertex.position.x = m_center_point.getPointPos().x - x-k;
+            m_vertex.position.y = m_center_point.getPointPos().y - y-k;
             win_ref.draw(&m_vertex, 1, sf::Points);
+            }
         }
     }
     void DrawEllipseDefaultAlgo(sf::RenderWindow &win_ref, sf::Color color){
@@ -187,9 +242,12 @@ private:
         while(i<endAngle){
             x = m_center_point.getPointPos().x + m_radiusX * std::cos(i);
             y = m_center_point.getPointPos().y + m_radiusY * std::sin(i);
-            m_vertex.position.x = x;
-            m_vertex.position.y = y;
-            win_ref.draw(&m_vertex, 1, sf::Points);
+            for (int k = 0; k < m_thickness; k++)
+            {
+                m_vertex.position.x = x+k;
+                m_vertex.position.y = y+k;
+                win_ref.draw(&m_vertex, 1, sf::Points);
+            }
             i++;
         }
     }
@@ -199,21 +257,21 @@ private:
         int x,y;
         for(x =1; x<=m_radiusX;x++){
             y = (int)(sqrt(((((-1)*(x*x))*(m_radiusY*m_radiusY))+ ((m_radiusX*m_radiusX)*(m_radiusY*m_radiusY)))/(m_radiusX*m_radiusX)));
-            m_vertex.position.x = m_center_point.getPointPos().x+x;
-            m_vertex.position.y = m_center_point.getPointPos().y+y;
+            for(int k=0;k<m_thickness;k++){
+            m_vertex.position.x = m_center_point.getPointPos().x+x+k;
+            m_vertex.position.y = m_center_point.getPointPos().y+y+k;
             win_ref.draw(&m_vertex, 1, sf::Points);
-            m_vertex.position.x = m_center_point.getPointPos().x - x;
-            m_vertex.position.y = m_center_point.getPointPos().y - y;
+            m_vertex.position.x = m_center_point.getPointPos().x - x+k;
+            m_vertex.position.y = m_center_point.getPointPos().y - y+k;
             win_ref.draw(&m_vertex, 1, sf::Points);
-            m_vertex.position.x = m_center_point.getPointPos().x + x;
-            m_vertex.position.y = m_center_point.getPointPos().y - y;
+            m_vertex.position.x = m_center_point.getPointPos().x + x+k;
+            m_vertex.position.y = m_center_point.getPointPos().y - y+k;
             win_ref.draw(&m_vertex, 1, sf::Points);
-            m_vertex.position.x = m_center_point.getPointPos().x - x;
-            m_vertex.position.y = m_center_point.getPointPos().y + y;
+            m_vertex.position.x = m_center_point.getPointPos().x - x+k;
+            m_vertex.position.y = m_center_point.getPointPos().y + y+k;
             win_ref.draw(&m_vertex, 1, sf::Points);
+            }
         }
-
-    
     }
     sf::CircleShape* m_default_circle;
     sf::Vertex m_vertex;
@@ -221,5 +279,6 @@ private:
     int m_radiusX;
     int m_radiusY;
     unsigned int m_choosen_algorithm;
+    int m_thickness;
 };
 

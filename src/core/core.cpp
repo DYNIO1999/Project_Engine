@@ -27,23 +27,29 @@ void Engine::mainLoop(){
     sf::Clock clock;
     //m_primitives_render->addPrimitive("RECT",new Primitive(PRIMITIVE_QUAD, sf::Vector2f(500, 500), sf::Vector2f(100, 100), sf::Color::Yellow));
     m_primitives_render->addPrimitive("TRIANGLE",new Primitive(PRIMITIVE_TRIANGLE, sf::Vector2f(200, 300), sf::Vector2f(100, 100), sf::Color::Red));
-    //m_primitives_render->addPrimitive("CIRCLE",new Primitive(PRIMITIVE_CIRCLE, sf::Vector2f(500, 500),50,sf::Color::Magenta,CIRCLE_SIMPLE_ALGORITHM));
+    //m_primitives_render->addPrimitive("CIRCLE",new Primitive(PRIMITIVE_CIRCLE, sf::Vector2f(500, 500),50,sf::Color::Magenta,CIRCLE_DEFAULT_ALGORITHM));
 
-    std::vector<sf::Vector2f> arr = {sf::Vector2f(50,0),
-                                     sf::Vector2f(100,200),
-                                     sf::Vector2f(100,200),
-                                     sf::Vector2f(0,300),
-                                     sf::Vector2f(300,300),
-                                     sf::Vector2f(500,100),
-                                     };
-    m_primitives_render->addPrimitive("LINES", new Primitive(PRIMITIVE_LINES,arr,sf::Color::Blue,LINE_DEFAULT_ALGORITHM));
+    std::vector<sf::Vector2f> arr = {sf::Vector2f(50,50),
+                                     sf::Vector2f(100,50),
+                                     sf::Vector2f(100,50),
+                                     sf::Vector2f(100,100),
+                                     sf::Vector2f(100,100),
+                                     sf::Vector2f(50,100),
+                                     sf::Vector2f(50,100),
+                                     sf::Vector2f(200,50),
+                                    };
+    m_primitives_render->addPrimitive("POLYGON", new Primitive(PRIMITIVE_POLYGON,arr,sf::Color::Blue,LINE_NAIVE_ALGORITHM));
 
     m_primitives_render->addPrimitive("LINE", new Primitive(PRIMITIVE_LINE, sf::Vector2f(100,100),sf::Vector2f(200,200),sf::Color::Red,LINE_NAIVE_ALGORITHM));
-    m_primitives_render->addPrimitive("CIRCLE", new Primitive(PRIMITIVE_CIRCLE, sf::Vector2f(500, 500), 50, sf::Color::Magenta, CIRCLE_SYM8_ALGORITHM));
-    m_primitives_render->addPrimitive("ELLIPSE", new Primitive(PRIMITIVE_ELLIPSE, sf::Vector2f(800,400),100,50,sf::Color::Black, ELLIPSE_SYM4_ALGORITHM));
+    m_primitives_render->addPrimitive("CIRCLE", new Primitive(PRIMITIVE_CIRCLE, sf::Vector2f(500, 500), 50, sf::Color::Magenta, CIRCLE_SYM4_ALGORITHM));
+    m_primitives_render->addPrimitive("ELLIPSE", new Primitive(PRIMITIVE_ELLIPSE, sf::Vector2f(800,400),100,50,sf::Color::Black,ELLIPSE_DEFAULT_ALGORITHM));
     m_primitives_render->addPrimitive("POINT", new Primitive(PRIMITIVE_POINT, sf::Vector2f(800, 400), sf::Vector2f(0, 0), sf::Color::Red));
     m_primitives_render->addPrimitive("POINT", new Primitive(PRIMITIVE_POINT, sf::Vector2f(800, 450), sf::Vector2f(0, 0), sf::Color::Red));
     m_primitives_render->addPrimitive("POINT", new Primitive(PRIMITIVE_POINT, sf::Vector2f(800, 350), sf::Vector2f(0, 0), sf::Color::Red));
+    m_primitives_render->addPrimitive("LINE", new Primitive(PRIMITIVE_LINE, sf::Vector2f(100, 100), sf::Vector2f(200, 200), sf::Color::Red, LINE_NAIVE_ALGORITHM));
+    m_primitives_render->getObject("LINE_1")->setThickness(30);
+    m_primitives_render->getObject("ELLIPSE_0")->setThickness(5);
+    m_primitives_render->getObject("CIRCLE_0")->setThickness(5);
     //InitImGui Data
     vec4f[0] = 300;
     vec4f[1]=300;
@@ -75,7 +81,7 @@ config_stream_engine << item.dump(4);
 config_stream_engine.close();
 */
 
-std::ifstream config_load;
+/*std::ifstream config_load;
 config_load.open("../config/EngineConfig.json");
 if(!config_load){
     std::cout<<"Couldnt open!";
@@ -88,7 +94,7 @@ std::cout << config_json["TicksPerSecond"] << '\n';
 config_json["TicksPerSecond"] = 1000;
 std::cout << config_json["TicksPerSecond"]<<'\n';
 
-config_load.close();
+config_load.close();*/
 //JSON
 
 m_window = new sf::RenderWindow;

@@ -58,6 +58,12 @@ class Object{
     {
         return 0;
     }
+    virtual int getThickness(){
+        return 0;
+    }
+    virtual void setThickness(int thickness){
+
+    }
     protected:
     int m_type;
     sf::Vector2f m_pos;
