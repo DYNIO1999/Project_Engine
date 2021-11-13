@@ -61,13 +61,19 @@ public:
     sf::Vector2i getPos(){
         return m_center_point.getPointPos();
     }
+    void setFillColor(sf::Color fillcolor){
+        if (m_choosen_algorithm == CIRCLE_DEFAULT_ALGORITHM)
+        {
+            m_default_circle->setFillColor(fillcolor);
+        }
+    }
 
     void draw(sf::RenderWindow &win_ref, sf::Color color){
 
         if (m_choosen_algorithm == CIRCLE_DEFAULT_ALGORITHM)
         {            
             m_default_circle->setRadius(m_radiusX);
-            m_default_circle->setFillColor(color);
+            m_default_circle->setOutlineColor(color);
             win_ref.draw(*m_default_circle);
         }else if(m_choosen_algorithm == CIRCLE_SYM4_ALGORITHM){
             DrawCircleSym4Algorithm(win_ref,color);

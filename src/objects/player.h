@@ -15,11 +15,12 @@ public:
     ~Player(){
         
     }
-    void processEvents(TimeStep dt){
+    int processEvents(TimeStep dt){
         //std::cout<<"Updating Player"<<std::endl;
         m_player_shape.setPosition(m_pos);
         m_player_shape.setSize(m_size);
         //std::cout << "Y"<< m_pos.y << std::endl;
+        return DEFAULT_OBJECT_STATE;
     }
     void draw(sf::RenderWindow &win_ref){
         win_ref.draw(m_player_shape);

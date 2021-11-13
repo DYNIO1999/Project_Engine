@@ -25,9 +25,9 @@ void Engine::mainLoop(){
     m_scene_manager->pushScene(new World_Scene);
     m_entity_manager->addEntity("PLAYER", new Player(sf::Vector2f(100, 100), sf::Vector2f(100, 100)));
     sf::Clock clock;
-    //m_primitives_render->addPrimitive("RECT",new Primitive(PRIMITIVE_QUAD, sf::Vector2f(500, 500), sf::Vector2f(100, 100), sf::Color::Yellow));
+    m_primitives_render->addPrimitive("RECT",new Primitive(PRIMITIVE_QUAD, sf::Vector2f(500, 500), sf::Vector2f(100, 100), sf::Color::Yellow));
     m_primitives_render->addPrimitive("TRIANGLE",new Primitive(PRIMITIVE_TRIANGLE, sf::Vector2f(200, 300), sf::Vector2f(100, 100), sf::Color::Red));
-    //m_primitives_render->addPrimitive("CIRCLE",new Primitive(PRIMITIVE_CIRCLE, sf::Vector2f(500, 500),50,sf::Color::Magenta,CIRCLE_DEFAULT_ALGORITHM));
+    m_primitives_render->addPrimitive("CIRCLE",new Primitive(PRIMITIVE_CIRCLE, sf::Vector2f(500, 500),50,sf::Color::Magenta,CIRCLE_DEFAULT_ALGORITHM));
 
     std::vector<sf::Vector2f> arr = {sf::Vector2f(50,50),
                                      sf::Vector2f(100,50),
@@ -47,9 +47,9 @@ void Engine::mainLoop(){
     m_primitives_render->addPrimitive("POINT", new Primitive(PRIMITIVE_POINT, sf::Vector2f(800, 450), sf::Vector2f(0, 0), sf::Color::Red));
     m_primitives_render->addPrimitive("POINT", new Primitive(PRIMITIVE_POINT, sf::Vector2f(800, 350), sf::Vector2f(0, 0), sf::Color::Red));
     m_primitives_render->addPrimitive("LINE", new Primitive(PRIMITIVE_LINE, sf::Vector2f(100, 100), sf::Vector2f(200, 200), sf::Color::Red, LINE_NAIVE_ALGORITHM));
-    m_primitives_render->getObject("LINE_1")->setThickness(30);
-    m_primitives_render->getObject("ELLIPSE_0")->setThickness(5);
-    m_primitives_render->getObject("CIRCLE_0")->setThickness(5);
+    m_primitives_render->getObject("LINE_1")->setThickness(5);
+    m_primitives_render->getObject("ELLIPSE_0")->setThickness(1);
+    m_primitives_render->getObject("CIRCLE_0")->setThickness(1);
     //InitImGui Data
     vec4f[0] = 300;
     vec4f[1]=300;
@@ -133,8 +133,17 @@ void Engine::draw(TimeStep deltatime)
 
     ImGui::Text("This is some useful text."); 
 
-    if (ImGui::Button("Button")) 
+   /* if (ImGui::Button("Button")){
         counter++;
+        m_primitives_render->getObject("LINE_0")->scale((-1));
+    }*/
+    /*if (ImGui::Button("Rotate30")){
+        m_primitives_render->getObject("LINE_0")->rotate(30);
+    }*/
+    if (ImGui::Button("Translate"))
+    {
+        m_primitives_render->getObject("LINE_0")->translate(sf::Vector2f(50,50));
+    }
     ImGui::SameLine();
     ImGui::Text("counter = %d", counter);
 

@@ -1,0 +1,7 @@
+#pragma once
+
+enum OBJECT_STATES
+{
+    DEFAULT_OBJECT_STATE,
+    DESTORY_OBJECT_STATE,
+};

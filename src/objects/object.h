@@ -1,7 +1,9 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
-
+#include "../core/timestep.h"
+#include "objectstates.h"
+#include "../transforms/transforms.h"
 // Zastanowic sie czy to ma sens
 
 class Object{
@@ -14,9 +16,7 @@ class Object{
 
     }
     
-    virtual void processEvents(TimeStep dt)
-    {
-    }
+    virtual int processEvents(TimeStep dt) =0;
     virtual void draw(sf::RenderWindow &win_ref) = 0;
     
     
@@ -64,12 +64,24 @@ class Object{
     virtual void setThickness(int thickness){
 
     }
+
+    virtual void scale(float scale){
+
+    }
+    virtual void translate(sf::Vector2f move){
+
+    }
+    virtual void rotate(float angle){
+
+    }
+
     protected:
+    Transforms m_transform; 
     int m_type;
     sf::Vector2f m_pos;
     sf::Vector2f m_size;
     sf::Color m_color;
-    float m_scale;
+    float m_scale; 
     sf::Texture *m_curTexture;
     sf::Sprite *m_curSprite;
 };

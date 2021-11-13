@@ -58,6 +58,19 @@ public:
             std::cout<<it->first<<'\n';
         }
     }
+    void processEvents(TimeStep dt)
+    {
+        for (auto it = m_primitves.begin(); it != m_primitves.end(); it++)
+        {
+            
+            int check = it->second->processEvents(dt);
+            if(check==DESTORY_OBJECT_STATE){
+                delete it->second;
+                m_primitves.erase(it);
+            }
+        }
+    }
+
     void draw(sf::RenderWindow &win_ref)
     {
         for (auto it = m_primitves.begin(); it != m_primitves.end(); it++)

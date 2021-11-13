@@ -113,6 +113,7 @@ public:
     }
     Primitive(int type,sf::Vector2f pos,int radius,sf::Color color, int algo_index)
     {
+        //Circle
         m_type = type;
         m_algo_type = algo_index;
         m_pos = pos;
@@ -124,6 +125,7 @@ public:
     }
     Primitive(int type, sf::Vector2f pos, int radiusX, int radiusY, sf::Color color, int algo_index)
     {
+        //Ellipse
         m_type = type;
         m_algo_type = algo_index;
         m_pos = pos;
@@ -156,6 +158,12 @@ public:
             {
                 delete[] m_vertices;
             }
+        }
+        int processEvents(TimeStep dt){
+            if(!m_cancreatePolygon){
+                return DESTORY_OBJECT_STATE;
+            }
+            return DEFAULT_OBJECT_STATE;
         }
         void draw(sf::RenderWindow & win_ref)
         {
@@ -349,6 +357,30 @@ public:
                 else if (m_type == PRIMITIVE_LINE){
                 m_line->setThickness(thickness);
                 }
+            }
+        }
+        void translate(sf::Vector2f move)
+        {
+            if (m_type == PRIMITIVE_LINE){
+                sf::Vector2f startpoint = m_transform.translate(sf::Vector2f(m_line->getStartPos()), move);
+                sf::Vector2f endpoint = m_transform.translate(sf::Vector2f(m_line->getEndPos()), move);
+                m_line->setPos(sf::Vector2i(startpoint), sf::Vector2i(endpoint));
+            }
+        }
+        void scale(float scale)
+        {
+            if (m_type == PRIMITIVE_LINE){
+                sf::Vector2f startpoint = m_transform.scale(sf::Vector2f(m_line->getStartPos()), sf::Vector2f(m_line->getStartPos()), scale);
+                sf::Vector2f endpoint = m_transform.scale(sf::Vector2f(m_line->getEndPos()), sf::Vector2f(m_line->getStartPos()), scale);
+                m_line->setPos(sf::Vector2i(startpoint), sf::Vector2i(endpoint));
+            }
+        }
+        void rotate(float angle)
+        {
+            if (m_type == PRIMITIVE_LINE){
+                sf::Vector2f startpoint = m_transform.rotate(sf::Vector2f(m_line->getStartPos()), sf::Vector2f(m_line->getStartPos()),angle);
+                sf::Vector2f endpoint = m_transform.rotate(sf::Vector2f(m_line->getEndPos()), sf::Vector2f(m_line->getStartPos()),angle);
+                m_line->setPos(sf::Vector2i(startpoint), sf::Vector2i(endpoint));
             }
         }
     private:
