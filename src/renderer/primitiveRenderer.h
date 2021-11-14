@@ -40,12 +40,10 @@ public:
         m_primitves.erase(m_primitves.find(key));
     }
     void cleanUp(){
+        PrintObjects();
         for (auto it = m_primitves.begin(); it != m_primitves.end(); it++)
         {
-            if (it->second != nullptr)
-            {
-                delete (it->second);
-            }
+            delete (it->second);
         }
         m_primitves.clear();
     }
@@ -55,7 +53,7 @@ public:
     void PrintObjects(){
         for (auto it = m_primitves.begin(); it != m_primitves.end(); it++)
         {
-            std::cout<<it->first<<'\n';
+            std::cout<<it->first<<" : "<<it->second<<'\n';
         }
     }
     void processEvents(TimeStep dt)

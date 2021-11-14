@@ -1,10 +1,9 @@
 #include "world_scene.h"
 //using namespace DEngine;
-void World_Scene::processEvents(){
-    
+int World_Scene::processEvents(TimeStep deltatime)
+{
+    return 0;
 }
-void World_Scene::draw(){
+void World_Scene::draw(TimeStep deltatime)
+{
 }
-
-
-

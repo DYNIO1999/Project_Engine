@@ -15,6 +15,10 @@
 ### GAME ###
 #
 
+++ Grafika Tilemapa
+++ Postac Glowna
+
+- ResourceManager
 - Poruszanie się po świecie (velocity)
   + Dodac testowy obiekt/klase gracza
   + Zrobic poruszanie WASD w jednym kierunku
@@ -23,6 +27,7 @@
 - Wstepna kolizja
 - JSON zapis/ wcyztanie podstawowego configu/opcji
 - Lista obiektow na danej scenie oraz lista scen
+
 
 - Ograniczona interakcja ze światem,
   + Kolizja postaci z mapa

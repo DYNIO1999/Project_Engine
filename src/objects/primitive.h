@@ -139,7 +139,7 @@ public:
     }
     ~Primitive()
         {
-            std::cout << "PRIMITIVE TYPE: " << m_type << '\n';
+            //std::cout << "PRIMITIVE TYPE: " << m_type << '\n';
             if(m_type == PRIMITIVE_LINE)
             {
                 delete m_line;

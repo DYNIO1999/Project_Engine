@@ -17,6 +17,7 @@ public:
     }
     int processEvents(TimeStep dt){
         //std::cout<<"Updating Player"<<std::endl;
+        m_player_shape.setTexture(&(*m_pTexture));
         m_player_shape.setPosition(m_pos);
         m_player_shape.setSize(m_size);
         //std::cout << "Y"<< m_pos.y << std::endl;
@@ -52,8 +53,9 @@ public:
     float getScale(){
         return m_scale;
     }
-    void setTexture(sf::Texture* texture){
-        m_curTexture = texture;
+    void setTexture(std::shared_ptr<sf::Texture> texturePtr)
+    {
+        m_pTexture = texturePtr;
     }
 
     public:

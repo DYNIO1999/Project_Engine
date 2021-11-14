@@ -4,6 +4,7 @@
 #include "../core/timestep.h"
 #include "objectstates.h"
 #include "../transforms/transforms.h"
+#include <memory>
 // Zastanowic sie czy to ma sens
 
 class Object{
@@ -74,6 +75,10 @@ class Object{
     virtual void rotate(float angle){
 
     }
+    virtual void setTexture(std::shared_ptr<sf::Texture> texturePtr)
+    {
+
+    }
 
     protected:
     Transforms m_transform; 
@@ -81,7 +86,7 @@ class Object{
     sf::Vector2f m_pos;
     sf::Vector2f m_size;
     sf::Color m_color;
-    float m_scale; 
-    sf::Texture *m_curTexture;
+    float m_scale;
+    std::shared_ptr<sf::Texture> m_pTexture;
     sf::Sprite *m_curSprite;
 };

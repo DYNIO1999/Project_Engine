@@ -2,7 +2,7 @@
 #include <vector>
 #include "scene.h"
 #include <iostream>
-
+#include "../core/timestep.h"
 
 class SceneManager{
     
@@ -12,6 +12,8 @@ class SceneManager{
     void changeScene(Scene* new_scene);
     void pushScene(Scene* new_scene);
     void popScene();
+    void drawScene();
+    void processScene();
     std::vector<Scene*> m_Scene_Stack;
     Engine *m_Engine_ref;
     private:

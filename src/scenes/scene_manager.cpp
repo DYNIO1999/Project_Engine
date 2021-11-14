@@ -1,5 +1,5 @@
 #include "scene_manager.h"
-
+#include "../core/core.h"
 //using namespace DEngine;
 
 SceneManager::SceneManager(Engine * m_Engine_ref)
@@ -29,4 +29,12 @@ void SceneManager::pushScene(Scene *new_scene)
 void SceneManager::popScene(){
     delete m_Scene_Stack.back();
     m_Scene_Stack.pop_back();
+}
+void SceneManager::processScene()
+{
+    m_Scene_Stack.back()->processEvents(m_Engine_ref->getDeltaTime());
+}
+void SceneManager::drawScene()
+{
+    m_Scene_Stack.back()->draw(m_Engine_ref->getDeltaTime());
 }
