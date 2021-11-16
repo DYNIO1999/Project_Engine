@@ -5,7 +5,8 @@
 #include "objectstates.h"
 #include "../transforms/transforms.h"
 #include <memory>
-// Zastanowic sie czy to ma sens
+//#include "../core/core.h"
+//#include "../animation/animation.h"
 
 class Object{
     public:
@@ -79,7 +80,9 @@ class Object{
     {
 
     }
+    virtual void setMoveState(int state){
 
+    }
     protected:
     Transforms m_transform; 
     int m_type;
@@ -89,4 +92,5 @@ class Object{
     float m_scale;
     std::shared_ptr<sf::Texture> m_pTexture;
     sf::Sprite *m_curSprite;
+    int m_movestate;
 };

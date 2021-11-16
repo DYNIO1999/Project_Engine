@@ -53,7 +53,7 @@ public:
     void PrintObjects(){
         for (auto it = m_primitves.begin(); it != m_primitves.end(); it++)
         {
-            std::cout<<it->first<<" : "<<it->second<<'\n';
+            std::cout<<it->first<<" : Type "<<it->second->getType()<<'\n';
         }
     }
     void processEvents(TimeStep dt)

@@ -1,30 +1,80 @@
 #pragma once
 #include "object.h"
+#include "../input/inputtypes.h"
+#include "../core/core.h"
+
+/*
+enum GameStatus
+{
+    DEFAULT_STATE = 0,
+    LOSTGAME_STATE = 1,
+    WONGAME_STATE = 2,
+    ESC_STATE = 3,
+};
+*/
+
 class Player :public Object
 {
 private:
 
 public:
-    Player(sf::Vector2f pos, sf::Vector2f size){
-        m_player_shape.setFillColor(sf::Color::Red);
+    Player(std::shared_ptr<sf::Texture> texturePtr,sf::Vector2f pos, sf::Vector2f size, Engine* enginePtr){
+        m_enginePtr = enginePtr;
         m_pos =pos;
         m_size = size;
-        m_player_shape.setPosition(m_pos);
-        m_player_shape.setSize(m_size);
+        m_movestate = NO_INPUT;
+        m_pTexture=texturePtr;
+        m_velocity = 500.0f;
+        m_playerShape.setPosition(m_pos);
+        m_playerShape.setSize(m_size);
+        m_playerShape.setTexture(&(*m_pTexture));
+        m_playerShape.setOutlineThickness(2);
+        m_playerShape.setOutlineColor(sf::Color::Magenta);
+        m_playerCamera.setCenter(sf::Vector2f((((float)m_enginePtr->m_window->getSize().x) / 2.0), ((float)m_enginePtr->m_window->getSize().y) / 2.0));
+        m_playerCamera.setSize(sf::Vector2f(m_enginePtr->m_window->getSize().x, m_enginePtr->m_window->getSize().y));
     }
     ~Player(){
         
     }
     int processEvents(TimeStep dt){
-        //std::cout<<"Updating Player"<<std::endl;
-        m_player_shape.setTexture(&(*m_pTexture));
-        m_player_shape.setPosition(m_pos);
-        m_player_shape.setSize(m_size);
-        //std::cout << "Y"<< m_pos.y << std::endl;
+        if(m_movestate == MOVE_UP){
+            m_pos=m_pos+sf::Vector2f(0,-(m_velocity*dt.m_time));
+        }
+        if (m_movestate == MOVE_DOWN)
+        {
+            m_pos = m_pos + sf::Vector2f(0, (m_velocity * dt.m_time));
+        }
+        if (m_movestate == MOVE_LEFT)
+        {
+            m_pos = m_pos + sf::Vector2f(-(m_velocity * dt.m_time), 0);
+        }
+        if (m_movestate == MOVE_RIGHT)
+        {
+            m_pos = m_pos + sf::Vector2f((m_velocity * dt.m_time), 0);
+        }
+        m_playerShape.setPosition(m_pos);
+        m_playerShape.setSize(m_size);
+        if (m_movestate == MOVE_UP)
+        {
+            m_playerCamera.move(sf::Vector2f(0, -(m_velocity * dt.m_time)));
+        }
+        if (m_movestate == MOVE_DOWN)
+        {
+            m_playerCamera.move(sf::Vector2f(0, (m_velocity * dt.m_time)));
+        }
+        if (m_movestate == MOVE_LEFT)
+        {
+            m_playerCamera.move(sf::Vector2f(-(m_velocity * dt.m_time), 0));
+        }
+        if (m_movestate == MOVE_RIGHT)
+        {
+            m_playerCamera.move(sf::Vector2f(m_velocity * dt.m_time, 0.0));
+        }
+        m_enginePtr->m_window->setView(m_playerCamera);
         return DEFAULT_OBJECT_STATE;
     }
     void draw(sf::RenderWindow &win_ref){
-        win_ref.draw(m_player_shape);
+        win_ref.draw(m_playerShape);
     }
     void setSize(sf::Vector2f size)
     {
@@ -57,8 +107,17 @@ public:
     {
         m_pTexture = texturePtr;
     }
+    void setMoveState(int state)
+    {
+        m_movestate =state;
+    }
 
     public:
-    sf::RectangleShape m_player_shape;
+    sf::RectangleShape m_playerShape;
+    sf::Sprite m_playerSprite;
+    //Animation *m_animation;
+    float  m_velocity;
+    sf::View m_playerCamera;
+    Engine* m_enginePtr;
 };
 

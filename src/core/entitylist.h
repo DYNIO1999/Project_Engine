@@ -15,7 +15,6 @@ public:
     ~EntityList(){
         
     }
-    std::map<std::string,Object*> m_entities;
 
     void addEntity(std::string key, Object* obj){
         m_entities.insert(std::pair<std::string, Object*>(key, obj));
@@ -48,7 +47,7 @@ public:
                 delete it->second;
                 m_entities.erase(it);
             }
-        }
+        }   
     }
 
     void draw(sf::RenderWindow& win_ref){
@@ -57,4 +56,6 @@ public:
             it->second->draw(win_ref);
         }
     }
+    private:
+    std::map<std::string,Object*> m_entities;
 };

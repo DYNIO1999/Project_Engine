@@ -7,7 +7,6 @@ Engine::Engine(){
     m_video_mode =nullptr;
     m_lasttime.m_time=0.0f;
     m_scene_manager = new SceneManager(this);
-    m_entity_manager = new EntityList();
     m_primitives_render = new PrimitiveRenderer();
 }   
 Engine::~Engine(){
@@ -48,14 +47,13 @@ if(m_engine_config.isFullscreen()){
 m_window->setFramerateLimit(60);
 ImGui::SFML::Init(*m_window);
 ///////////////
-m_input_handler = new InputHandler(this->m_window);
 
 if(m_engine_config.getEngineMode()==ENGINE_DEMO){
     m_scene_manager->pushScene(new Engine_Demo(this));
 }
 else if (m_engine_config.getEngineMode() == ENGINE_GAME)
 {
-    m_scene_manager->pushScene(new World_Scene());
+    m_scene_manager->pushScene(new World_Scene(this));
 }
 }
 

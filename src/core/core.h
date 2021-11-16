@@ -13,7 +13,6 @@
 #include "../scenes/world_scene.h"
 #include "../scenes/engine_demo.h"
 #include "../renderer/primitiveRenderer.h"
-#include "../objects/player.h"
 #include "../input/inputhandler.h"
 #include "entitylist.h"
 #include "../json.hpp"
@@ -52,8 +51,6 @@ public:
     std::vector<sf::VideoMode> modes;
 
     PrimitiveRenderer* m_primitives_render;
-    EntityList* m_entity_manager;
-    InputHandler* m_input_handler;
     EngineConfig m_engine_config;
     TimeStep timestep;
     sf::Clock m_engineClock;

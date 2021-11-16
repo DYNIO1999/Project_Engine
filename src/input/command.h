@@ -1,6 +1,8 @@
 #pragma once
 #include "../objects/object.h"
+#include "inputtypes.h"
 #include <iostream>
+
 class Command
 {
 private:
@@ -10,7 +12,6 @@ public:
 
     }
     virtual void execute(Object* obj){
-        
     }
 };
 
@@ -23,10 +24,7 @@ public:
     }
     void execute(Object* obj)
     {
-
-        //std::cout << "MOVING UP" << std::endl;
-        float y =obj->getPos().y -10;
-        obj->setPosition(sf::Vector2f(obj->getPos().x , y));
+        obj->setMoveState(MOVE_UP);
     }
 };
 
@@ -39,7 +37,7 @@ public:
     }
     void execute(Object* obj)
     {
-        std::cout<<"MOVING DOWN"<<std::endl;
+        obj->setMoveState(MOVE_DOWN);
     }
 };
 class MoveLeftCommand : public Command
@@ -51,7 +49,7 @@ public:
     }
     void execute(Object* obj)
     {
-        std::cout << "MOVING LEFT" << std::endl;
+        obj->setMoveState(MOVE_LEFT);
     }
 };
 
@@ -64,6 +62,18 @@ public:
     }
     void execute(Object* obj)
     {
-        std::cout << "MOVING RIGHT" << std::endl;
+        obj->setMoveState(MOVE_RIGHT);
+    }
+};
+class NoInputCommand : public Command
+{
+private:
+public:
+    ~NoInputCommand()
+    {
+    }
+    void execute(Object *obj)
+    {
+        obj->setMoveState(NO_INPUT);
     }
 };

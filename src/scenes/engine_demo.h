@@ -1,5 +1,7 @@
 #pragma once
 #include "scene.h"
+#include "../core/core.h"
+#include "../renderer/bitmaphandler.h"
 class Engine_Demo : public Scene
 {
 
@@ -22,8 +24,11 @@ private:
     void cleanupData(){
 
     }
-    private:
 
+    
+    
+    BitmapHandler BitmapHandler1;
+    BitmapHandler BitmapHandler2;
     int counter;
     float color[3] = {0.0f, 0.0f, 0.0f};
     float color2[3] = {0.0f, 0.0f, 0.0f};

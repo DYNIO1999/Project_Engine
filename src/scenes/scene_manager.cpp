@@ -8,13 +8,13 @@ SceneManager::SceneManager(Engine * m_Engine_ref)
 }
 SceneManager::~SceneManager()
 {
-    std::cout << "Clearing Data!" << '\n';
-    std::cout<<"SIZE SCENE STACK"<<m_Scene_Stack.size()<<std::endl;
+    std::cout << "Clearing Scene Data!" << '\n';
+    std::cout<<"SIZE SCENE STACK: "<<m_Scene_Stack.size()<<std::endl;
     for(auto it = m_Scene_Stack.begin(); it!=m_Scene_Stack.end();it++){
         delete (*it);
     }
     m_Scene_Stack.clear();
-    std::cout<<"SIZE SCENE STACK"<<m_Scene_Stack.size()<<std::endl;
+    std::cout<<"SIZE SCENE STACK: "<<m_Scene_Stack.size()<<std::endl;
 }
 void SceneManager::changeScene(Scene *new_scene)
 {

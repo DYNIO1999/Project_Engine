@@ -1,5 +1,4 @@
 #include "engine_demo.h"
-#include "../core/core.h"
 #include "../renderer/primitiveRenderer.h"
 #include "../objects/player.h"
 #include "../resource/resource_manager.h"
@@ -7,7 +6,6 @@
 
 int Engine_Demo::processEvents(TimeStep deltatime) 
 {
-    m_Engine_ref->m_entity_manager->processEvents(deltatime);
     return 0;
 }
 void Engine_Demo::draw(TimeStep deltatime)
@@ -73,7 +71,23 @@ void Engine_Demo::draw(TimeStep deltatime)
         }
     }
     ImGui::End();
-    m_Engine_ref->m_entity_manager->draw(*m_Engine_ref->m_window);
+    //###BitmapTesting
+    /*BitmapHandler1.createBitmap(100, 100, sf::Color::Blue);
+    BitmapHandler1.savetoFile(ASSETS_PATH+"test.png");
+    BitmapHandler2.createBitmap(100, 100, sf::Color::Red);
+    BitmapHandler2.copyBitmap(BitmapHandler1.getBitmap());
+    BitmapHandler2.setPixel(1,1,sf::Color::Magenta);
+    BitmapHandler2.savetoFile(ASSETS_PATH+"test2.png");
+    sf::RectangleShape testShape;
+    testShape.setPosition(sf::Vector2f(100,100));
+    testShape.setSize(sf::Vector2f(100, 100));
+    sf::Texture testTexture;
+    testTexture.loadFromImage(BitmapHandler1.getBitmap(), sf::IntRect{0,0,100,100});
+    testShape.setTexture(&testTexture);
+    
+    m_Engine_ref->m_window->draw(testShape);
+    */
+    //###BitmapEndTesting
     m_Engine_ref->m_primitives_render->draw(*m_Engine_ref->m_window);
     ImGui::SFML::Render(*m_Engine_ref->m_window);
 };
@@ -81,15 +95,14 @@ void Engine_Demo::draw(TimeStep deltatime)
 void Engine_Demo::initData()
 {
     counter = 0;
-    m_Engine_ref->m_entity_manager->addEntity("PLAYER", new Player(sf::Vector2f(100,100), sf::Vector2f(50,50)));
-    
+    /*
     std::shared_ptr<sf::Texture> pPlayerTexture = ResourceManager::acquireTexture(ASSETS_PATH + "portal.png");
     if(pPlayerTexture!=nullptr){
         std::cout<<"I am here";
         m_Engine_ref->m_entity_manager->getObject("PLAYER")->setTexture(pPlayerTexture);
     }
-    ResourceManager::cleanUpOrphans();
-    
+    ResourceManager::cleanUpOrphans();*/
+
     m_Engine_ref->m_primitives_render->addPrimitive("RECT", new Primitive(PRIMITIVE_QUAD, sf::Vector2f(500, 500), sf::Vector2f(100, 100), sf::Color::Yellow));
     m_Engine_ref->m_primitives_render->addPrimitive("TRIANGLE", new Primitive(PRIMITIVE_TRIANGLE, sf::Vector2f(200, 300), sf::Vector2f(100, 100), sf::Color::Red));
     m_Engine_ref->m_primitives_render->addPrimitive("CIRCLE", new Primitive(PRIMITIVE_CIRCLE, sf::Vector2f(500, 500), 50, sf::Color::Magenta, CIRCLE_DEFAULT_ALGORITHM));

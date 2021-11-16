@@ -4,27 +4,42 @@
 
 ### ENGINE ###
 
-# OD 15.11.2021 #
-- Zmiany wielkosci ekranu FULLSCREEN || WINDOWED || OTHER
+# 16.11.2021//17.11.2021 #
+
+
+- Add Animated class responsible for animations for particular game object.
+- Zmodyfikuj klasę Player, tak aby gracz był renderowany a jego ruch animowany
+z użyciem bitmap (sprite’ów). W tym celu wprowadź dziedziczenie tej klasy po
+SpriteObject. Przygotuj proste sprite’y animujące ruch gracza lub wykorzystaj
+w tym celu darmowe źródła znalezione w Internecie.
+
 - Dodac ENGINE_DEMO
   + operacje na obiektach
   + lista obiektow
   + wybieranie obiektu do edycji
   + dodawanie
 - Podzielic kod do inicjacji dla silnika i gry...
+
 ### GAME ###
 #
 
 ++ Grafika Tilemapa
 ++ Postac Glowna
 
-- ResourceManager
+- Sceny Gry
+  + Menu Gry
+  + World 
+  + Battle
+  + Pause
+
+- Klasa gracza/ inicjacja
+
 - Poruszanie się po świecie (velocity)
   + Dodac testowy obiekt/klase gracza
   + Zrobic poruszanie WASD w jednym kierunku
   + Kamera ktora porusza sie za naszym graczem
 - Tilemaps
-- Wstepna kolizja
+- Wstepna kolizja // BoxCollider
 - JSON zapis/ wcyztanie podstawowego configu/opcji
 - Lista obiektow na danej scenie oraz lista scen
 

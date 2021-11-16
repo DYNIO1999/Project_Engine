@@ -7,12 +7,12 @@ class InputHandler
 private:
 
 public:
-    InputHandler(sf::RenderWindow* win_ptr){
-        this->win_ptr = win_ptr;
+    InputHandler(){
         buttonW = new MoveUpCommand();
         buttonS = new MoveDownCommand();
         buttonA = new MoveLeftCommand();
         buttonD = new MoveRightCommand();
+        noInput = new NoInputCommand();
     }
     ~InputHandler(){
         delete buttonW;
@@ -20,29 +20,27 @@ public:
         delete buttonA;
         delete buttonD;
     }
-    void handleInput(Object* obj){
-        //while (win_ptr->pollEvent(event))
-        //{
+    Command* handleInput(){
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
             {
-                buttonW->execute(obj);
+                return buttonW;
             }
-            else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
             {
-                buttonS->execute(obj);
+                return buttonS;
             }
-            else if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
             {
-                buttonA->execute(obj);
-            }else if(sf::Keyboard::isKeyPressed(sf::Keyboard::D)){
-                buttonD->execute(obj);
+                return buttonA;
+            } 
+            if(sf::Keyboard::isKeyPressed(sf::Keyboard::D)){
+                return buttonD;
             }
-        //}
+            return noInput;
     }
     Command *buttonW;
     Command *buttonA;
     Command *buttonS;
     Command *buttonD;
-    sf::Event event;
-    sf::RenderWindow* win_ptr;
+    Command *noInput;
 };

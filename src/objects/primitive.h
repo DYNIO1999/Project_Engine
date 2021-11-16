@@ -103,7 +103,7 @@ public:
                     if(m_cancreatePolygon){
                     m_cancreatePolygon=check_create_polygon(sf::Vector2f(m_line[i].getStartPos()), sf::Vector2f(m_line[i].getEndPos()), sf::Vector2f(m_line[j].getStartPos()), sf::Vector2f(m_line[j].getEndPos()));
                     }
-                    std::cout<<i<<j<<" : "<<m_cancreatePolygon<<'\n';
+                    //std::cout<<i<<j<<" : "<<m_cancreatePolygon<<'\n';
                 }
             }
             if(!m_cancreatePolygon){
@@ -384,6 +384,7 @@ public:
             }
         }
     private:
+
         bool check_create_polygon(sf::Vector2f a_start, sf::Vector2f a_end, sf::Vector2f b_start, sf::Vector2f b_end)
         {
             float s1,s2,s3, s4;
@@ -452,6 +453,7 @@ public:
             return result;
         }
 
+
     private:
     int m_lines_size;
     CircleSegment* m_circle;
@@ -461,4 +463,5 @@ public:
     int m_radiusX;
     int m_radiusY;
     bool m_cancreatePolygon = true;
+    int m_fillAlgoType;
     };
