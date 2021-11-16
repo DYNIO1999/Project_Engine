@@ -15,7 +15,7 @@ World_Scene::~World_Scene(){
 }
 
 void World_Scene::initData(){
-    std::shared_ptr<sf::Texture> pPlayerTexture = ResourceManager::acquireTexture(ASSETS_PATH + "portal.png");
+    std::shared_ptr<sf::Texture> pPlayerTexture = ResourceManager::acquireTexture(ASSETS_PATH + "Run.png");
     m_entitesPtr->addEntity("PLAYER", new Player(pPlayerTexture, sf::Vector2f(100, 100), sf::Vector2f(50, 50),m_Engine_ref));
     if (pPlayerTexture != nullptr)
     {
@@ -36,6 +36,12 @@ int World_Scene::processEvents(TimeStep deltatime)
 void World_Scene::draw(TimeStep deltatime)
 {
     m_Engine_ref->m_window->clear(sf::Color::White);
+    sf::Texture text;
+    text.loadFromFile(ASSETS_PATH+"testback.png");
+    sf::Sprite background;
+    background.setTexture(text);
+    background.setPosition(sf::Vector2f(0,0));
+    m_Engine_ref->m_window->draw(background);
     m_entitesPtr->draw((*m_Engine_ref->m_window));
 }
 
