@@ -80,8 +80,8 @@ public:
         m_enginePtr->m_window->setView(m_playerCamera);
         m_playerAnimation->Update(0, dt);
         m_playerSprite.setTextureRect(m_playerAnimation->m_textureRect);
-        std::cout << "PLAYER COLLID BOX POS" << m_pos.x << m_pos.y<< '\n';
-        std::cout << "TEXTURE SIZE" <<m_playerAnimation->m_textureRect.width<< '\n';
+        //std::cout << "PLAYER COLLID BOX POS" << m_pos.x << m_pos.y<< '\n';
+        //std::cout << "TEXTURE SIZE" <<m_playerAnimation->m_textureRect.width<< '\n';
 
         return DEFAULT_OBJECT_STATE;
     }

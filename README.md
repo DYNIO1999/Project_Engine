@@ -32,12 +32,6 @@ w tym celu darmowe źródła znalezione w Internecie.
   + Battle
   + Pause
 
-- Klasa gracza/ inicjacja
-
-- Poruszanie się po świecie (velocity)
-  + Dodac testowy obiekt/klase gracza
-  + Zrobic poruszanie WASD w jednym kierunku
-  + Kamera ktora porusza sie za naszym graczem
 - Tilemaps
 - Wstepna kolizja // BoxCollider
 - JSON zapis/ wcyztanie podstawowego configu/opcji

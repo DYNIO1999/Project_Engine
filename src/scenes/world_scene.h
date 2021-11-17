@@ -5,7 +5,7 @@
 #include "../core/entitylist.h"
 #include "../input/inputhandler.h"
 #include "../input/command.h"
-
+#include "../tilemap/tilemap.h"
 class World_Scene:public Scene{
 
 private:
@@ -16,7 +16,8 @@ public:
     int processEvents(TimeStep deltatime) override;
     void draw(TimeStep deltatime) override;
 
-private:    
+private:
+    Tilemap* testmap;
     InputHandler* m_inputhandler;
     EntityList* m_entitesPtr;
     void initData();
