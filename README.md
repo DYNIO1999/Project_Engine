@@ -27,18 +27,17 @@ w tym celu darmowe źródła znalezione w Internecie.
 ++ Postac Glowna
 
 - Sceny Gry
+  + World Scena 
+    -Poruszanie i kolizja 
   + Menu Gry
   + World 
   + Battle
   + Pause
-
-- Tilemaps
 - Wstepna kolizja // BoxCollider
-- JSON zapis/ wcyztanie podstawowego configu/opcji
-- Lista obiektow na danej scenie oraz lista scen
-
-
 - Ograniczona interakcja ze światem,
+
+- Lista obiektow na danej scenie oraz lista scen
+- JSON zapis/ wcyztanie podstawowego configu/opcji
   + Kolizja postaci z mapa
 - Przejście ze sceny świata do sceny walki,
   + Dodanie kilku wrogow

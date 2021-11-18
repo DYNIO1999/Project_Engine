@@ -4,6 +4,7 @@
 #include <unordered_map>
 #include <memory>
 const std::string ASSETS_PATH = "../assets/";
+const std::string ASSETS_TILESET_PATH = "../assets/tilesets/";
 
 class ResourceManager{
     public:
