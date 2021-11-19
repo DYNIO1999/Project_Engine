@@ -58,10 +58,10 @@ else if (m_engine_config.getEngineMode() == ENGINE_GAME)
 }
 
 void Engine::proccessEvents(TimeStep deltatime){
-    
-    sf::Event event;
+
     while (m_window->pollEvent(event))
     {
+        
         ImGui::SFML::ProcessEvent(event);
         if (event.type == sf::Event::Closed)
         {
@@ -83,6 +83,7 @@ void Engine::proccessEvents(TimeStep deltatime){
             changeWinSize(1000, 1000);
             }
         }
+        m_scene_manager->inputScene();
     }
     m_scene_manager->processScene();
 }

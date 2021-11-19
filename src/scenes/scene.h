@@ -7,5 +7,8 @@ public:
     virtual ~Scene() {}
     virtual int processEvents(TimeStep deltatime)=0;
     virtual void draw(TimeStep deltatime) = 0;
+    virtual void input(){
+        
+    }
     Engine* m_Engine_ref;
 };

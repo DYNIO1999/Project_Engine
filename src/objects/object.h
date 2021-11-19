@@ -17,7 +17,6 @@ class Object{
     virtual void processEvents(){
 
     }
-    
     virtual int processEvents(TimeStep dt) =0;
     virtual void draw(sf::RenderWindow &win_ref) = 0;
     
@@ -83,6 +82,7 @@ class Object{
     virtual void setMoveState(int state){
 
     }
+
     protected:
     Transforms m_transform; 
     int m_type;

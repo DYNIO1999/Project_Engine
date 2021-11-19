@@ -21,7 +21,9 @@ w tym celu darmowe źródła znalezione w Internecie.
 - Podzielic kod do inicjacji dla silnika i gry...
 
 ### GAME ###
-#
+
+
+
 
 ++ Grafika Tilemapa
 ++ Postac Glowna

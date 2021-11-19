@@ -49,11 +49,13 @@ public:
     sf::RenderWindow* m_window;
     sf::VideoMode* m_video_mode;
     std::vector<sf::VideoMode> modes;
-
+    
+    sf::Clock m_engineClock;
+    sf::Event event;
+    
     PrimitiveRenderer* m_primitives_render;
     EngineConfig m_engine_config;
     TimeStep timestep;
-    sf::Clock m_engineClock;
 
     TimeStep getDeltaTime(){
         return timestep;

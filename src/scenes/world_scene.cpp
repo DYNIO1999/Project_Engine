@@ -13,16 +13,16 @@ World_Scene::~World_Scene(){
     delete testmap;
     delete m_entitesPtr;
     delete m_inputhandler;
+    delete m_mapeditor;
 }
 
 void World_Scene::initData(){
-    std::shared_ptr<sf::Texture> pPlayerTexture = ResourceManager::acquireTexture(ASSETS_PATH + "attack_anim.png");
+    std::shared_ptr<sf::Texture> pPlayerTexture = ResourceManager::acquireTexture(ASSETS_PATH + "player_attack1.png");
     m_entitesPtr->addEntity("PLAYER", new Player(pPlayerTexture, sf::Vector2f(100, 100), sf::Vector2f(50, 50),m_Engine_ref));
     if (pPlayerTexture != nullptr)
     {
         m_entitesPtr->getObject("PLAYER")->setTexture(pPlayerTexture);
     }
-    testmap = new Tilemap();
     std::shared_ptr<sf::Texture> pdirt = ResourceManager::acquireTexture(ASSETS_TILESET_PATH + "grass.png");
     std::shared_ptr<sf::Texture> pbank1 = ResourceManager::acquireTexture(ASSETS_TILESET_PATH + "bank1.png");
     std::shared_ptr<sf::Texture> pbank2 = ResourceManager::acquireTexture(ASSETS_TILESET_PATH + "bank2.png");
@@ -37,6 +37,9 @@ void World_Scene::initData(){
     std::shared_ptr<sf::Texture> pbank11 = ResourceManager::acquireTexture(ASSETS_TILESET_PATH + "bank11.png");
     std::shared_ptr<sf::Texture> pbank12 = ResourceManager::acquireTexture(ASSETS_TILESET_PATH + "bank12.png");
     std::shared_ptr<sf::Texture> pwater = ResourceManager::acquireTexture(ASSETS_TILESET_PATH + "water.png");
+    
+    m_mapeditor = new TileMapEditor();
+    testmap = new Tilemap(m_mapeditor->getMap());
     testmap->addTerrain(pdirt,true);
     testmap->addTerrain(pbank1, true);
     testmap->addTerrain(pbank2, true);
@@ -54,17 +57,14 @@ void World_Scene::initData(){
     testmap->initMap();
     std::cout<<"SIZE_TEXTURE_PTR"<<testmap->m_terrainPtr.size()<<"\n";
     std::cout<<"SIZE_TILES_SIZE"<<testmap->m_tiles.size()<<"\n";
-
+    
     ResourceManager::cleanUpOrphans();
 }
 
 int World_Scene::processEvents(TimeStep deltatime)
 {
-    Command* recvCommand = m_inputhandler->handleInput();
-    if(recvCommand){
-    recvCommand->execute(m_entitesPtr->getObject("PLAYER"));
-    }
     m_entitesPtr->processEvents(deltatime);
+    testmap->processEvents(m_mapeditor->getMap());
     return 0;
 }
 void World_Scene::draw(TimeStep deltatime)
@@ -78,8 +78,17 @@ void World_Scene::draw(TimeStep deltatime)
     //m_Engine_ref->m_window->draw(background);
     testmap->draw(*m_Engine_ref->m_window, m_Engine_ref->m_window->getView());
     m_entitesPtr->draw((*m_Engine_ref->m_window));
+    m_mapeditor->drawTileSelector(*m_Engine_ref->m_window);
 }
-
+void World_Scene::input(){
+    m_mapeditor->editInput(m_Engine_ref->event);
+    m_mapeditor->editMap(*m_Engine_ref->m_window);
+    Command *recvCommand = m_inputhandler->handleInput();
+    if (recvCommand)
+    {
+        recvCommand->execute(m_entitesPtr->getObject("PLAYER"));
+    }
+}
 void World_Scene::cleanupData(){
 
 }

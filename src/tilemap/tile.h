@@ -10,6 +10,7 @@ public:
     sf::Vector2f m_pos;
     sf::Vector2f m_size;
     Terrain* m_terrainPtr;
+    sf::Vector2i m_gridPos;
     Tile(sf::Vector2f pos, sf::Vector2f size, Terrain* terrain)
     {
         m_pos = pos;
@@ -27,7 +28,10 @@ public:
         m_vertex[2].texCoords = sf::Vector2f(50, 50);
         m_vertex[3].texCoords = sf::Vector2f(1, 50);
     }
-
+    void updateTerrain(Terrain *terrain)
+    {
+        m_terrainPtr=terrain;
+    }
     ~Tile(){
 
     }

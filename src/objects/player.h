@@ -36,6 +36,7 @@ public:
         m_playerSprite.setScale(2,2);
         m_playerCamera.setCenter(sf::Vector2f((((float)m_enginePtr->m_window->getSize().x) / 2.0), ((float)m_enginePtr->m_window->getSize().y) / 2.0));
         m_playerCamera.setSize(sf::Vector2f(m_enginePtr->m_window->getSize().x, m_enginePtr->m_window->getSize().y));
+        m_playerCamera.zoom(0.5);
         m_playerAnimation = new Animation(m_pTexture, sf::Vector2u(4, 1), 0.1f);
         //m_playerCamera.zoom(0.5f);
     }

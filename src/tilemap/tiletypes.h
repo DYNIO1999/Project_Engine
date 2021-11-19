@@ -1,5 +1,4 @@
 #pragma once
-
 enum TERRAIN_TYPES
 {
     GRASS_TILE,
@@ -16,4 +15,5 @@ enum TERRAIN_TYPES
     BANK_TILE_11,
     BANK_TILE_12,
     WATER_TILE,
+    NUMBER_OF_TILES,
 };

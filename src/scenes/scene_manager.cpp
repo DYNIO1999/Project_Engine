@@ -30,6 +30,7 @@ void SceneManager::popScene(){
     delete m_Scene_Stack.back();
     m_Scene_Stack.pop_back();
 }
+
 void SceneManager::processScene()
 {
     m_Scene_Stack.back()->processEvents(m_Engine_ref->getDeltaTime());
@@ -37,4 +38,7 @@ void SceneManager::processScene()
 void SceneManager::drawScene()
 {
     m_Scene_Stack.back()->draw(m_Engine_ref->getDeltaTime());
+}
+void SceneManager::inputScene(){
+    m_Scene_Stack.back()->input();
 }

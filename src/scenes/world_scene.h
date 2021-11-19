@@ -6,10 +6,9 @@
 #include "../input/inputhandler.h"
 #include "../input/command.h"
 #include "../tilemap/tilemap.h"
+#include "../tilemap/tilemapeditor.h"
 class World_Scene:public Scene{
 
-private:
-    
 public:
     World_Scene(Engine *engine_ref);
     ~World_Scene();
@@ -20,6 +19,9 @@ private:
     Tilemap* testmap;
     InputHandler* m_inputhandler;
     EntityList* m_entitesPtr;
+    TileMapEditor* m_mapeditor;
+    
     void initData();
+    void input();
     void cleanupData();
 };

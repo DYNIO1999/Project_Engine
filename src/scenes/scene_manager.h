@@ -14,6 +14,7 @@ class SceneManager{
     void popScene();
     void drawScene();
     void processScene();
+    void inputScene();
     std::vector<Scene*> m_Scene_Stack;
     Engine *m_Engine_ref;
     private:
