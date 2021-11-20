@@ -57,6 +57,18 @@ public:
         {
             m_pressed_button_left = false;
         }
+
+        if (event.type == sf::Event::MouseButtonPressed)
+        {
+            if (event.mouseButton.button == sf::Mouse::Right)
+            {
+                m_pressed_button_right = true;
+            }
+        }
+        if (event.type == sf::Event::MouseButtonReleased)
+        {
+            m_pressed_button_right = false;
+        }
     }
     void editMap(sf::RenderWindow& window){
         float end_x = TILE_MAP_SIZE * m_gridSize;

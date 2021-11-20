@@ -97,6 +97,84 @@ public:
                     temp.m_gridPos = sf::Vector2i(j, i);
                     m_tiles.push_back(temp);
                 }
+                if (m_map[i][j] == FOREST_TILE_1)
+                {
+                    Tile temp(sf::Vector2f(j * temp_width, i * temp_height), sf::Vector2f(temp_width, temp_height), m_terrainPtr[FOREST_TILE_1]);
+                    temp.m_gridPos = sf::Vector2i(j, i);
+                    m_tiles.push_back(temp);
+                }
+                if (m_map[i][j] == FOREST_TILE_2)
+                {
+                    Tile temp(sf::Vector2f(j * temp_width, i * temp_height), sf::Vector2f(temp_width, temp_height), m_terrainPtr[FOREST_TILE_2]);
+                    temp.m_gridPos = sf::Vector2i(j, i);
+                    m_tiles.push_back(temp);
+                }
+                if (m_map[i][j] == FOREST_TILE_3)
+                {
+                    Tile temp(sf::Vector2f(j * temp_width, i * temp_height), sf::Vector2f(temp_width, temp_height), m_terrainPtr[FOREST_TILE_3]);
+                    temp.m_gridPos = sf::Vector2i(j, i);
+                    m_tiles.push_back(temp);
+                }
+                if (m_map[i][j] == FOREST_TILE_4)
+                {
+                    Tile temp(sf::Vector2f(j * temp_width, i * temp_height), sf::Vector2f(temp_width, temp_height), m_terrainPtr[FOREST_TILE_4]);
+                    temp.m_gridPos = sf::Vector2i(j, i);
+                    m_tiles.push_back(temp);
+                }
+                if (m_map[i][j] == FOREST_TILE_5)
+                {
+                    Tile temp(sf::Vector2f(j * temp_width, i * temp_height), sf::Vector2f(temp_width, temp_height), m_terrainPtr[FOREST_TILE_5]);
+                    temp.m_gridPos = sf::Vector2i(j, i);
+                    m_tiles.push_back(temp);
+                }
+                if (m_map[i][j] == FOREST_TILE_6)
+                {
+                    Tile temp(sf::Vector2f(j * temp_width, i * temp_height), sf::Vector2f(temp_width, temp_height), m_terrainPtr[FOREST_TILE_6]);
+                    temp.m_gridPos = sf::Vector2i(j, i);
+                    m_tiles.push_back(temp);
+                }
+                if (m_map[i][j] == FOREST_TILE_7)
+                {
+                    Tile temp(sf::Vector2f(j * temp_width, i * temp_height), sf::Vector2f(temp_width, temp_height), m_terrainPtr[FOREST_TILE_7]);
+                    temp.m_gridPos = sf::Vector2i(j, i);
+                    m_tiles.push_back(temp);
+                }
+                if (m_map[i][j] == FOREST_TILE_8)
+                {
+                    Tile temp(sf::Vector2f(j * temp_width, i * temp_height), sf::Vector2f(temp_width, temp_height), m_terrainPtr[FOREST_TILE_8]);
+                    temp.m_gridPos = sf::Vector2i(j, i);
+                    m_tiles.push_back(temp);
+                }
+                if (m_map[i][j] == FOREST_TILE_9)
+                {
+                    Tile temp(sf::Vector2f(j * temp_width, i * temp_height), sf::Vector2f(temp_width, temp_height), m_terrainPtr[FOREST_TILE_9]);
+                    temp.m_gridPos = sf::Vector2i(j, i);
+                    m_tiles.push_back(temp);
+                }
+                if (m_map[i][j] == FOREST_TILE_10)
+                {
+                    Tile temp(sf::Vector2f(j * temp_width, i * temp_height), sf::Vector2f(temp_width, temp_height), m_terrainPtr[FOREST_TILE_10]);
+                    temp.m_gridPos = sf::Vector2i(j, i);
+                    m_tiles.push_back(temp);
+                }
+                if (m_map[i][j] == FOREST_TILE_11)
+                {
+                    Tile temp(sf::Vector2f(j * temp_width, i * temp_height), sf::Vector2f(temp_width, temp_height), m_terrainPtr[FOREST_TILE_11]);
+                    temp.m_gridPos = sf::Vector2i(j, i);
+                    m_tiles.push_back(temp);
+                }
+                if (m_map[i][j] == FOREST_TILE_12)
+                {
+                    Tile temp(sf::Vector2f(j * temp_width, i * temp_height), sf::Vector2f(temp_width, temp_height), m_terrainPtr[FOREST_TILE_12]);
+                    temp.m_gridPos = sf::Vector2i(j, i);
+                    m_tiles.push_back(temp);
+                }
+                if (m_map[i][j] == FOREST_TILE_13)
+                {
+                    Tile temp(sf::Vector2f(j * temp_width, i * temp_height), sf::Vector2f(temp_width, temp_height), m_terrainPtr[FOREST_TILE_13]);
+                    temp.m_gridPos = sf::Vector2i(j, i);
+                    m_tiles.push_back(temp);
+                }
                 if (m_map[i][j] == WATER_TILE)
                 {
                     Tile temp(sf::Vector2f(j * temp_width, i * temp_height), sf::Vector2f(temp_width, temp_height), m_terrainPtr[WATER_TILE]);
@@ -159,6 +237,59 @@ public:
             if (m_map[it->m_gridPos.x][it->m_gridPos.y] == BANK_TILE_12)
             {
                 it->updateTerrain(m_terrainPtr[BANK_TILE_12]);
+            }
+            ////
+            if (m_map[it->m_gridPos.x][it->m_gridPos.y] == FOREST_TILE_1)
+            {
+                it->updateTerrain(m_terrainPtr[FOREST_TILE_1]);
+            }
+            if (m_map[it->m_gridPos.x][it->m_gridPos.y] == FOREST_TILE_2)
+            {
+                it->updateTerrain(m_terrainPtr[FOREST_TILE_2]);
+            }
+            if (m_map[it->m_gridPos.x][it->m_gridPos.y] == FOREST_TILE_3)
+            {
+                it->updateTerrain(m_terrainPtr[FOREST_TILE_3]);
+            }
+            if (m_map[it->m_gridPos.x][it->m_gridPos.y] == FOREST_TILE_4)
+            {
+                it->updateTerrain(m_terrainPtr[FOREST_TILE_4]);
+            }
+            if (m_map[it->m_gridPos.x][it->m_gridPos.y] == FOREST_TILE_5)
+            {
+                it->updateTerrain(m_terrainPtr[FOREST_TILE_5]);
+            }
+            if (m_map[it->m_gridPos.x][it->m_gridPos.y] == FOREST_TILE_6)
+            {
+                it->updateTerrain(m_terrainPtr[FOREST_TILE_6]);
+            }
+            if (m_map[it->m_gridPos.x][it->m_gridPos.y] == FOREST_TILE_7)
+            {
+                it->updateTerrain(m_terrainPtr[FOREST_TILE_7]);
+            }
+            if (m_map[it->m_gridPos.x][it->m_gridPos.y] == FOREST_TILE_8)
+            {
+                it->updateTerrain(m_terrainPtr[FOREST_TILE_8]);
+            }
+            if (m_map[it->m_gridPos.x][it->m_gridPos.y] == FOREST_TILE_9)
+            {
+                it->updateTerrain(m_terrainPtr[FOREST_TILE_9]);
+            }
+            if (m_map[it->m_gridPos.x][it->m_gridPos.y] == FOREST_TILE_10)
+            {
+                it->updateTerrain(m_terrainPtr[FOREST_TILE_10]);
+            }
+            if (m_map[it->m_gridPos.x][it->m_gridPos.y] == FOREST_TILE_11)
+            {
+                it->updateTerrain(m_terrainPtr[FOREST_TILE_11]);
+            }
+            if (m_map[it->m_gridPos.x][it->m_gridPos.y] == FOREST_TILE_12)
+            {
+                it->updateTerrain(m_terrainPtr[FOREST_TILE_12]);
+            }
+            if (m_map[it->m_gridPos.x][it->m_gridPos.y] == FOREST_TILE_13)
+            {
+                it->updateTerrain(m_terrainPtr[FOREST_TILE_13]);
             }
             if (m_map[it->m_gridPos.x][it->m_gridPos.y] == WATER_TILE)
             {

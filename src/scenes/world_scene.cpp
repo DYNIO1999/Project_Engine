@@ -23,6 +23,7 @@ void World_Scene::initData(){
     {
         m_entitesPtr->getObject("PLAYER")->setTexture(pPlayerTexture);
     }
+    std::shared_ptr<sf::Texture> background = ResourceManager::acquireTexture(ASSETS_PATH + "testback.png");
     std::shared_ptr<sf::Texture> pdirt = ResourceManager::acquireTexture(ASSETS_TILESET_PATH + "grass.png");
     std::shared_ptr<sf::Texture> pbank1 = ResourceManager::acquireTexture(ASSETS_TILESET_PATH + "bank1.png");
     std::shared_ptr<sf::Texture> pbank2 = ResourceManager::acquireTexture(ASSETS_TILESET_PATH + "bank2.png");
@@ -36,8 +37,23 @@ void World_Scene::initData(){
     std::shared_ptr<sf::Texture> pbank10 = ResourceManager::acquireTexture(ASSETS_TILESET_PATH + "bank10.png");
     std::shared_ptr<sf::Texture> pbank11 = ResourceManager::acquireTexture(ASSETS_TILESET_PATH + "bank11.png");
     std::shared_ptr<sf::Texture> pbank12 = ResourceManager::acquireTexture(ASSETS_TILESET_PATH + "bank12.png");
+    std::shared_ptr<sf::Texture> pforest1 = ResourceManager::acquireTexture(ASSETS_TILESET_PATH + "forest1.png");
+    std::shared_ptr<sf::Texture> pforest2 = ResourceManager::acquireTexture(ASSETS_TILESET_PATH + "forest2.png");
+    std::shared_ptr<sf::Texture> pforest3 = ResourceManager::acquireTexture(ASSETS_TILESET_PATH + "forest3.png");
+    std::shared_ptr<sf::Texture> pforest4 = ResourceManager::acquireTexture(ASSETS_TILESET_PATH + "forest4.png");
+    std::shared_ptr<sf::Texture> pforest5 = ResourceManager::acquireTexture(ASSETS_TILESET_PATH + "forest5.png");
+    std::shared_ptr<sf::Texture> pforest6 = ResourceManager::acquireTexture(ASSETS_TILESET_PATH + "forest6.png");
+    std::shared_ptr<sf::Texture> pforest7 = ResourceManager::acquireTexture(ASSETS_TILESET_PATH + "forest7.png");
+    std::shared_ptr<sf::Texture> pforest8 = ResourceManager::acquireTexture(ASSETS_TILESET_PATH + "forest8.png");
+    std::shared_ptr<sf::Texture> pforest9 = ResourceManager::acquireTexture(ASSETS_TILESET_PATH + "forest9.png");
+    std::shared_ptr<sf::Texture> pforest10 = ResourceManager::acquireTexture(ASSETS_TILESET_PATH + "forest10.png");
+    std::shared_ptr<sf::Texture> pforest11 = ResourceManager::acquireTexture(ASSETS_TILESET_PATH + "forest11.png");
+    std::shared_ptr<sf::Texture> pforest12 = ResourceManager::acquireTexture(ASSETS_TILESET_PATH + "forest12.png");
+    std::shared_ptr<sf::Texture> pforest13 = ResourceManager::acquireTexture(ASSETS_TILESET_PATH + "forest13.png");
     std::shared_ptr<sf::Texture> pwater = ResourceManager::acquireTexture(ASSETS_TILESET_PATH + "water.png");
     
+    background_sprite.setTexture(*background);
+    background_sprite.setPosition(-300,-300);
     m_mapeditor = new TileMapEditor();
     testmap = new Tilemap(m_mapeditor->getMap());
     testmap->addTerrain(pdirt,true);
@@ -53,7 +69,22 @@ void World_Scene::initData(){
     testmap->addTerrain(pbank10, true);
     testmap->addTerrain(pbank11, true);
     testmap->addTerrain(pbank12, true);
+    //
+    testmap->addTerrain(pforest1, true);
+    testmap->addTerrain(pforest2, true);
+    testmap->addTerrain(pforest3, true);
+    testmap->addTerrain(pforest4, true);
+    testmap->addTerrain(pforest5, true);
+    testmap->addTerrain(pforest6, true);
+    testmap->addTerrain(pforest7, true);
+    testmap->addTerrain(pforest8, true);
+    testmap->addTerrain(pforest9, true);
+    testmap->addTerrain(pforest10, true);
+    testmap->addTerrain(pforest11, true);
+    testmap->addTerrain(pforest12, true);
+    testmap->addTerrain(pforest13, true);
     testmap->addTerrain(pwater, true);
+    
     testmap->initMap();
     m_mapeditor->loadMap();
     std::cout<<"SIZE_TEXTURE_PTR"<<testmap->m_terrainPtr.size()<<"\n";
@@ -71,6 +102,8 @@ int World_Scene::processEvents(TimeStep deltatime)
 void World_Scene::draw(TimeStep deltatime)
 {
     m_Engine_ref->m_window->clear(sf::Color::White);
+    m_Engine_ref->m_window->draw(background_sprite);
+    //background_sprite.
     sf::Texture text;
     //text.loadFromFile(ASSETS_PATH+"testback.png");
     //sf::Sprite background;

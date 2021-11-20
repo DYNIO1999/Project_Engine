@@ -1,5 +1,5 @@
 #pragma once
-static const int TILE_MAP_SIZE =25;
+static const int TILE_MAP_SIZE =20;
 enum TERRAIN_TYPES
 {
     GRASS_TILE,
@@ -15,6 +15,19 @@ enum TERRAIN_TYPES
     BANK_TILE_10,
     BANK_TILE_11,
     BANK_TILE_12,
+    FOREST_TILE_1,
+    FOREST_TILE_2,
+    FOREST_TILE_3,
+    FOREST_TILE_4,
+    FOREST_TILE_5,
+    FOREST_TILE_6,
+    FOREST_TILE_7,
+    FOREST_TILE_8,
+    FOREST_TILE_9,
+    FOREST_TILE_10,
+    FOREST_TILE_11,
+    FOREST_TILE_12,
+    FOREST_TILE_13,
     WATER_TILE,
     NUMBER_OF_TILES,
 };

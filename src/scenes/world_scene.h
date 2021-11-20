@@ -20,6 +20,7 @@ private:
     InputHandler* m_inputhandler;
     EntityList* m_entitesPtr;
     TileMapEditor* m_mapeditor;
+    sf::Sprite background_sprite;
     
     void initData();
     void input();
