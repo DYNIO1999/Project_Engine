@@ -1,4 +1,5 @@
 #pragma once
+static const int TILE_MAP_SIZE =25;
 enum TERRAIN_TYPES
 {
     GRASS_TILE,

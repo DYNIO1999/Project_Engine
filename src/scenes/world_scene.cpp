@@ -55,6 +55,7 @@ void World_Scene::initData(){
     testmap->addTerrain(pbank12, true);
     testmap->addTerrain(pwater, true);
     testmap->initMap();
+    m_mapeditor->loadMap();
     std::cout<<"SIZE_TEXTURE_PTR"<<testmap->m_terrainPtr.size()<<"\n";
     std::cout<<"SIZE_TILES_SIZE"<<testmap->m_tiles.size()<<"\n";
     

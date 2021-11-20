@@ -19,8 +19,8 @@ public:
     void initMap(){
         float temp_width =50;
         float temp_height =50;
-	    for (int i = 0; i < 25; i++){
-		    for (int j = 0; j < 25; j++) {
+	    for (int i = 0; i < TILE_MAP_SIZE; i++){
+		    for (int j = 0; j < TILE_MAP_SIZE; j++) {
 			    if (m_map[i][j] == GRASS_TILE) {
                     Tile temp(sf::Vector2f(j * temp_width, i * temp_height), sf::Vector2f(temp_width, temp_height), m_terrainPtr[GRASS_TILE]);
                     temp.m_gridPos = sf::Vector2i(j,i);
@@ -180,10 +180,10 @@ public:
     {
         for (int i = 0; i < ((int)m_tiles.size()); i++)
         {
-            if ((m_tiles[i].m_pos.x >= (gameView.getCenter().x - gameView.getSize().x / 2 )) &&
-                (m_tiles[i].m_pos.x <= (gameView.getCenter().x + gameView.getSize().x / 2-100 )) && 
-                (m_tiles[i].m_pos.y >= (gameView.getCenter().y - gameView.getSize().y / 2 )) &&
-                (m_tiles[i].m_pos.y <= (gameView.getCenter().y + gameView.getSize().y / 2 -100 )))
+            if ((m_tiles[i].m_pos.x >= (gameView.getCenter().x - gameView.getSize().x / 2 -50)) &&
+                (m_tiles[i].m_pos.x <= (gameView.getCenter().x + gameView.getSize().x / 2+50)) && 
+                (m_tiles[i].m_pos.y >= (gameView.getCenter().y - gameView.getSize().y / 2 - 50)) &&
+                (m_tiles[i].m_pos.y <= (gameView.getCenter().y + gameView.getSize().y / 2 +50 )))
             {
                 //std::cout<<"Tile pos"<<m_tiles[i].m_pos.x<<'\n';
                 //std::cout<<"CAMERA SIZE1"<<gameView.getCenter().x - gameView.getSize().x/2<<'\n';
