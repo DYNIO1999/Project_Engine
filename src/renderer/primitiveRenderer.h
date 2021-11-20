@@ -40,6 +40,7 @@ public:
         m_primitves.erase(m_primitves.find(key));
     }
     void cleanUp(){
+        std::cout<<"CLEARING PRIMITVES DATA"<<'\n';
         PrintObjects();
         for (auto it = m_primitves.begin(); it != m_primitves.end(); it++)
         {

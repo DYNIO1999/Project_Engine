@@ -38,7 +38,7 @@ public:
         }
         return notColliding == false;
     }
-    /*
+   /* 
     bool will_touch_top(BoxCollider &other, float vel){
 
     }
@@ -50,8 +50,7 @@ public:
     }
     bool will_touch_right(BoxCollider &other, float vel){
 
-    }
-    */
+    }*/
     void move(float x, float y)
     {
         m_left += x;

@@ -12,9 +12,7 @@ public:
         this->m_Engine_ref = engine_ref; 
         initData();
     }
-    ~Engine_Demo() {
-
-    }
+    ~Engine_Demo();
 
     int processEvents(TimeStep deltatime);
     void draw(TimeStep deltatime);

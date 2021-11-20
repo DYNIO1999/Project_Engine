@@ -21,6 +21,8 @@ public:
         m_townShape.setOutlineColor(sf::Color::Magenta);
         m_townSprite.setTexture(*m_pTexture);
         m_townSprite.setPosition(m_pos);
+        BoxCollider temp(m_pos.x, m_pos.y, m_size.x, m_size.y);
+        m_colisionBox = temp;
     }
     ~Town(){
 

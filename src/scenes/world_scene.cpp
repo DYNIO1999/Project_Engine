@@ -2,6 +2,7 @@
 #include "world_scene.h"
 #include "../objects/player.h"
 #include "../objects/town.h"
+#include "../scenes/engine_demo.h"
 
 World_Scene::World_Scene(Engine *engine_ref)
 {
@@ -19,13 +20,16 @@ World_Scene::~World_Scene(){
 
 void World_Scene::initData(){
     std::shared_ptr<sf::Texture> pPlayerTexture = ResourceManager::acquireTexture(ASSETS_PATH + "token_player.png");
-    m_entitesPtr->addEntity("PLAYER", new Player(pPlayerTexture, sf::Vector2f(100, 100), sf::Vector2f(50, 50),m_Engine_ref));
+    m_entitesPtr->addEntity("PLAYER", new Player(pPlayerTexture, sf::Vector2f(100, 100), sf::Vector2f(40, 40),m_Engine_ref));
     if (pPlayerTexture != nullptr)
     {
         m_entitesPtr->getObject("PLAYER")->setTexture(pPlayerTexture);
     }
     std::shared_ptr<sf::Texture> ptownTexture = ResourceManager::acquireTexture(ASSETS_PATH + "token_player.png");
-    m_entitesPtr->addEntity("TOWN", new Town(ptownTexture, sf::Vector2f(100, 100), sf::Vector2f(50, 50)));
+    m_entitesPtr->addEntity("TOWN1", new Town(ptownTexture, sf::Vector2f(100, 100), sf::Vector2f(50, 50)));
+    m_entitesPtr->addEntity("TOWN2", new Town(ptownTexture, sf::Vector2f(200, 100), sf::Vector2f(50, 50)));
+    m_entitesPtr->addEntity("TOWN3", new Town(ptownTexture, sf::Vector2f(200, 100), sf::Vector2f(50, 50)));
+    
 
     std::shared_ptr<sf::Texture> background = ResourceManager::acquireTexture(ASSETS_PATH + "testback.png");
     std::shared_ptr<sf::Texture> pdirt = ResourceManager::acquireTexture(ASSETS_TILESET_PATH + "grass.png");
@@ -99,8 +103,28 @@ void World_Scene::initData(){
 
 int World_Scene::processEvents(TimeStep deltatime)
 {
+
     m_entitesPtr->processEvents(deltatime);
     testmap->checkCollisionTilemap(*m_entitesPtr->getObject("PLAYER"));
+    std::string town = "TOWN";
+    for(int i=1;i<=3;i++){
+        std::string temp =town + std::to_string(i);
+        if(m_entitesPtr->getObject(temp)->getBoxCollider().intersects(m_entitesPtr->getObject("PLAYER")->getBoxCollider())){
+            std::cout<<"Here"<<'\n';
+            sf::Vector2f moveplayer = m_entitesPtr->getObject("PLAYER")->getBoxCollider().resolve_collision_rect(m_entitesPtr->getObject(temp)->getBoxCollider());
+            if(moveplayer.y==0){
+                moveplayer.x = moveplayer.x+50;
+            }
+            else if (moveplayer.x ==0)
+            {
+                moveplayer.y = moveplayer.y+50;
+            }
+            m_entitesPtr->getObject("PLAYER")->setPosition(m_entitesPtr->getObject("PLAYER")->getPos() + moveplayer);
+            m_Engine_ref->m_scene_manager->pushScene(new Engine_Demo(m_Engine_ref));
+            return 1;
+        }
+    }
+    //
     testmap->processEvents(m_mapeditor->getMap());
     return 0;
 }

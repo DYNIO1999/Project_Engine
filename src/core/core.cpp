@@ -58,7 +58,6 @@ else if (m_engine_config.getEngineMode() == ENGINE_GAME)
 }
 
 void Engine::proccessEvents(TimeStep deltatime){
-
     while (m_window->pollEvent(event))
     {
         
@@ -83,13 +82,23 @@ void Engine::proccessEvents(TimeStep deltatime){
             changeWinSize(1000, 1000);
             }
         }
+        if(!m_scene_manager->m_Scene_Stack.empty()){
         m_scene_manager->inputScene();
+        }
     }
+    if (m_scene_manager->m_Scene_Stack.empty())
+    {
+        m_window->close();
+    }
+    if(!m_scene_manager->m_Scene_Stack.empty()){
     m_scene_manager->processScene();
+    }
 }
 void Engine::draw(TimeStep deltatime)
 {
+    if(!m_scene_manager->m_Scene_Stack.empty()){
     m_scene_manager->drawScene();
+    }
     m_window->display();
 }
 

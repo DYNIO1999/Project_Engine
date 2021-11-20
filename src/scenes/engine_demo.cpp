@@ -4,6 +4,9 @@
 #include "../resource/resource_manager.h"
 #include <string>
 
+Engine_Demo::~Engine_Demo(){
+    m_Engine_ref->m_primitives_render->cleanUp();
+}
 int Engine_Demo::processEvents(TimeStep deltatime) 
 {
     return 0;
@@ -16,6 +19,10 @@ void Engine_Demo::draw(TimeStep deltatime)
     ImGui::Begin("Hello, world!"); //
 
     ImGui::Text("This is some useful text.");
+    if (ImGui::Button("Close Demo"))
+    {
+        m_Engine_ref->m_scene_manager->popScene();
+    }
 
     /* if (ImGui::Button("Button")){
         counter++;
@@ -102,7 +109,9 @@ void Engine_Demo::initData()
         m_Engine_ref->m_entity_manager->getObject("PLAYER")->setTexture(pPlayerTexture);
     }
     ResourceManager::cleanUpOrphans();*/
-
+    sf::View temp = m_Engine_ref->m_window->getView();
+    temp.zoom(1.0f);
+    m_Engine_ref->m_window->setView(temp);
     m_Engine_ref->m_primitives_render->addPrimitive("RECT", new Primitive(PRIMITIVE_QUAD, sf::Vector2f(500, 500), sf::Vector2f(100, 100), sf::Color::Yellow));
     m_Engine_ref->m_primitives_render->addPrimitive("TRIANGLE", new Primitive(PRIMITIVE_TRIANGLE, sf::Vector2f(200, 300), sf::Vector2f(100, 100), sf::Color::Red));
     m_Engine_ref->m_primitives_render->addPrimitive("CIRCLE", new Primitive(PRIMITIVE_CIRCLE, sf::Vector2f(500, 500), 50, sf::Color::Magenta, CIRCLE_DEFAULT_ALGORITHM));

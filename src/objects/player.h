@@ -65,6 +65,7 @@ public:
         m_playerSprite.setPosition(m_pos);
         m_colisionBox.setPos(m_pos);
         m_playerShape.setSize(m_size);
+        //std::cout << m_playerCamera.getCenter().x - m_playerCamera.getSize().x / 4 << '\n';
         if (m_movestate == MOVE_UP)
         {
             m_playerCamera.move(sf::Vector2f(0, -(m_velocity * dt.m_time)));
@@ -81,6 +82,7 @@ public:
         {
             m_playerCamera.move(sf::Vector2f(m_velocity * dt.m_time, 0.0));
         }
+        
         m_enginePtr->m_window->setView(m_playerCamera);
         //m_playerAnimation->Update(0, dt);
         //m_playerSprite.setTextureRect(m_playerAnimation->m_textureRect);
@@ -103,6 +105,7 @@ public:
     void setPosition(sf::Vector2f pos){
         m_pos=pos;
         m_playerCamera.setCenter(m_pos.x,m_pos.y);
+        m_colisionBox.setPos(m_pos);
     }
     void setScale(float scale){
         m_scale=scale;
