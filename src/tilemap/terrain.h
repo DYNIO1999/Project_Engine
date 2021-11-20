@@ -15,6 +15,9 @@ public:
     ~Terrain(){
 
     }
+    bool isPassable(){
+        return m_isPassable;
+    }
     std::shared_ptr<sf::Texture> getTexture(){
         return m_texturePtr;
     }

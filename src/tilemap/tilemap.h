@@ -3,6 +3,7 @@
 #include "tiletypes.h"
 #include <vector>
 #include <iostream>
+#include "../objects/object.h"
 class Tilemap
 {
 public:
@@ -306,6 +307,17 @@ public:
     void processEvents(std::vector<std::vector<int>>& map){
         m_map = map;
         updateTileMap();
+    }
+    void checkCollisionTilemap(Object& obj){
+
+        for(auto it = m_tiles.begin();it<m_tiles.end();it++){
+            if(!it->m_terrainPtr->isPassable()){
+                if(obj.getBoxCollider().intersects(it->m_colisionBox)){
+                sf::Vector2f temp = obj.getBoxCollider().resolve_collision_rect(it->m_colisionBox);
+                obj.setPosition(obj.getPos() + temp);
+                }
+            }
+        }
     }
     void draw(sf::RenderWindow &win_ref, const sf::View &gameView)
     {

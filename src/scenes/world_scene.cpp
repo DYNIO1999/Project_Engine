@@ -1,6 +1,7 @@
 #include "../core/core.h"
 #include "world_scene.h"
 #include "../objects/player.h"
+#include "../objects/town.h"
 
 World_Scene::World_Scene(Engine *engine_ref)
 {
@@ -17,12 +18,15 @@ World_Scene::~World_Scene(){
 }
 
 void World_Scene::initData(){
-    std::shared_ptr<sf::Texture> pPlayerTexture = ResourceManager::acquireTexture(ASSETS_PATH + "player_attack1.png");
+    std::shared_ptr<sf::Texture> pPlayerTexture = ResourceManager::acquireTexture(ASSETS_PATH + "token_player.png");
     m_entitesPtr->addEntity("PLAYER", new Player(pPlayerTexture, sf::Vector2f(100, 100), sf::Vector2f(50, 50),m_Engine_ref));
     if (pPlayerTexture != nullptr)
     {
         m_entitesPtr->getObject("PLAYER")->setTexture(pPlayerTexture);
     }
+    std::shared_ptr<sf::Texture> ptownTexture = ResourceManager::acquireTexture(ASSETS_PATH + "token_player.png");
+    m_entitesPtr->addEntity("TOWN", new Town(ptownTexture, sf::Vector2f(100, 100), sf::Vector2f(50, 50)));
+
     std::shared_ptr<sf::Texture> background = ResourceManager::acquireTexture(ASSETS_PATH + "testback.png");
     std::shared_ptr<sf::Texture> pdirt = ResourceManager::acquireTexture(ASSETS_TILESET_PATH + "grass.png");
     std::shared_ptr<sf::Texture> pbank1 = ResourceManager::acquireTexture(ASSETS_TILESET_PATH + "bank1.png");
@@ -57,18 +61,18 @@ void World_Scene::initData(){
     m_mapeditor = new TileMapEditor();
     testmap = new Tilemap(m_mapeditor->getMap());
     testmap->addTerrain(pdirt,true);
-    testmap->addTerrain(pbank1, true);
-    testmap->addTerrain(pbank2, true);
-    testmap->addTerrain(pbank3, true);
-    testmap->addTerrain(pbank4, true);
-    testmap->addTerrain(pbank5, true);
-    testmap->addTerrain(pbank6, true);
-    testmap->addTerrain(pbank7, true);
-    testmap->addTerrain(pbank8, true);
-    testmap->addTerrain(pbank9, true);
-    testmap->addTerrain(pbank10, true);
-    testmap->addTerrain(pbank11, true);
-    testmap->addTerrain(pbank12, true);
+    testmap->addTerrain(pbank1, false);
+    testmap->addTerrain(pbank2, false);
+    testmap->addTerrain(pbank3, false);
+    testmap->addTerrain(pbank4, false);
+    testmap->addTerrain(pbank5, false);
+    testmap->addTerrain(pbank6, false);
+    testmap->addTerrain(pbank7, false);
+    testmap->addTerrain(pbank8, false);
+    testmap->addTerrain(pbank9, false);
+    testmap->addTerrain(pbank10, false);
+    testmap->addTerrain(pbank11, false);
+    testmap->addTerrain(pbank12, false);
     //
     testmap->addTerrain(pforest1, true);
     testmap->addTerrain(pforest2, true);
@@ -83,7 +87,7 @@ void World_Scene::initData(){
     testmap->addTerrain(pforest11, true);
     testmap->addTerrain(pforest12, true);
     testmap->addTerrain(pforest13, true);
-    testmap->addTerrain(pwater, true);
+    testmap->addTerrain(pwater, false);
     
     testmap->initMap();
     m_mapeditor->loadMap();
@@ -96,6 +100,7 @@ void World_Scene::initData(){
 int World_Scene::processEvents(TimeStep deltatime)
 {
     m_entitesPtr->processEvents(deltatime);
+    testmap->checkCollisionTilemap(*m_entitesPtr->getObject("PLAYER"));
     testmap->processEvents(m_mapeditor->getMap());
     return 0;
 }

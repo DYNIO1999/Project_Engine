@@ -7,6 +7,7 @@
 #include "../input/command.h"
 #include "../tilemap/tilemap.h"
 #include "../tilemap/tilemapeditor.h"
+#include "../collision/boxcollider.h"
 class World_Scene:public Scene{
 
 public:

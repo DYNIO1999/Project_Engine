@@ -4,6 +4,7 @@
 #include "../core/timestep.h"
 #include "objectstates.h"
 #include "../transforms/transforms.h"
+#include "../collision/boxcollider.h"
 #include <memory>
 //#include "../core/core.h"
 //#include "../animation/animation.h"
@@ -82,8 +83,11 @@ class Object{
     virtual void setMoveState(int state){
 
     }
-
+    virtual BoxCollider& getBoxCollider(){
+        return m_colisionBox;
+    }
     protected:
+    BoxCollider m_colisionBox;
     Transforms m_transform; 
     int m_type;
     sf::Vector2f m_pos;

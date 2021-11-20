@@ -24,7 +24,7 @@ public:
         m_size = size;
         m_movestate = NO_INPUT;
         m_pTexture=texturePtr;
-        m_velocity = 500.0f;
+        m_velocity = 300.0f;
         m_playerShape.setPosition(m_pos);
         m_playerShape.setSize(m_size);
         m_playerShape.setFillColor(sf::Color::Transparent);
@@ -33,11 +33,13 @@ public:
         m_playerShape.setOutlineColor(sf::Color::Magenta);
         m_playerSprite.setTexture(*m_pTexture);
         m_playerSprite.setPosition(m_pos);
-        m_playerSprite.setScale(2,2);
+        //m_playerSprite.setScale(2,2);
         m_playerCamera.setCenter(sf::Vector2f((((float)m_enginePtr->m_window->getSize().x) / 2.0), ((float)m_enginePtr->m_window->getSize().y) / 2.0));
         m_playerCamera.setSize(sf::Vector2f(m_enginePtr->m_window->getSize().x, m_enginePtr->m_window->getSize().y));
         m_playerCamera.zoom(0.5);
-        m_playerAnimation = new Animation(m_pTexture, sf::Vector2u(4, 1), 0.1f);
+        BoxCollider temp(m_pos.x,m_pos.y,m_size.x,m_size.y);
+        m_colisionBox = temp;
+        //m_playerAnimation = new Animation(m_pTexture, sf::Vector2u(4, 1), 0.1f);
         //m_playerCamera.zoom(0.5f);
     }
     ~Player(){
@@ -61,6 +63,7 @@ public:
         }
         m_playerShape.setPosition(m_pos);
         m_playerSprite.setPosition(m_pos);
+        m_colisionBox.setPos(m_pos);
         m_playerShape.setSize(m_size);
         if (m_movestate == MOVE_UP)
         {
@@ -79,8 +82,8 @@ public:
             m_playerCamera.move(sf::Vector2f(m_velocity * dt.m_time, 0.0));
         }
         m_enginePtr->m_window->setView(m_playerCamera);
-        m_playerAnimation->Update(0, dt);
-        m_playerSprite.setTextureRect(m_playerAnimation->m_textureRect);
+        //m_playerAnimation->Update(0, dt);
+        //m_playerSprite.setTextureRect(m_playerAnimation->m_textureRect);
         //std::cout << "PLAYER COLLID BOX POS" << m_pos.x << m_pos.y<< '\n';
         //std::cout << "TEXTURE SIZE" <<m_playerAnimation->m_textureRect.width<< '\n';
 
@@ -99,6 +102,7 @@ public:
     }
     void setPosition(sf::Vector2f pos){
         m_pos=pos;
+        m_playerCamera.setCenter(m_pos.x,m_pos.y);
     }
     void setScale(float scale){
         m_scale=scale;
@@ -128,7 +132,10 @@ public:
     sf::View getCamera(){
         return m_playerCamera;
     }
-
+    BoxCollider &getBoxCollider()
+    {
+        return m_colisionBox;
+    }
     public:
     Animation* m_playerAnimation;
     sf::RectangleShape m_playerShape;

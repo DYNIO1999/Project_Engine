@@ -1,11 +1,12 @@
 #pragma once
 #include "terrain.h"
-
+#include "../collision/boxcollider.h"
 class Tile
 {
 private:
 
 public:
+    BoxCollider m_colisionBox;
     sf::VertexArray m_vertex;
     sf::Vector2f m_pos;
     sf::Vector2f m_size;
@@ -27,6 +28,8 @@ public:
         m_vertex[1].texCoords = sf::Vector2f(50, 1);
         m_vertex[2].texCoords = sf::Vector2f(50, 50);
         m_vertex[3].texCoords = sf::Vector2f(1, 50);
+        BoxCollider temp(m_pos.x, m_pos.y, m_size.x, m_size.y);
+        m_colisionBox=temp; 
     }
     void updateTerrain(Terrain *terrain)
     {
