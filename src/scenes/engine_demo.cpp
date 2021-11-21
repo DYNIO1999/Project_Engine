@@ -15,7 +15,6 @@ void Engine_Demo::draw(TimeStep deltatime)
 {
     m_Engine_ref->m_window->clear(sf::Color::White);
     sf::Time test;
-    ImGui::SFML::Update((*m_Engine_ref->m_window), m_Engine_ref->m_engineClock.restart());
     ImGui::Begin("Hello, world!"); //
 
     ImGui::Text("This is some useful text.");
@@ -96,7 +95,6 @@ void Engine_Demo::draw(TimeStep deltatime)
     */
     //###BitmapEndTesting
     m_Engine_ref->m_primitives_render->draw(*m_Engine_ref->m_window);
-    ImGui::SFML::Render(*m_Engine_ref->m_window);
 };
 
 void Engine_Demo::initData()

@@ -2,8 +2,7 @@
 #include "world_scene.h"
 #include "../objects/player.h"
 #include "../objects/town.h"
-#include "../scenes/engine_demo.h"
-
+#include "../scenes/town_scene.h"
 World_Scene::World_Scene(Engine *engine_ref)
 {
     this->m_Engine_ref = engine_ref;
@@ -12,6 +11,7 @@ World_Scene::World_Scene(Engine *engine_ref)
     initData();
 }
 World_Scene::~World_Scene(){
+    cleanupData();
     delete testmap;
     delete m_entitesPtr;
     delete m_inputhandler;
@@ -25,13 +25,12 @@ void World_Scene::initData(){
     {
         m_entitesPtr->getObject("PLAYER")->setTexture(pPlayerTexture);
     }
-    std::shared_ptr<sf::Texture> ptownTexture = ResourceManager::acquireTexture(ASSETS_PATH + "token_player.png");
-    m_entitesPtr->addEntity("TOWN1", new Town(ptownTexture, sf::Vector2f(100, 100), sf::Vector2f(50, 50)));
-    m_entitesPtr->addEntity("TOWN2", new Town(ptownTexture, sf::Vector2f(200, 100), sf::Vector2f(50, 50)));
-    m_entitesPtr->addEntity("TOWN3", new Town(ptownTexture, sf::Vector2f(200, 100), sf::Vector2f(50, 50)));
-    
+    std::shared_ptr<sf::Texture> ptownTexture = ResourceManager::acquireTexture(ASSETS_PATH + "town.png");
+    m_entitesPtr->addEntity("TOWN1", new Town(ptownTexture, sf::Vector2f(100, 100), sf::Vector2f(100, 100)));
+    m_entitesPtr->addEntity("TOWN2", new Town(ptownTexture, sf::Vector2f(200, 100), sf::Vector2f(100, 100)));
+    m_entitesPtr->addEntity("TOWN3", new Town(ptownTexture, sf::Vector2f(200, 100), sf::Vector2f(100, 100)));
 
-    std::shared_ptr<sf::Texture> background = ResourceManager::acquireTexture(ASSETS_PATH + "testback.png");
+    std::shared_ptr<sf::Texture> background = ResourceManager::acquireTexture(ASSETS_TILESET_PATH + "water.png");
     std::shared_ptr<sf::Texture> pdirt = ResourceManager::acquireTexture(ASSETS_TILESET_PATH + "grass.png");
     std::shared_ptr<sf::Texture> pbank1 = ResourceManager::acquireTexture(ASSETS_TILESET_PATH + "bank1.png");
     std::shared_ptr<sf::Texture> pbank2 = ResourceManager::acquireTexture(ASSETS_TILESET_PATH + "bank2.png");
@@ -61,7 +60,8 @@ void World_Scene::initData(){
     std::shared_ptr<sf::Texture> pwater = ResourceManager::acquireTexture(ASSETS_TILESET_PATH + "water.png");
     
     background_sprite.setTexture(*background);
-    background_sprite.setPosition(-300,-300);
+    background_sprite.setScale(sf::Vector2f(50,50));
+    background_sprite.setPosition(-500,-500);
     m_mapeditor = new TileMapEditor();
     testmap = new Tilemap(m_mapeditor->getMap());
     testmap->addTerrain(pdirt,true);
@@ -107,10 +107,9 @@ int World_Scene::processEvents(TimeStep deltatime)
     m_entitesPtr->processEvents(deltatime);
     testmap->checkCollisionTilemap(*m_entitesPtr->getObject("PLAYER"));
     std::string town = "TOWN";
-    for(int i=1;i<=3;i++){
+    for(int i=1;i<=2;i++){
         std::string temp =town + std::to_string(i);
         if(m_entitesPtr->getObject(temp)->getBoxCollider().intersects(m_entitesPtr->getObject("PLAYER")->getBoxCollider())){
-            std::cout<<"Here"<<'\n';
             sf::Vector2f moveplayer = m_entitesPtr->getObject("PLAYER")->getBoxCollider().resolve_collision_rect(m_entitesPtr->getObject(temp)->getBoxCollider());
             if(moveplayer.y==0){
                 moveplayer.x = moveplayer.x+50;
@@ -120,7 +119,7 @@ int World_Scene::processEvents(TimeStep deltatime)
                 moveplayer.y = moveplayer.y+50;
             }
             m_entitesPtr->getObject("PLAYER")->setPosition(m_entitesPtr->getObject("PLAYER")->getPos() + moveplayer);
-            m_Engine_ref->m_scene_manager->pushScene(new Engine_Demo(m_Engine_ref));
+            m_Engine_ref->m_scene_manager->pushScene(new Town_Scene(m_Engine_ref));
             return 1;
         }
     }
@@ -141,11 +140,11 @@ void World_Scene::draw(TimeStep deltatime)
     //m_Engine_ref->m_window->draw(background);
     testmap->draw(*m_Engine_ref->m_window, m_Engine_ref->m_window->getView());
     m_entitesPtr->draw((*m_Engine_ref->m_window));
-    m_mapeditor->drawTileSelector(*m_Engine_ref->m_window);
+    //m_mapeditor->drawTileSelector(*m_Engine_ref->m_window);
 }
 void World_Scene::input(){
-    m_mapeditor->editInput(m_Engine_ref->event);
-    m_mapeditor->editMap(*m_Engine_ref->m_window);
+    //m_mapeditor->editInput(m_Engine_ref->event);
+    //m_mapeditor->editMap(*m_Engine_ref->m_window);
     Command *recvCommand = m_inputhandler->handleInput();
     if (recvCommand)
     {
@@ -153,5 +152,5 @@ void World_Scene::input(){
     }
 }
 void World_Scene::cleanupData(){
-
+    m_entitesPtr->cleanUp();
 }

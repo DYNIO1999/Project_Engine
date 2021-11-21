@@ -43,7 +43,8 @@ public:
         //m_playerCamera.zoom(0.5f);
     }
     ~Player(){
-        delete m_playerAnimation;
+        //delete m_playerAnimation;
+
     }
     int processEvents(TimeStep dt){
         if(m_movestate == MOVE_UP){

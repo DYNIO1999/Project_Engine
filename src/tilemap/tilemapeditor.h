@@ -28,6 +28,8 @@ public:
         }
         m_pressed_button_left = false;
         m_pressed_button_right = false;
+        m_mousestate=0;
+        
     }
 
     ~TileMapEditor(){
@@ -50,7 +52,6 @@ public:
         if (event.type == sf::Event::MouseWheelMoved)
         {
             m_pressed_button_left = true;
-            std::cout << event.mouseWheel.delta << "\n";
         }
     
     }
@@ -143,5 +144,6 @@ public:
     float m_gridSize;
     bool m_pressed_button_left;
     bool m_pressed_button_right;
+    int m_mousestate;
 };
 

@@ -31,8 +31,11 @@ public:
 
 
     void cleanUp(){
+        std::cout<<"Cleaning data of entities"<<'\n';
+
         for(auto it = m_entities.begin();it!=m_entities.end();it++){
-            delete(it->second);
+            std::cout<<it->first<<'\n';
+            delete it->second;
         }
         m_entities.clear();
     }

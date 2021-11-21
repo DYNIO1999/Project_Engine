@@ -37,7 +37,9 @@ void SceneManager::processScene()
 }
 void SceneManager::drawScene()
 {
+    ImGui::SFML::Update((*m_Engine_ref->m_window), m_Engine_ref->m_engineClock.restart());
     m_Scene_Stack.back()->draw(m_Engine_ref->getDeltaTime());
+    ImGui::SFML::Render(*m_Engine_ref->m_window);
 }
 void SceneManager::inputScene(){
     m_Scene_Stack.back()->input();

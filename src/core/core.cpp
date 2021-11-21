@@ -58,6 +58,7 @@ else if (m_engine_config.getEngineMode() == ENGINE_GAME)
 }
 
 void Engine::proccessEvents(TimeStep deltatime){
+    //std::cout<<m_scene_manager->m_Scene_Stack.size()<<'\n';
     while (m_window->pollEvent(event))
     {
         

@@ -18,26 +18,29 @@ int Town_Scene::processEvents(TimeStep deltatime)
 }
 void Town_Scene::draw(TimeStep deltatime)
 {
-    /*ImGui::SFML::Update((*m_Engine_ref->m_window), m_Engine_ref->m_engineClock.restart());
+    m_Engine_ref->m_window->clear(sf::Color::White);
+    sf::Clock testclock;
+    //ImGui::SFML::Update((*m_Engine_ref->m_window), m_Engine_ref->m_engineClock.restart());
     ImGui::Begin("Welcome Town_Scene");
     if (ImGui::Button("Close Town scene"))
     {
         m_Engine_ref->m_scene_manager->popScene();
+        ImGui::End();
+        return;
     }
     ImGui::End();
     m_Engine_ref->m_window->draw(background_sprite);
-    ImGui::SFML::Render(*m_Engine_ref->m_window);*/
     m_entitesPtr->draw((*m_Engine_ref->m_window));
-    //m_Engine_ref->m_window->draw(background_sprite);
+    //ImGui::SFML::Render(*m_Engine_ref->m_window);
 }
 void Town_Scene::initData()
 {
     std::shared_ptr<sf::Texture> test = ResourceManager::acquireTexture(ASSETS_PATH + "dirt.png");
     background_sprite.setTexture(*test);
     background_sprite.setPosition(0,0);
-    ResourceManager::cleanUpOrphans();
+    //ResourceManager::cleanUpOrphans();
 }
 void Town_Scene::input()
 {
-    
+    //std::cout<<"Input time"<<'\n';
 }

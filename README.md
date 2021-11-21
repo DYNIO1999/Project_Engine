@@ -20,6 +20,7 @@ w tym celu darmowe źródła znalezione w Internecie.
   + dodawanie
 - Podzielic kod do inicjacji dla silnika i gry...
 
+
 ### GAME ###
 
 
@@ -30,17 +31,10 @@ w tym celu darmowe źródła znalezione w Internecie.
 
 - Sceny Gry
   + World Scena 
-    -Poruszanie i kolizja 
-  + Menu Gry
-  + World 
+  + Menu Gry 
   + Battle
   + Pause
-- Wstepna kolizja // BoxCollider
-- Ograniczona interakcja ze światem,
-
-- Lista obiektow na danej scenie oraz lista scen
-- JSON zapis/ wcyztanie podstawowego configu/opcji
-  + Kolizja postaci z mapa
+  
 - Przejście ze sceny świata do sceny walki,
   + Dodanie kilku wrogow
   + System walki 
