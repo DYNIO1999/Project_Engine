@@ -45,7 +45,6 @@ class ResourceManager{
         }
     }
     private:
-
-    static std::unordered_map<std::string,std::shared_ptr<sf::Texture>> m_texturesPtr;
+    static std::unordered_map<std::string, std::shared_ptr<sf::Texture>> m_texturesPtr;
     static std::unordered_map<std::string, std::shared_ptr<sf::Font>> m_fonts;
 };

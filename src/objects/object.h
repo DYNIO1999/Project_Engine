@@ -6,8 +6,6 @@
 #include "../transforms/transforms.h"
 #include "../collision/boxcollider.h"
 #include <memory>
-//#include "../core/core.h"
-//#include "../animation/animation.h"
 
 class Object{
     public:
