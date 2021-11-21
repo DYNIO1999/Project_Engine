@@ -46,29 +46,13 @@ public:
             }
         }
 
-        if (event.type == sf::Event::MouseButtonPressed)
-        {
-            if (event.mouseButton.button == sf::Mouse::Left)
-            {
-                m_pressed_button_left = true;
-            }
-        }
-        if (event.type == sf::Event::MouseButtonReleased)
-        {
-            m_pressed_button_left = false;
-        }
 
-        if (event.type == sf::Event::MouseButtonPressed)
+        if (event.type == sf::Event::MouseWheelMoved)
         {
-            if (event.mouseButton.button == sf::Mouse::Right)
-            {
-                m_pressed_button_right = true;
-            }
+            m_pressed_button_left = true;
+            std::cout << event.mouseWheel.delta << "\n";
         }
-        if (event.type == sf::Event::MouseButtonReleased)
-        {
-            m_pressed_button_right = false;
-        }
+    
     }
     void editMap(sf::RenderWindow& window){
         float end_x = TILE_MAP_SIZE * m_gridSize;
