@@ -3,7 +3,9 @@
 #include <iostream>
 #include <string>
 #include "../objects/primitive.h"
-
+/**  
+* Klasa PrimitiveRender przetzymuje obiekty typu primitve jako oddzielny kontener
+*/
 class PrimitiveRenderer
 {
 private:

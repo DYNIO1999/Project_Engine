@@ -20,7 +20,7 @@ World_Scene::~World_Scene(){
 
 void World_Scene::initData(){
     std::shared_ptr<sf::Texture> pPlayerTexture = ResourceManager::acquireTexture(ASSETS_PATH + "token_player.png");
-    m_entitesPtr->addEntity("PLAYER", new Player(pPlayerTexture, sf::Vector2f(100, 100), sf::Vector2f(40, 40),m_Engine_ref));
+    m_entitesPtr->addEntity("PLAYER", new Player(pPlayerTexture, sf::Vector2f(100, 100), sf::Vector2f(40, 40),m_Engine_ref,0));
     if (pPlayerTexture != nullptr)
     {
         m_entitesPtr->getObject("PLAYER")->setTexture(pPlayerTexture);

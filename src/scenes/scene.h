@@ -1,7 +1,12 @@
 #pragma once
 #include "../core/timestep.h"
+/**  
+* Pre-definicja klasy Engine
+*/
 class Engine;
-
+/**  
+* Klasa wirtualna czyli nadrzedna do scen
+*/
 class Scene{
 public:
     virtual ~Scene() {}

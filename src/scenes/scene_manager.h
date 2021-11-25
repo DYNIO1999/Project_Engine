@@ -4,10 +4,13 @@
 #include <iostream>
 #include "../core/timestep.h"
 
+/**  
+* Klasa SceneManager sluzy do obslugi scen naszej gry
+*/
 class SceneManager{
     
     public:
-    SceneManager(Engine* m_Engine_ref); //default
+    SceneManager(Engine* m_Engine_ref); 
     ~SceneManager();
     void changeScene(Scene* new_scene);
     void pushScene(Scene* new_scene);

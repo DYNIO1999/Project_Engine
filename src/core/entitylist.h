@@ -4,6 +4,9 @@
 #include "timestep.h"
 #include "../objects/object.h"
 
+/**  
+* Klasa odpowiadajaca za obiekty w grze
+*/
 class EntityList
 {
 private:
@@ -40,7 +43,9 @@ public:
         m_entities.clear();
     }
 
-
+    /**  
+    * Metoda aktualizujaca istniejace obiekty
+    */
     void processEvents(TimeStep dt){
         for (auto it = m_entities.begin(); it != m_entities.end(); it++)
         {
@@ -52,7 +57,9 @@ public:
             }
         }   
     }
-
+    /**  
+    * Metoda renderujaca obiekty
+    */
     void draw(sf::RenderWindow& win_ref){
         for (auto it = m_entities.begin(); it != m_entities.end(); it++)
         {

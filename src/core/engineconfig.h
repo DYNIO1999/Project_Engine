@@ -1,10 +1,17 @@
 #pragma once
 
-
+/**  
+* ENGINE_DEMO - silnik
+* ENGINE_GAME - gra 
+*/
 enum ENGINE_STATES{
     ENGINE_DEMO,
     ENGINE_GAME,
 };
+
+/**  
+* Klasa z danymi potrzebnymio do inicjacji okna i silniku
+*/
 class EngineConfig
 {
     public:
@@ -42,7 +49,6 @@ class EngineConfig
     }
 
     private:
-
     int m_engineMode;
     bool m_fullscreenAllowed;
     unsigned int m_windowWidth;

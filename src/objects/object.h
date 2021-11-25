@@ -7,6 +7,9 @@
 #include "../collision/boxcollider.h"
 #include <memory>
 
+/**  
+* Klasa nadrzedna z metodami wirtualnymi i czysto wirtualnymi sluz do osblugi obiektow
+*/
 class Object{
     public:
     

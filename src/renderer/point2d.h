@@ -1,5 +1,10 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+
+/**  
+* Klasa Poin2D przetrzymuje informacje o punkcie
+*/
+
 class Point2D
 {
 private:

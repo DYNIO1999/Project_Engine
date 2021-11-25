@@ -3,6 +3,9 @@
 #include <SFML/Graphics.hpp>
 #include <cmath>
 #include <math.h>
+/**  
+* Klasa Transforms sluzy do przeprowadzania prostych operacji na obiektach
+*/
 class Transforms
 {
 private:

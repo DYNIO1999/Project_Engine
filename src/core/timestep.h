@@ -1,5 +1,7 @@
 #pragma once
-//namespace DEngine{
+/**  
+* Klasa przetrzymujaca czas potrzebny do deltatime
+*/
 class TimeStep
 {
 private:
@@ -8,4 +10,3 @@ public:
     ~TimeStep(){};
     float m_time;
 };
-//};

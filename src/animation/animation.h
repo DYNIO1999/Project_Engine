@@ -2,11 +2,17 @@
 #include <SFML/Graphics.hpp>
 #include "../core/timestep.h"
 #include <memory>
+/**  
+* Klasa animacje sluzaca do tworzenia animacji
+*/
 class Animation
 {
 private:
 
 public:
+    /**  
+    * Konstruktor klasy animacji
+    */
     Animation(std::shared_ptr<sf::Texture> texture, sf::Vector2u imagecount, float switchtime)
     {
         m_imageCount =  imagecount;
@@ -19,6 +25,9 @@ public:
     ~Animation(){
         
     }
+    /**  
+    * Metoda aktualizujaca animacje
+    */
     void Update(int row, TimeStep dt){
         m_currentImage.y=row;
         m_totalTime = m_totalTime+dt.m_time;

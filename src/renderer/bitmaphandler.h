@@ -1,7 +1,9 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include <string>
-
+/**  
+* Klasa sluzy do tworzenia i zapisywania i przerowadzania prostych operacji na bitmapie
+*/
 class BitmapHandler
 {
 private:

@@ -1,7 +1,9 @@
 #pragma once 
 #include <SFML/Graphics.hpp>
 #include "command.h"
-
+/**  
+* Klasa zawiera obsluge inputu
+*/
 class InputHandler
 {
 private:

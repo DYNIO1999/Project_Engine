@@ -1,6 +1,10 @@
 #pragma once
 #include "point2d.h"
 #include "primitivetypes.h"
+
+/**  
+* Klasa Line sluzy do tworzenia lini o podanym typie algorytmu ktory uzylismy
+*/
 class LineSegment
 {
 public:

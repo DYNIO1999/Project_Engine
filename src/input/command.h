@@ -2,7 +2,9 @@
 #include "../objects/object.h"
 #include "inputtypes.h"
 #include <iostream>
-
+/**  
+* Klasa implementujaca design pattern Command sluzy do obslugi pobierania inputu i przekazywania go do update w ktorym wykonujemy poruszanie
+*/
 class Command
 {
 private:

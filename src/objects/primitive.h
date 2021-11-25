@@ -5,8 +5,9 @@
 #include "../renderer/linesegment.h"
 #include "../renderer/circlesegment.h"
 
-//DYNIEK TEN KOD TRZEBA POTEM PRZENIESC DO .CPP TY IDIOTO!
-
+/**  
+* Klasa nadrzedna prymitywów sluz do tworzenia prosty obiektow takich jak linie
+*/
 class Primitive: public  Object
 {
 public:
@@ -103,7 +104,6 @@ public:
                     if(m_cancreatePolygon){
                     m_cancreatePolygon=check_create_polygon(sf::Vector2f(m_line[i].getStartPos()), sf::Vector2f(m_line[i].getEndPos()), sf::Vector2f(m_line[j].getStartPos()), sf::Vector2f(m_line[j].getEndPos()));
                     }
-                    //std::cout<<i<<j<<" : "<<m_cancreatePolygon<<'\n';
                 }
             }
             if(!m_cancreatePolygon){
@@ -113,7 +113,6 @@ public:
     }
     Primitive(int type,sf::Vector2f pos,int radius,sf::Color color, int algo_index)
     {
-        //Circle
         m_type = type;
         m_algo_type = algo_index;
         m_pos = pos;
@@ -125,7 +124,6 @@ public:
     }
     Primitive(int type, sf::Vector2f pos, int radiusX, int radiusY, sf::Color color, int algo_index)
     {
-        //Ellipse
         m_type = type;
         m_algo_type = algo_index;
         m_pos = pos;
@@ -139,7 +137,6 @@ public:
     }
     ~Primitive()
         {
-            //std::cout << "PRIMITIVE TYPE: " << m_type << '\n';
             if(m_type == PRIMITIVE_LINE)
             {
                 delete m_line;
