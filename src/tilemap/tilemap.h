@@ -319,6 +319,20 @@ public:
             }
         }
     }
+    bool checkCollsionwithTilesForest(Object& obj){
+        for(auto it = m_tiles.begin();it<m_tiles.end();it++){
+            if (obj.getBoxCollider().intersects(it->m_colisionBox))
+            {
+                for (int i = FOREST_TILE_1; i <= FOREST_TILE_13;i++){
+                    if (m_map[it->m_gridPos.x][it->m_gridPos.y] ==i)
+                    {
+                        return true;
+                    }
+                }
+            }
+        }
+    return false;
+    }
     void draw(sf::RenderWindow &win_ref, const sf::View &gameView)
     {
         for (int i = 0; i < ((int)m_tiles.size()); i++)

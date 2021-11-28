@@ -13,12 +13,11 @@ public:
         m_pos=pos;
         m_size=size;
         m_movestate = NO_INPUT;
-        m_townShape.setPosition(m_pos);
-        m_townShape.setSize(m_size);
-        m_townShape.setFillColor(sf::Color::Transparent);
-        //m_playerShape.setTexture(&(*m_pTexture));
-        m_townShape.setOutlineThickness(2);
-        m_townShape.setOutlineColor(sf::Color::Magenta);
+        //m_townShape.setPosition(m_pos);
+        //m_townShape.setSize(m_size);
+        //m_townShape.setFillColor(sf::Color::Transparent);
+        //m_townShape.setOutlineThickness(1);
+        //m_townShape.setOutlineColor(sf::Color::Magenta);
         m_townSprite.setTexture(*m_pTexture);
         m_townSprite.setPosition(m_pos);
         BoxCollider temp(m_pos.x, m_pos.y, m_size.x, m_size.y);
@@ -31,7 +30,7 @@ public:
         return DEFAULT_OBJECT_STATE;
     }
     void draw(sf::RenderWindow &win_ref){
-        win_ref.draw(m_townShape);
+        //win_ref.draw(m_townShape);
         win_ref.draw(m_townSprite);
     }
     void setSize(sf::Vector2f size)

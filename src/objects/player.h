@@ -14,19 +14,21 @@ private:
 public:
     Player(std::shared_ptr<sf::Texture> texturePtr,sf::Vector2f pos, sf::Vector2f size, Engine* enginePtr, int engineDemo){
         m_enginePtr = enginePtr;
-        m_pos =sf::Vector2f((((float)m_enginePtr->m_window->getSize().x) / 2.0), ((float)m_enginePtr->m_window->getSize().y) / 2.0);
+        m_pos = pos;                                 
+        //sf::Vector2f((((float)m_enginePtr->m_window->getSize().x) / 2.0), ((float)m_enginePtr->m_window->getSize().y) / 2.0);
         m_size = size;
         m_movestate = NO_INPUT;
         m_pTexture=texturePtr;
         m_velocity = 300.0f;
-        m_playerShape.setPosition(m_pos);
-        m_playerShape.setSize(m_size);
-        m_playerShape.setFillColor(sf::Color::Transparent);
-        m_playerShape.setOutlineThickness(2);
-        m_playerShape.setOutlineColor(sf::Color::Magenta);
+        //m_playerShape.setPosition(m_pos);
+        //m_playerShape.setSize(m_size);
+        //m_playerShape.setFillColor(sf::Color::Transparent);
+        //m_playerShape.setOutlineThickness(2);
+        //m_playerShape.setOutlineColor(sf::Color::Magenta);
         m_playerSprite.setTexture(*m_pTexture);
-        m_playerSprite.setPosition(m_pos- sf::Vector2f(50, 10));
-        m_playerCamera.setCenter(sf::Vector2f((((float)m_enginePtr->m_window->getSize().x) / 2.0), ((float)m_enginePtr->m_window->getSize().y) / 2.0));
+        m_playerSprite.setPosition(m_pos-sf::Vector2f(5,5));
+        //sf::Vector2f((((float)m_enginePtr->m_window->getSize().x) / 2.0), ((float)m_enginePtr->m_window->getSize().y) / 2.0)
+        m_playerCamera.setCenter(m_pos);
         m_playerCamera.setSize(sf::Vector2f(m_enginePtr->m_window->getSize().x, m_enginePtr->m_window->getSize().y));
         
         BoxCollider temp(m_pos.x,m_pos.y,m_size.x,m_size.y);
@@ -61,7 +63,7 @@ public:
             m_pos = m_pos + sf::Vector2f((m_velocity * dt.m_time), 0);
         }
         //m_playerShape.setPosition(m_pos);
-        m_playerSprite.setPosition(m_pos-sf::Vector2f(50,10));
+        m_playerSprite.setPosition(m_pos-sf::Vector2f(5, 5));
         m_colisionBox.setPos(m_pos);
         //m_playerShape.setSize(m_size);
         if (m_movestate == MOVE_UP)

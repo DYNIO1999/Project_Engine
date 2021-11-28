@@ -4,30 +4,18 @@
 
 ### ENGINE ###
 
-# 16.11.2021//17.11.2021 #
 
 
-- Add Animated class responsible for animations for particular game object.
-- Zmodyfikuj klasę Player, tak aby gracz był renderowany a jego ruch animowany
-z użyciem bitmap (sprite’ów). W tym celu wprowadź dziedziczenie tej klasy po
-SpriteObject. Przygotuj proste sprite’y animujące ruch gracza lub wykorzystaj
-w tym celu darmowe źródła znalezione w Internecie.
+### SKONCZYC 5 GRUDNIA GAME ###
+# Potrzebna grafika #
+++ Postac Glowna w bitwie
+++ Przeciwnicy w Bitwie
+++ 1-2 Grafiki tla bitwy jakies sceny bitwy
+++ UI do bitwy grafika 
+++ Grafika na tło menu
+++ Grafika na tło pauzy
+++ Grafika na tło Sceny Town gdzie bedziemy mogli ulepszac statystyki postaci
 
-- Dodac ENGINE_DEMO
-  + operacje na obiektach
-  + lista obiektow
-  + wybieranie obiektu do edycji
-  + dodawanie
-- Podzielic kod do inicjacji dla silnika i gry...
-
-
-### GAME ###
-
-
-
-
-++ Grafika Tilemapa
-++ Postac Glowna
 
 - Sceny Gry
   + World Scena 

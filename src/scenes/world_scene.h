@@ -8,6 +8,8 @@
 #include "../tilemap/tilemap.h"
 #include "../tilemap/tilemapeditor.h"
 #include "../collision/boxcollider.h"
+#include "../core/timer.h"
+#include "../core/diceroller.h"
 class World_Scene:public Scene{
 
 public:
@@ -17,6 +19,14 @@ public:
     void draw(TimeStep deltatime) override;
 
 private:
+    float maxTimeToBattle;
+    float elapsedTime;
+    bool m_isInBattle;
+    bool m_colisionWithTown;
+
+    Timer testTimer;
+    
+    sf::Clock m_toBattleClock;
     Tilemap* testmap;
     InputHandler* m_inputhandler;
     EntityList* m_entitesPtr;

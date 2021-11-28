@@ -11,6 +11,7 @@ class Town_Scene:public Scene
 private:
     EntityList *m_entitesPtr;
     sf::Sprite background_sprite;
+    sf::Clock m_clock;
     void initData();
 public:
     Town_Scene(Engine* engine_ref);
