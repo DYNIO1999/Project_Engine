@@ -145,7 +145,7 @@ int World_Scene::processEvents(TimeStep deltatime)
             m_colisionWithTown =false;
         }
     }
-    std::cout << testTimer.GetElapsedSeconds() << '\n';
+    //std::cout << testTimer.GetElapsedSeconds() << '\n';
 
     if(testmap->checkCollsionwithTilesForest(*m_entitesPtr->getObject("PLAYER"))){
         //std::cout<<"Colision with forest"<<'\n';

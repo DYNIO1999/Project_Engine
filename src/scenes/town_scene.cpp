@@ -13,6 +13,7 @@ Town_Scene::~Town_Scene()
 }
 int Town_Scene::processEvents(TimeStep deltatime)
 {
+    testbutton.ButtonUpdate();
     m_entitesPtr->processEvents(deltatime);
     return 0;
 }
@@ -22,6 +23,9 @@ void Town_Scene::draw(TimeStep deltatime)
 
     //ImGui::SFML::Update((*m_Engine_ref->m_window), m_Engine_ref->m_engineClock.restart());
     m_Engine_ref->m_window->clear(sf::Color::White);
+    
+    testbutton.ButtonDraw(*m_Engine_ref->m_window);
+
     ImGui::Begin("Welcome Town_Scene");
     if (ImGui::Button("Close Town scene"))
     {
@@ -43,8 +47,17 @@ void Town_Scene::initData()
     std::shared_ptr<sf::Texture> test = ResourceManager::acquireTexture(ASSETS_PATH + "dirt.png");
     background_sprite.setTexture(*test);
     background_sprite.setPosition(0,0);
+
+    std::shared_ptr<sf::Font> testFont = ResourceManager::acquireFont(ASSETS_FONTS_PATH + "mainfont.ttf");
+    Button_Colors tempColors;
+    tempColors.pressedColor = sf::Color(70, 70, 70, 200);
+    tempColors.hoverColor = sf::Color(20, 20, 20, 200);
+    tempColors.idleColor = sf::Color(150, 150, 150, 200);
+    testbutton.initButton(400, 400, 200, 75, *testFont, "BUTTON 1", tempColors);
 }
 void Town_Scene::input()
 {
+    m_mousePosition = m_Engine_ref->m_window->mapPixelToCoords(sf::Mouse::getPosition(*m_Engine_ref->m_window));
+    testbutton.ButtonInput(m_mousePosition);
     //std::cout<<"Input time"<<'\n';
 }

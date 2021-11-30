@@ -6,7 +6,7 @@
 #include <iostream>
 const std::string ASSETS_PATH = "../assets/";
 const std::string ASSETS_TILESET_PATH = "../assets/tilesets/";
-
+const std::string ASSETS_FONTS_PATH = "../assets/fonts/";
 class ResourceManager{
     public:
     static std::shared_ptr<sf::Texture> acquireTexture(const std::string& path){
