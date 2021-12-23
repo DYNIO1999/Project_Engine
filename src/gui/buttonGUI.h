@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include "../core/core.h"
+
 enum BUTTON_STATES
 {
     BUTTON_PRESSED,
@@ -30,7 +31,7 @@ public:
     bool ButtonUpdate();
     void ButtonDraw(sf::RenderWindow& window);
     void initButton(float x, float y, float width, float height, sf::Font &font, std::string text, Button_Colors &buttoncolors);
-
 };
+
 
 

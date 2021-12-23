@@ -53,7 +53,7 @@ if(m_engine_config.getEngineMode()==ENGINE_DEMO){
 }
 else if (m_engine_config.getEngineMode() == ENGINE_GAME)
 {
-    m_scene_manager->pushScene(new World_Scene(this));
+    m_scene_manager->pushScene(new MainMenuScene(this));
 }
 }
 

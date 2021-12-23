@@ -197,11 +197,11 @@ void World_Scene::draw(TimeStep deltatime)
     //m_Engine_ref->m_window->draw(background);
     testmap->draw(*m_Engine_ref->m_window, m_Engine_ref->m_window->getView());
     m_entitesPtr->draw((*m_Engine_ref->m_window));
-    m_mapeditor->drawTileSelector(*m_Engine_ref->m_window);
+    //m_mapeditor->drawTileSelector(*m_Engine_ref->m_window);
 }
 void World_Scene::input(){
-    m_mapeditor->editInput(m_Engine_ref->event);
-    m_mapeditor->editMap(*m_Engine_ref->m_window);
+    //m_mapeditor->editInput(m_Engine_ref->event);
+    //m_mapeditor->editMap(*m_Engine_ref->m_window);
     Command *recvCommand = m_inputhandler->handleInput();
     if (recvCommand)
     {

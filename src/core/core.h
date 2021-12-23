@@ -8,8 +8,8 @@
 #include "timestep.h"
 
 #include "../scenes/scene_manager.h"
-#include "../scenes/world_scene.h"
 #include "../scenes/engine_demo.h"
+#include "../scenes/main_menu_scene.h"
 #include "../renderer/primitiveRenderer.h"
 #include "../input/inputhandler.h"
 #include "entitylist.h"

@@ -6,7 +6,7 @@
 
 
 
-### SKONCZYC 5 GRUDNIA GAME ###
+### SKONCZYC 26 GRUDNIA GAME ###
 # Potrzebna grafika #
 ++ Postac Glowna w bitwie
 ++ Przeciwnicy w Bitwie
@@ -18,7 +18,6 @@
 
 
 - Sceny Gry
-  + World Scena 
   + Menu Gry 
   + Battle
   + Pause
