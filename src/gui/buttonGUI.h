@@ -27,6 +27,7 @@ public:
     Button();
     Button(float x, float y, float width, float height, sf::Font &font, std::string text, Button_Colors &buttoncolors);
     ~Button();
+    void ButtonInput(sf::Vector2f mousepos, Engine &engineref);
     void ButtonInput(sf::Vector2f mousepos);
     bool ButtonUpdate();
     void ButtonDraw(sf::RenderWindow& window);

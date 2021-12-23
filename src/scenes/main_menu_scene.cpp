@@ -1,5 +1,6 @@
 #include "main_menu_scene.h"
 #include "../scenes/world_scene.h"
+#include "../scenes/options_scene.h"
 
 MainMenuScene::MainMenuScene(Engine *engine_ref)
 {
@@ -68,8 +69,8 @@ int MainMenuScene::processEvents(TimeStep deltatime){
         check = m_buttonList[i]->ButtonUpdate();
         if(check==true){
             if(i==MENU_BUTTON_PLAY){
-                m_Engine_ref->m_scene_manager->changeScene(new World_Scene(m_Engine_ref));
                 check=false;
+                m_Engine_ref->m_scene_manager->changeScene(new World_Scene(m_Engine_ref));
                 return 0;
             }
             else if (i==MENU_BUTTON_CONTINUE)
@@ -78,12 +79,16 @@ int MainMenuScene::processEvents(TimeStep deltatime){
                 return 0;
             }else if(i==MENU_BUTTON_OPTIONS){
                 check = false;
+                std::cout<<"ADD OPTIONS"<<'\n';
+                m_Engine_ref->m_scene_manager->pushScene(new OptionsScene(m_Engine_ref));
+                std::cout << "HERE" << '\n';
                 return 0;
             }else{
-                m_Engine_ref->m_scene_manager->popScene();
                 check = false;
+                m_Engine_ref->m_scene_manager->popScene();
                 return 0;
             }
+            
         }
     }
     return 0;
@@ -102,8 +107,9 @@ void MainMenuScene::draw(TimeStep deltatime)
 void MainMenuScene::input() 
 {
     m_mousePosition = m_Engine_ref->m_window->mapPixelToCoords(sf::Mouse::getPosition(*m_Engine_ref->m_window));
-    for(auto it = m_buttonList.begin();it<m_buttonList.end();it++){
-        (*it)->ButtonInput(m_mousePosition);
+    for (auto it = m_buttonList.begin(); it < m_buttonList.end(); it++)
+    {
+        (*it)->ButtonInput(m_mousePosition,*m_Engine_ref);
     }
 }
 

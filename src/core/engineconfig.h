@@ -47,10 +47,17 @@ class EngineConfig
     {
         m_fullscreenAllowed = fullscreen;
     }
+    void setSound(bool soundON){
+        m_soundON = soundON;
+    }
+    bool isSound(){
+        return m_soundON;
+    }
 
     private:
     int m_engineMode;
     bool m_fullscreenAllowed;
     unsigned int m_windowWidth;
     unsigned int m_windowHeight;
+    bool m_soundON;
 };

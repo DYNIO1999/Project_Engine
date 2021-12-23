@@ -27,6 +27,22 @@ Button::~Button()
     
 }
 
+void Button::ButtonInput(sf::Vector2f mousepos, Engine &engineref)
+{
+    m_buttonState = BUTTON_IDLE;
+    if (m_buttonShape.getGlobalBounds().contains(mousepos))
+    {
+        m_buttonState = BUTTON_HOVER;
+        if (engineref.event.mouseButton.button == sf::Mouse::Left)
+        {
+            if (engineref.event.type == sf::Event::MouseButtonPressed){
+                std::cout << "ONCE" << '\n';
+                m_buttonState = BUTTON_PRESSED;
+            }
+        }
+    }
+}
+
 void Button::ButtonInput(sf::Vector2f mousepos) 
 {
     m_buttonState = BUTTON_IDLE;
@@ -36,6 +52,7 @@ void Button::ButtonInput(sf::Vector2f mousepos)
         if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
         {
             m_buttonState = BUTTON_PRESSED;
+            return;
         }
     }
 }
@@ -55,6 +72,7 @@ bool Button::ButtonUpdate()
     else if (m_buttonState == BUTTON_PRESSED)
     {
         m_buttonShape.setFillColor(m_buttonColors.pressedColor);
+        m_buttonState = BUTTON_IDLE;
         return true;
     }
     return false;

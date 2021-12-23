@@ -12,15 +12,19 @@
 ++ Przeciwnicy w Bitwie
 ++ 1-2 Grafiki tla bitwy jakies sceny bitwy
 ++ UI do bitwy grafika 
+++ UI do town scene
 ++ Grafika na tło menu
 ++ Grafika na tło pauzy
 ++ Grafika na tło Sceny Town gdzie bedziemy mogli ulepszac statystyki postaci
+++ Dobrac kolry przyciskow do menu
 
 
 - Sceny Gry
-  + Menu Gry 
+  + Menu Gry // DODAC GRAFIKI
+  + Opcje 
+  + Continue//
+  + Pause + Save
   + Battle
-  + Pause
   
 - Przejście ze sceny świata do sceny walki,
   + Dodanie kilku wrogow

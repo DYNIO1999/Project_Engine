@@ -159,6 +159,15 @@ void Engine::loadConfig()
     }
     m_engine_config.setWindowWidth(config_json["Window_Width"]);
     m_engine_config.setWindowHeight(config_json["Window_Height"]);
+    if (config_json["SoundON"] == 1)
+    {
+        m_engine_config.setSound(true);
+    }
+    else
+    {
+        m_engine_config.setSound(false);
+    }
+
     config_load.close();
 }
 void Engine::saveConfig()
@@ -182,6 +191,15 @@ void Engine::saveConfig()
     }
     config_json["Window_Width"] =m_engine_config.getWindowWidth();
     config_json["Window_Height"] = m_engine_config.getWindowHeight();
+    
+    if (m_engine_config.isSound())
+    {
+        config_json["SoundON"] = 1;
+    }
+    else
+    {
+        config_json["SoundON"] = 0;
+    }
     std::ofstream saving_file;
     saving_file.open("../config/EngineConfig.json");
     if (!saving_file)
