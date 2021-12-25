@@ -21,13 +21,18 @@
 
 - Sceny Gry
   + Menu Gry // DODAC GRAFIKI
-  + Opcje 
-  + Continue//
+  + Opcje // DODAC GRAFIKI
+  + Continue// ZROBIC
   + Pause + Save
   + Battle
   
+
 - Przejście ze sceny świata do sceny walki,
   + Dodanie kilku wrogow
   + System walki 
-- Podstawowe grafiki postaci i niektórych przeciwników.
-- Zapisywanie swiata i wgrywanie
+- Wypadający Loot z przeciwników,
+- System doświadczenia i życia bohaterów,
+- Zapis stanu gry,
+- Działające menu gry.
+- Udźwiękowienie,
+

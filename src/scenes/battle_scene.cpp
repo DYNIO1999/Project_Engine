@@ -7,10 +7,12 @@ Battle_Scene::Battle_Scene(Engine *engine_ref)
     initData();
 }
 
-Battle_Scene::Battle_Scene(Engine *engine_ref, int type) 
+Battle_Scene::Battle_Scene(Engine *engine_ref, int battleMapType, int numberEnemies) 
 {
     m_Engine_ref = engine_ref;
     initData();
+    m_battleMapType = battleMapType;
+    m_numberEnemies = numberEnemies;
 }
 
 int Battle_Scene::processEvents(TimeStep deltatime) 

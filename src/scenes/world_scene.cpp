@@ -4,6 +4,7 @@
 #include "../objects/town.h"
 #include "../scenes/town_scene.h"
 #include "../scenes/battle_scene.h"
+
 World_Scene::World_Scene(Engine *engine_ref)
 {
     this->m_Engine_ref = engine_ref;
@@ -21,7 +22,10 @@ World_Scene::~World_Scene(){
 
 void World_Scene::initData(){
     std::shared_ptr<sf::Texture> pPlayerTexture = ResourceManager::acquireTexture(ASSETS_PATH + "token_player.png");
-    m_entitesPtr->addEntity("PLAYER", new Player(pPlayerTexture, sf::Vector2f(900, 200), sf::Vector2f(40, 40),m_Engine_ref,0));
+    
+    sf::Vector2f playerPos = sf::Vector2f(900, 200);
+
+    m_entitesPtr->addEntity("PLAYER", new Player(pPlayerTexture, playerPos, sf::Vector2f(40, 40),m_Engine_ref,0));
     if (pPlayerTexture != nullptr)
     {
         m_entitesPtr->getObject("PLAYER")->setTexture(pPlayerTexture);
