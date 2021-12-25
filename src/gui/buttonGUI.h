@@ -25,14 +25,15 @@ private:
     int m_buttonState;
 public:
     Button();
-    Button(float x, float y, float width, float height, sf::Font &font, std::string text, Button_Colors &buttoncolors);
+    Button(float x, float y, float width, float height, sf::Font &font, std::string text, Button_Colors &buttoncolors, sf::Vector2f offset);
+
+        Button(float x, float y, float width, float height, sf::Font &font, std::string text, Button_Colors &buttoncolors);
     ~Button();
     void ButtonInput(sf::Vector2f mousepos, Engine &engineref);
     void ButtonInput(sf::Vector2f mousepos);
     bool ButtonUpdate();
     void ButtonDraw(sf::RenderWindow& window);
     void initButton(float x, float y, float width, float height, sf::Font &font, std::string text, Button_Colors &buttoncolors);
+
+    void initButton(float x, float y, float width, float height, sf::Font &font, std::string text, Button_Colors &buttoncolors, sf::Vector2f offset);
 };
-
-
-
