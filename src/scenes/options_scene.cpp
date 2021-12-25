@@ -34,20 +34,20 @@ void OptionsScene::initData()
     tempColors.hoverColor = sf::Color(20, 20, 20, 200);
     tempColors.idleColor = sf::Color(5, 46, 21, 200);
 
-    int buttonwidth = 400;
-    int buttonheight = 75;
+    int buttonwidth = 600;
+    int buttonheight = 120;
     int buttonheight2 =100;
     int xpos = m_Engine_ref->m_window->getSize().x / 2 - buttonwidth / 2;
     int endxpos = m_Engine_ref->m_window->getSize().x;
     int endypos = m_Engine_ref->m_window->getSize().y;
     Button *soundONButton = new Button();
-    soundONButton->initButton(xpos-(buttonwidth/2), 300, buttonwidth, buttonheight, *menuFont, "SOUND ON", tempColors);
+    soundONButton->initButton(xpos - (buttonwidth / 2), 300, buttonwidth, buttonheight, *menuFont, "SOUND ON", tempColors, sf::Vector2f(0, -24));
 
     Button *soundOFFButton = new Button();
-    soundOFFButton->initButton(xpos + (buttonwidth / 2), 300, buttonwidth, buttonheight, *menuFont, "SOUND OFF", tempColors);
+    soundOFFButton->initButton(xpos + (buttonwidth / 2), 300, buttonwidth, buttonheight, *menuFont, "SOUND OFF", tempColors, sf::Vector2f(0, -24));
 
     Button *backButton = new Button();
-    backButton->initButton(endxpos-buttonwidth, endypos-buttonheight2, buttonwidth, buttonheight2, *menuFont, "BACK", tempColors);
+    backButton->initButton(endxpos - buttonwidth, endypos - buttonheight2, buttonwidth, buttonheight2, *menuFont, "BACK", tempColors, sf::Vector2f(0, -24));
 
     m_buttonList.push_back(soundONButton);
     m_buttonList.push_back(soundOFFButton);
