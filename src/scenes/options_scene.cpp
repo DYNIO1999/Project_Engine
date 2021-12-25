@@ -19,7 +19,7 @@ void OptionsScene::initData()
     temp.setCenter(sf::Vector2f((((float)m_Engine_ref->m_window->getSize().x) / 2.0), ((float)m_Engine_ref->m_window->getSize().y) / 2.0));
     m_Engine_ref->m_window->setView(temp);
 
-    std::shared_ptr<sf::Texture> backgroundTexture = ResourceManager::acquireTexture(ASSETS_PATH + "testback.png");
+    std::shared_ptr<sf::Texture> backgroundTexture = ResourceManager::acquireTexture(ASSETS_BACKGROUND_PATH + "menu.png");
     m_backgroundSprite.setTexture(*backgroundTexture);
     m_backgroundSprite.setPosition(0, 0);
 
@@ -32,7 +32,7 @@ void OptionsScene::initData()
     Button_Colors tempColors;
     tempColors.pressedColor = sf::Color(70, 70, 70, 200);
     tempColors.hoverColor = sf::Color(20, 20, 20, 200);
-    tempColors.idleColor = sf::Color(150, 150, 150, 200);
+    tempColors.idleColor = sf::Color(5, 46, 21, 200);
 
     int buttonwidth = 400;
     int buttonheight = 75;
