@@ -44,8 +44,9 @@ void Town_Scene::initData()
     temp.setSize(sf::Vector2f(m_Engine_ref->m_window->getSize().x, m_Engine_ref->m_window->getSize().y));
     temp.setCenter(sf::Vector2f((((float)m_Engine_ref->m_window->getSize().x) / 2.0), ((float)m_Engine_ref->m_window->getSize().y) / 2.0));
     m_Engine_ref->m_window->setView(temp);
-    std::shared_ptr<sf::Texture> test = ResourceManager::acquireTexture(ASSETS_PATH + "dirt.png");
-    background_sprite.setTexture(*test);
+
+    std::shared_ptr<sf::Texture> backgroundTexture = ResourceManager::acquireTexture(ASSETS_BACKGROUND_PATH + "city.png");
+    background_sprite.setTexture(*backgroundTexture);
     background_sprite.setPosition(0,0);
 
     std::shared_ptr<sf::Font> testFont = ResourceManager::acquireFont(ASSETS_FONTS_PATH + "mainfont.ttf");
