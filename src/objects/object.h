@@ -30,6 +30,12 @@ class Object{
     virtual void setScale(float scale){
 
     }
+    virtual void setScaleFactor(sf::Vector2f scale){
+        m_scaleFactors=scale;
+    }
+    virtual sf::Vector2f getScaleFactor(){
+        return m_scaleFactors;
+    }
     virtual sf::Vector2f getPos()=0;
     virtual sf::Vector2f getSize()=0;
     virtual sf::Color getColor()=0;
@@ -87,6 +93,27 @@ class Object{
     virtual BoxCollider& getBoxCollider(){
         return m_colisionBox;
     }
+    virtual void setAnimationState(int state){
+        m_animationstate = state;
+    }
+    virtual int getAnimationState(){
+        return m_animationstate;
+    }
+    virtual void setHealth(float health){
+
+    }
+    virtual float getHealth(){
+        return 0;
+    }
+
+    virtual void setAttack(float attack)
+    {
+    }
+    virtual float getAttack()
+    {
+        return 0;
+    }
+
     protected:
     BoxCollider m_colisionBox;
     Transforms m_transform; 
@@ -95,7 +122,9 @@ class Object{
     sf::Vector2f m_size;
     sf::Color m_color;
     float m_scale;
+    sf::Vector2f m_scaleFactors;
     std::shared_ptr<sf::Texture> m_pTexture;
     sf::Sprite *m_curSprite;
     int m_movestate;
+    int m_animationstate;
 };

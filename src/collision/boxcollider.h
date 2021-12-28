@@ -38,6 +38,13 @@ public:
         }
         return notColliding == false;
     }
+
+    bool contains(sf::Vector2f other)
+    {
+        float bot = m_top + m_height - 1;
+        float right = m_left + m_width - 1;
+        return (m_left <= other.x && other.x <= right) && (m_top <= other.y && other.y <= bot);
+    }
    /* 
     bool will_touch_top(BoxCollider &other, float vel){
 

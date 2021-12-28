@@ -8,6 +8,8 @@ const std::string ASSETS_PATH = "../assets/";
 const std::string ASSETS_BACKGROUND_PATH = "../assets/backgrounds/";
 const std::string ASSETS_TILESET_PATH = "../assets/tilesets/";
 const std::string ASSETS_FONTS_PATH = "../assets/fonts/";
+const std::string ASSETS_CHARACTER_BATTLE_PATH = "../assets/char_battle/";
+
 class ResourceManager{
     public:
     static std::shared_ptr<sf::Texture> acquireTexture(const std::string& path){

@@ -162,14 +162,15 @@ int World_Scene::processEvents(TimeStep deltatime)
                 DiceRoller currentDice;
                 int temp;
                 temp = currentDice.diceRoll_1K10();
-                std::cout << currentDice.roll << '\n';
+                //std::cout << currentDice.roll << '\n';
                 if (temp <=5)
                 {
                     m_isInBattle = true;
                     testTimer.Reset();
                     testTimer.Pause();
-                    m_Engine_ref->m_scene_manager->pushScene(new Battle_Scene(m_Engine_ref));
-                    m_isInBattle = false;
+                    m_Engine_ref->m_scene_manager->pushScene(new Battle_Scene(m_Engine_ref, currentDice.diceRoll_1K1(), currentDice.diceRoll_1K3()));
+                    //std::cout<<"Here"<<'\n';
+                   
                 }
                 else
                 {
@@ -184,6 +185,8 @@ int World_Scene::processEvents(TimeStep deltatime)
         {
             testTimer.Reset();
         }
+        m_isInBattle = false;
+
         //std::cout<<"No collision with forest"<<std::endl;
     }
     return 0;

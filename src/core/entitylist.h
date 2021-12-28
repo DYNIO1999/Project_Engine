@@ -66,6 +66,7 @@ public:
             it->second->draw(win_ref);
         }
     }
-    private:
+    public:
     std::map<std::string,Object*> m_entities;
+    private:
 };

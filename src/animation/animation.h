@@ -13,6 +13,9 @@ public:
     /**  
     * Konstruktor klasy animacji
     */
+    Animation(){
+        
+    }
     Animation(std::shared_ptr<sf::Texture> texture, sf::Vector2u imagecount, float switchtime)
     {
         m_imageCount =  imagecount;
@@ -24,6 +27,14 @@ public:
     }
     ~Animation(){
         
+    }
+    void initAnimation(std::shared_ptr<sf::Texture> texture, sf::Vector2u imagecount, float switchtime){
+        m_imageCount = imagecount;
+        m_switchTime = switchtime;
+        m_totalTime = 0.0f;
+        m_currentImage.x = 0;
+        m_textureRect.width = texture->getSize().x / float(m_imageCount.x);
+        m_textureRect.height = texture->getSize().y / float(m_imageCount.y);
     }
     /**  
     * Metoda aktualizujaca animacje
