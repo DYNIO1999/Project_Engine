@@ -4,9 +4,7 @@
 
 ### ENGINE ###
 
-
-
-### SKONCZYC 26 GRUDNIA GAME ###
+### SKONCZYC 2 STYCZNIA GAME ###
 # Potrzebna grafika #
 ++ Postac Glowna w bitwie
 ++ Przeciwnicy w Bitwie
@@ -20,8 +18,8 @@
 
 
 - Sceny Gry
-  + Menu Gry // DODAC GRAFIKI
-  + Opcje // DODAC GRAFIKI
+  + Menu Gry // 
+  + Opcje //
   + Continue// ZROBIC
   + Pause + Save
   + Battle

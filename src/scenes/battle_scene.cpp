@@ -1,6 +1,7 @@
 #include "../core/core.h"
 #include "battle_scene.h"
 #include "../objects/player.h"
+#include "../objects/enemybattle.h"
 
 Battle_Scene::Battle_Scene(Engine *engine_ref) 
 {
@@ -18,28 +19,99 @@ Battle_Scene::Battle_Scene(Engine *engine_ref, int battleMapType, int numberEnem
 
 int Battle_Scene::processEvents(TimeStep deltatime) 
 {
-
+   
+    bool check = false;
     for (int i = 0; i < ((int)m_buttonList.size()); i++)
     {
-        m_buttonList[i]->ButtonUpdate();
-    }
-    m_entitesPtr->processEvents(deltatime);
-
-   
-   
-   
-    if (m_entitesPtr->getObject("PLAYER_BATTLE")->getBoxCollider().contains(m_mousePosition))
-        {
-            if (m_Engine_ref->event.mouseButton.button == sf::Mouse::Left)
-            {
-                if (m_Engine_ref->event.type == sf::Event::MouseButtonPressed)
-                {
-                    std::cout << "ONCE" << '\n';
-                }
+        check = m_buttonList[i]->ButtonUpdate();
+        if(check==true){
+            if(i==BATTLE_END_TURN){
+                endTurn=true;
+                check=false;
             }
         }
 
-        return 0;
+    }
+    
+
+    /*if(m_entitesPtr->getObject(currentObjName)){
+        m_entitesPtr->removeEntity(currentObjName);
+    }*/
+    //std::cout<<currentObjName<<'\n';
+    if((currentTurn==BATTLE_PLAYER_TURN)&&(clickedOnEnemy==true)){
+        
+        if(objMoved==false){
+            std::cout << "Player here\n";
+            playerstartPos = m_entitesPtr->getObject("PLAYER_BATTLE")->getPos();
+
+
+            if (m_entitesPtr->getObject(currentObjName))
+            {
+                enemystartPos = m_entitesPtr->getObject(currentObjName)->getPos();
+            }
+           
+        }
+        m_entitesPtr->getObject("PLAYER_BATTLE")->setPosition(sf::Vector2f(m_Engine_ref->m_window->getSize().x/2+ 
+        ((m_entitesPtr->getObject("PLAYER_BATTLE")->getSize().x* m_entitesPtr->getObject("PLAYER_BATTLE")->getScale())/2), m_entitesPtr->getObject("PLAYER_BATTLE")->getPos().y));
+        if (m_entitesPtr->getObject(currentObjName)){
+            m_entitesPtr->getObject(currentObjName)->setPosition(sf::Vector2f(m_Engine_ref->m_window->getSize().x/2- 
+        m_entitesPtr->getObject(currentObjName)->getSize().x* m_entitesPtr->getObject(currentObjName)->getScale(), m_entitesPtr->getObject(currentObjName)->getPos().y));
+        }
+        objMoved=true;
+        m_entitesPtr->getObject("PLAYER_BATTLE")->setTexture(pPlayerAttackTexture);
+        m_entitesPtr->getObject("PLAYER_BATTLE")->setAnimationState(PLAYER_ANIMATION_ATTACK);
+        if (m_entitesPtr->getObject(currentObjName))
+        {      
+            m_entitesPtr->getObject(currentObjName)->setHealth(m_entitesPtr->getObject(currentObjName)->getHealth() -  m_entitesPtr->getObject("PLAYER_BATTLE")->getAttack());
+            
+            if(m_entitesPtr->getObject(currentObjName)->getHealth()>0){
+            m_entitesPtr->getObject(currentObjName)->setTexture(pEnemyHitTexture);
+            m_entitesPtr->getObject(currentObjName)->setAnimationState(ENEMY_ANIMATION_HIT);
+            }else{
+            m_entitesPtr->getObject(currentObjName)->setTexture(pEnemyDeathTexture);
+            m_entitesPtr->getObject(currentObjName)->setAnimationState(ENEMY_ANIMATION_DEATH);
+            }
+        }
+        inAnimation=true;
+        clickedOnEnemy = false;
+        allowEndTurn =true;
+        }
+        else if(currentTurn==BATTLE_ENEMY_TURN)
+        {
+        //std::cout<<"Enemy here\n";
+        currentTurn=BATTLE_ENEMY_TURN;
+        }
+
+    if(inAnimation){
+        testTimer.Start();
+        float elapsedTime = testTimer.GetElapsedSeconds();
+        std::cout<<elapsedTime<<'\n';
+        if(elapsedTime>5){
+            m_entitesPtr->getObject("PLAYER_BATTLE")->setTexture(pPlayerIdleTexture);
+            m_entitesPtr->getObject("PLAYER_BATTLE")->setAnimationState(PLAYER_ANIMATION_IDLE);
+            m_entitesPtr->getObject(currentObjName)->setTexture(pEnemyIdleTexture);
+            m_entitesPtr->getObject(currentObjName)->setAnimationState(ENEMY_ANIMATION_IDLE);
+            testTimer.Reset();
+            inAnimation=false;
+        }
+    }else{
+        testTimer.Reset();
+        testTimer.Pause();
+    }
+
+    if(endTurn&&allowEndTurn){
+        m_entitesPtr->getObject("PLAYER_BATTLE")->setPosition(playerstartPos);
+        m_entitesPtr->getObject(currentObjName)->setPosition(enemystartPos);
+        playerstartPos=sf::Vector2f(0,0);
+        enemystartPos=sf::Vector2f(0,0);
+        std::cout<<"EndTurn";
+        currentTurn = BATTLE_ENEMY_TURN;
+        currentObjName="";
+        endTurn =false;
+        allowEndTurn=false;
+    }
+    m_entitesPtr->processEvents(deltatime);
+    return 0;
     }
 
 void Battle_Scene::draw(TimeStep deltatime) 
@@ -70,20 +142,27 @@ void Battle_Scene::input()
     {
         (*it)->ButtonInput(m_mousePosition, *m_Engine_ref);
     }
-
-   /* for (auto it = m_entitesPtr->m_entities.begin(); it != m_entitesPtr->m_entities.end(); it++)
+    if(currentTurn==BATTLE_PLAYER_TURN){
+    for (auto it = m_entitesPtr->m_entities.begin(); it != m_entitesPtr->m_entities.end(); it++)
     {
-        if(it->first!="PLAYER_BATTLE"){
-        it->second->getBoxCollider().contains(m_mousePosition);
-        if (m_Engine_ref->event.mouseButton.button == sf::Mouse::Left)
+        if (it->first != playerObjName)
         {
-            if (m_Engine_ref->event.type == sf::Event::MouseButtonPressed)
-            {
-                std::cout << "ONCE" << '\n';
+            
+            if(it->second->getBoxCollider().contains(m_mousePosition)){
+                if (m_Engine_ref->event.mouseButton.button == sf::Mouse::Left)
+                {
+                    if (m_Engine_ref->event.type == sf::Event::MouseButtonPressed)
+                    {
+                        currentObjName = it->first;
+                        clickedOnEnemy=true;
+                        std::cout<<"HERE"<<'\n';
+                        return;
+                    }
+                }
             }
         }
-        }
-    }*/
+    }
+    }
 }
 
 Battle_Scene::~Battle_Scene() 
@@ -142,22 +221,52 @@ void Battle_Scene::initData()
 
     
 
-    std::shared_ptr<sf::Texture> pPlayerAttackTexture = ResourceManager::acquireTexture(ASSETS_CHARACTER_BATTLE_PATH + "_AttackNoMovement.png");
-    std::shared_ptr<sf::Texture> pPlayerDeathTexture = ResourceManager::acquireTexture(ASSETS_CHARACTER_BATTLE_PATH + "_DeathNoMovement.png");
-    std::shared_ptr<sf::Texture> pPlayerHitTexture = ResourceManager::acquireTexture(ASSETS_CHARACTER_BATTLE_PATH + "_Hit.png");
-    std::shared_ptr<sf::Texture> pPlayerIdleTexture =  ResourceManager::acquireTexture(ASSETS_CHARACTER_BATTLE_PATH + "_Idle.png");
+    pPlayerAttackTexture = ResourceManager::acquireTexture(ASSETS_CHARACTER_BATTLE_PATH + "_AttackNoMovement.png");
+    pPlayerDeathTexture = ResourceManager::acquireTexture(ASSETS_CHARACTER_BATTLE_PATH + "_DeathNoMovement.png");
+    pPlayerHitTexture = ResourceManager::acquireTexture(ASSETS_CHARACTER_BATTLE_PATH + "_Hit.png");
+    pPlayerIdleTexture =  ResourceManager::acquireTexture(ASSETS_CHARACTER_BATTLE_PATH + "_Idle.png");
+    pEnemyIdleTexture = ResourceManager::acquireTexture(ASSETS_ENEMY_BATTLE_PATH + "Idle.png");
+    pEnemyHitTexture = ResourceManager::acquireTexture(ASSETS_ENEMY_BATTLE_PATH + "Hit.png");
+    pEnemyAttackTexture = ResourceManager::acquireTexture(ASSETS_ENEMY_BATTLE_PATH + "Attack.png");
+    pEnemyDeathTexture = ResourceManager::acquireTexture(ASSETS_ENEMY_BATTLE_PATH + "Death.png");
 
-    m_entitesPtr->addEntity("PLAYER_BATTLE", new Player(pPlayerDeathTexture, sf::Vector2f(400, 400), sf::Vector2f(50, 40), m_Engine_ref, PLAYER_BATTLE_TYPE));
-    m_entitesPtr->getObject("PLAYER_BATTLE")->setAnimationState(PLAYER_ANIMATION_DEATH);
+    m_entitesPtr->addEntity("PLAYER_BATTLE", new Player(pPlayerIdleTexture, sf::Vector2f(1000, m_Engine_ref->m_window->getSize().y), sf::Vector2f(50, 40), m_Engine_ref, PLAYER_BATTLE_TYPE));
+    m_entitesPtr->getObject("PLAYER_BATTLE")->setAnimationState(PLAYER_ANIMATION_IDLE);
     m_entitesPtr->getObject("PLAYER_BATTLE")->setScale(5);
+    m_entitesPtr->getObject("PLAYER_BATTLE")->setHealth(100);
+    m_entitesPtr->getObject("PLAYER_BATTLE")->setAttack(50);
+    m_entitesPtr->getObject("PLAYER_BATTLE")->setPosition(sf::Vector2f(1400 - (m_entitesPtr->getObject("PLAYER_BATTLE")->getSize().x / 2 * m_entitesPtr->getObject("PLAYER_BATTLE")->getScale()), m_Engine_ref->m_window->getSize().y / 2 - (m_entitesPtr->getObject("PLAYER_BATTLE")->getSize().y / 2 * m_entitesPtr->getObject("PLAYER_BATTLE")->getScale())));
 
-    m_entitesPtr->addEntity("PLAYER_BATTLE_1", new Player(pPlayerIdleTexture, sf::Vector2f(800, 400), sf::Vector2f(50, 40), m_Engine_ref, PLAYER_BATTLE_TYPE));
-    m_entitesPtr->getObject("PLAYER_BATTLE_1")->setAnimationState(PLAYER_ANIMATION_IDLE);
-    m_entitesPtr->getObject("PLAYER_BATTLE_1")->setScale(5);
+    for(int i=0;i<m_numberEnemies;i++){
+        std::string objname = enemyObjName + std::to_string(i);
+        m_entitesPtr->addEntity(objname, new EnemyBattle(pEnemyIdleTexture, sf::Vector2f(200, 110+i*250), sf::Vector2f(50, 40), m_Engine_ref));
+        m_entitesPtr->getObject(objname)->setAnimationState(ENEMY_ANIMATION_IDLE);
+        m_entitesPtr->getObject(objname)->setScale(5);
+        m_entitesPtr->getObject(objname)->setHealth(100);
+        m_entitesPtr->getObject(objname)->setAttack(20);
+    }
 
-    //if(m_numberEnemies){
+    DiceRoller currentDice;
+    int diceValue = currentDice.diceRoll_1K10();
+    
+    if(diceValue>=3){
+        currentTurn = BATTLE_PLAYER_TURN;
+    }else{
+        currentTurn = BATTLE_ENEMY_TURN;
+    }
+    
+    if(currentTurn==1){
+    std::cout<<"ENEMY_TURN"<<'\n';
+    }else{
+    std::cout<<"PLAYER_TURN"<<'\n';
+    }
 
-    //}
+    clickedOnEnemy = false;
+    endTurn =false;
+    objMoved =false;
+    allowEndTurn=false;
+    inAnimation =false;
+    testTimer.Start();
 }
 
 void Battle_Scene::cleanupData() 

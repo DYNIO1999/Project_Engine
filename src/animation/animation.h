@@ -2,6 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include "../core/timestep.h"
 #include <memory>
+#include <iostream>
 /**  
 * Klasa animacje sluzaca do tworzenia animacji
 */

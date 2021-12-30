@@ -18,7 +18,10 @@ REM include headers from other libs and local ones. -I and path
 SET includeFlags=-Isrc -I..\dependencies\SFML\include -I..\dependencies\ImGUI
 
 REM include lib to the linker need to be careful about ordering.
-SET linkerFlags=-L..\dependencies\SFML\lib -lsfml-window-s -lsfml-system-s -lopengl32 -lwinmm -lgdi32 -lsfml-graphics-s -lsfml-system-s -lsfml-window-s -lopengl32 -lfreetype -lsfml-audio-s -lsfml-system-s -lopenal32 -lflac -lvorbisenc -lvorbisfile -lvorbis -logg -lsfml-network-s -lsfml-system-s -lws2_32 -lsfml-system-s -lwinmm
+SET linkerFlags=-L..\dependencies\SFML\lib -l sfml-graphics-s -l sfml-window-s -l sfml-audio-s -l sfml-system-s -l gdi32 -l winmm -l opengl32 -l freetype -l openal32 -l flac -l vorbisenc -l vorbisfile  -l vorbis -l ogg
+
+
+
 
 ECHO "Building %assembly%..."
 g++ %cppFilenames% -o %assembly% %compilerFlags% %includeFlags% %linkerFlags% 

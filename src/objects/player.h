@@ -85,6 +85,10 @@ public:
         win_ref.draw(m_playerShape);
         if(enginedemo==PLAYER_BATTLE_TYPE){
             m_playerHeathBar.draw(win_ref);
+            sf::Sprite test;
+            test.setPosition(sf::Vector2f(300,300));
+            test.setTexture(*m_pTexture);
+            win_ref.draw(test);
         }
     }
     void setSize(sf::Vector2f size)
@@ -96,7 +100,10 @@ public:
     }
     void setPosition(sf::Vector2f pos){
         m_pos=pos;
+       
+        if(enginedemo!=PLAYER_BATTLE_TYPE){
         m_playerCamera.setCenter(m_pos.x,m_pos.y);
+        }
         m_colisionBox.setPos(m_pos);
     }
     void setScale(float scale){
@@ -119,6 +126,7 @@ public:
     void setTexture(std::shared_ptr<sf::Texture> texturePtr)
     {
         m_pTexture = texturePtr;
+        m_playerSprite.setTexture(*m_pTexture);
     }
     void setMoveState(int state)
     {
@@ -199,14 +207,14 @@ public:
     }
     void updatePlayerBattle(TimeStep dt){
 
-
         m_playerAnimation->Update(0, dt);
         m_playerSprite.setTextureRect(m_playerAnimation->m_textureRect);
 
-        m_playerSprite.setPosition(m_pos - sf::Vector2f(30*m_scale,0));
-        m_playerSprite.setScale(m_scale, m_scale);
+        m_playerSprite.setScale(-m_scale, m_scale);
+        m_playerSprite.setPosition(m_pos - sf::Vector2f(30 * m_scale, 0));
+        m_playerSprite.setPosition(m_playerSprite.getPosition().x + m_playerSprite.getGlobalBounds().width - (30 * m_scale/2), m_playerSprite.getPosition().y);
 
-        BoxCollider temp(m_pos.x, m_pos.y, m_size.x * (m_scale), m_size.y *(m_scale));
+        BoxCollider temp(m_pos.x, m_pos.y, m_size.x * (m_scale), m_size.y * (m_scale));
         m_colisionBox=temp;
         m_colisionBox.setPos(m_pos);
 

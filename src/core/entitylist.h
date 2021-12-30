@@ -42,6 +42,13 @@ public:
         }
         m_entities.clear();
     }
+    void printObjectsNames(){
+        std::cout << "LIST OF OBJECTS"<< '\n';
+        for (auto it = m_entities.begin(); it != m_entities.end(); it++)
+        {
+            std::cout << it->first << '\n';
+        }
+    }
 
     /**  
     * Metoda aktualizujaca istniejace obiekty

@@ -5,6 +5,7 @@
 #include "objectstates.h"
 #include "../transforms/transforms.h"
 #include "../collision/boxcollider.h"
+
 #include <memory>
 
 /**  
@@ -85,7 +86,7 @@ class Object{
     }
     virtual void setTexture(std::shared_ptr<sf::Texture> texturePtr)
     {
-
+        m_pTexture = texturePtr;
     }
     virtual void setMoveState(int state){
 
