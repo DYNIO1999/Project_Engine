@@ -338,14 +338,14 @@ void Battle_Scene::initData()
         pbackgroundTexture = ResourceManager::acquireTexture(ASSETS_BACKGROUND_PATH + "battle1.png");
         m_background.setTexture(*pbackgroundTexture);
         m_background.setPosition(sf::Vector2f(0, 0));
-        m_background.setScale(sf::Vector2f(2.5, 1.5));
+        m_background.setScale(sf::Vector2f(2.5, 2.5));
     }
     else if (m_battleMapType == MOUNTAIN_MAP_TYPE)
     {
         pbackgroundTexture = ResourceManager::acquireTexture(ASSETS_BACKGROUND_PATH + "battle2.png");
         m_background.setTexture(*pbackgroundTexture);
         m_background.setPosition(sf::Vector2f(0, 0));
-        m_background.setScale(sf::Vector2f(6,6));
+        m_background.setScale(sf::Vector2f(1,1));
     }
 
     m_GUIbar.setPosition(sf::Vector2f(0, m_Engine_ref->m_window->getSize().y-105));
