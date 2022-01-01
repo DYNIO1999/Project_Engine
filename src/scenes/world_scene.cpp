@@ -23,7 +23,7 @@ World_Scene::~World_Scene(){
 void World_Scene::initData(){
     std::shared_ptr<sf::Texture> pPlayerTexture = ResourceManager::acquireTexture(ASSETS_PATH + "token_player.png");
     
-    sf::Vector2f playerPos = sf::Vector2f(900, 200);
+    sf::Vector2f playerPos = m_Engine_ref->m_gameSaveData.getPlayerPosMap(); ///CHANGE THAT
 
     m_entitesPtr->addEntity("PLAYER", new Player(pPlayerTexture, playerPos, sf::Vector2f(40, 40),m_Engine_ref,0));
     if (pPlayerTexture != nullptr)
@@ -162,14 +162,15 @@ int World_Scene::processEvents(TimeStep deltatime)
                 DiceRoller currentDice;
                 int temp;
                 temp = currentDice.diceRoll_1K10();
-                std::cout << currentDice.roll << '\n';
+                //std::cout << currentDice.roll << '\n';
                 if (temp <=5)
                 {
                     m_isInBattle = true;
                     testTimer.Reset();
                     testTimer.Pause();
-                    m_Engine_ref->m_scene_manager->pushScene(new Battle_Scene(m_Engine_ref));
-                    m_isInBattle = false;
+                    m_Engine_ref->m_scene_manager->pushScene(new Battle_Scene(m_Engine_ref, currentDice.diceRoll_1K1(), currentDice.diceRoll_1K3()));
+                    //std::cout<<"Here"<<'\n';
+                   
                 }
                 else
                 {
@@ -184,6 +185,8 @@ int World_Scene::processEvents(TimeStep deltatime)
         {
             testTimer.Reset();
         }
+        m_isInBattle = false;
+
         //std::cout<<"No collision with forest"<<std::endl;
     }
     return 0;

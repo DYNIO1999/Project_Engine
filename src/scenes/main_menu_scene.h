@@ -29,5 +29,6 @@ public:
     int processEvents(TimeStep deltatime) override;
     void draw(TimeStep deltatime) override;
     void input() override;
+    void initGameSaveData();
 };
 
