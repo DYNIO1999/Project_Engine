@@ -66,10 +66,11 @@ int Battle_Scene::processEvents(TimeStep deltatime)
             }else{
             m_entitesPtr->getObject(currentObjName)->setTexture(pEnemyDeathTexture);
             m_entitesPtr->getObject(currentObjName)->setAnimationState(ENEMY_ANIMATION_DEATH);
-            enemyKilledObjName =currentObjName; 
             isDeath=true;
-            allowEndTurn =false;
-            isEnemyDead =true;
+            allowEndTurn =true;
+            enemyKilledObjName = currentObjName;
+            deletedIndex.push_back(enemyKilledObjName.at(enemyKilledObjName.length() - 1)-'0');
+
             }
         }
         inAnimation=true;
@@ -81,16 +82,27 @@ int Battle_Scene::processEvents(TimeStep deltatime)
             if (objMoved == false)
             {
                 DiceRoller diceRoll;
-                if(isEnemyDead){
-                std::cout << "INDEX" << enemyKilledObjName.at(enemyKilledObjName.length() - 1) << '\n';
-                int temp = enemyKilledObjName.at(enemyKilledObjName.length() - 1) - '0';
-                do{
-                currentEnemyIndex = diceRoll.diceRoll(m_numberEnemies);
-                }
-                while(currentEnemyIndex==temp);
-                isEnemyDead=false;
+                std::cout<<'\n';
+                if(currentNumberEnemies<m_numberEnemies){
+                    bool check = true;
+                    int temp;
+                    do{
+                        temp = diceRoll.diceRoll(m_numberEnemies);
+                        std::cout<<temp;
+                        int j=0;
+                        for(int i=0;i<(int)deletedIndex.size();i++){
+                            if(temp==deletedIndex[i]){
+                                j++;
+                            }
+                        }
+                        if(j==0){
+                            std::cout<<"HERE222"<<'\n';
+                            check=false;
+                            currentEnemyIndex=temp;
+                        }
+                    }while(check);
                 }else{
-                currentEnemyIndex = diceRoll.diceRoll(m_numberEnemies);
+                    currentEnemyIndex = diceRoll.diceRoll(m_numberEnemies);
                 }
                 currentObjName= enemyObjName + std::to_string(currentEnemyIndex);
                 
@@ -149,7 +161,8 @@ int Battle_Scene::processEvents(TimeStep deltatime)
                 Potion* temp =  new Potion(pPotionTexture,m_entitesPtr->getObject(currentObjName)->getPos(),sf::Vector2f(60,80),m_Engine_ref,25);
                 m_potionList.push_back(temp);
                 m_entitesPtr->removeEntity(currentObjName);
-                isDeath = false;
+                currentNumberEnemies--;
+                isDeath=false;
             }
         }
     }else{
@@ -158,17 +171,19 @@ int Battle_Scene::processEvents(TimeStep deltatime)
     }
 
     if(endTurn&&allowEndTurn){
+      
         m_entitesPtr->getObject("PLAYER_BATTLE")->setPosition(playerstartPos);
+        if( m_entitesPtr->getObject(currentObjName)){
         m_entitesPtr->getObject(currentObjName)->setPosition(enemystartPos);
+        }
         playerstartPos = sf::Vector2f(0, 0);
         enemystartPos = sf::Vector2f(0, 0);
         if(currentTurn ==BATTLE_ENEMY_TURN){
-            std::cout<<"ENEMY TURN";
-            std::cout<<currentObjName<<'\n';
+            
+            std::cout<<"PLAYER TURN_CHNAGE";
             currentTurn = BATTLE_PLAYER_TURN;
         }else if(currentTurn == BATTLE_PLAYER_TURN){
-            std::cout << "PLAYER TURN";
-            std::cout << currentObjName << '\n';
+            std::cout << "ENEMY TURN_CHNAGE";
             currentTurn = BATTLE_ENEMY_TURN;
         }
         currentObjName="";
@@ -177,6 +192,7 @@ int Battle_Scene::processEvents(TimeStep deltatime)
         objMoved =false;
         currentEnemyIndex=-100;
         waitToMove =true;
+        allowClickOnEnemy=true;
     }
     if(waitToMove){
         secondTimer.Start();
@@ -195,6 +211,7 @@ int Battle_Scene::processEvents(TimeStep deltatime)
         delete m_potionList[potionIndexToRemove];
         m_potionList.erase(m_potionList.begin() + potionIndexToRemove);
         clickedOnPotion=false;
+        
         potionIndexToRemove=-1;
         scorebaord.AddScore(1);
         m_Engine_ref->m_gameSaveData.setCurrentNumberPotions(m_Engine_ref->m_gameSaveData.getCurrentNumberPotions() + 1);
@@ -241,7 +258,7 @@ void Battle_Scene::input()
     {
         (*it)->ButtonInput(m_mousePosition, *m_Engine_ref);
     }
-    if(currentTurn==BATTLE_PLAYER_TURN){
+    if((currentTurn==BATTLE_PLAYER_TURN)&&allowClickOnEnemy){
     for (auto it = m_entitesPtr->m_entities.begin(); it != m_entitesPtr->m_entities.end(); it++)
     {
         if (it->first != playerObjName)
@@ -254,6 +271,7 @@ void Battle_Scene::input()
                     {
                         currentObjName = it->first;
                         clickedOnEnemy=true;
+                        allowClickOnEnemy =false;
                         std::cout<<"HERE"<<'\n';
                         return;
                     }
@@ -388,7 +406,7 @@ void Battle_Scene::initData()
     isDeath =false;
     waitToMove =false;
     clickedOnPotion =false;
-    isEnemyDead =false;
+    allowClickOnEnemy=true;
 
     testTimer.Start();
     secondTimer.Start();
@@ -397,7 +415,8 @@ void Battle_Scene::initData()
     scorebaord.SetScore(m_Engine_ref->m_gameSaveData.getCurrentNumberPotions());
     scorebaord.SetMaxScore(5);
     scorebaord.SetScorboardPosition(sf::Vector2f(1300, m_Engine_ref->m_window->getSize().y-70));
-
+    
+    currentNumberEnemies=m_numberEnemies;
 }
 
 void Battle_Scene::cleanupData() 

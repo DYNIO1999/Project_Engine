@@ -66,7 +66,9 @@ private:
     bool inAnimation;
     bool isDeath;
     bool waitToMove;
-    bool isEnemyDead;
+    std::vector<int> deletedIndex;
+    bool allowClickOnEnemy;
+    int currentNumberEnemies;
 
     Timer testTimer;
     Timer secondTimer;
