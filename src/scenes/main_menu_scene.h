@@ -20,8 +20,10 @@ private:
     sf::Sprite m_backgroundSprite;
     sf::Vector2f m_mousePosition;
     std::vector<Button*> m_buttonList;
-    
-    void initData();
+    sf::Sprite m_warSprite;
+
+    void
+    initData();
     void cleanUp();
 public:
     MainMenuScene(Engine *engine_ref);

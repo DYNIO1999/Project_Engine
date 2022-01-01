@@ -25,35 +25,38 @@ void MainMenuScene::initData()
     m_backgroundSprite.setPosition(0,0);
    // m_backgroundSprite.setScale();
 
-        std::shared_ptr<sf::Font>
-            menuFont = ResourceManager::acquireFont(ASSETS_FONTS_PATH + "mainfont.ttf");
-        
+    std::shared_ptr<sf::Texture> warTexture = ResourceManager::acquireTexture(ASSETS_PATH + "war.png");
+    m_warSprite.setTexture(*warTexture);
+    m_warSprite.setPosition(m_Engine_ref->m_window->getSize().x / 2 - 365.f, 100);
 
-        Button_Colors tempColors;
-        tempColors.pressedColor = sf::Color(0, 0, 0, 200);
-        tempColors.hoverColor = sf::Color(20, 20, 20, 200);
-        tempColors.idleColor = sf::Color(5, 46, 21, 200);
+    std::shared_ptr<sf::Font>
+        menuFont = ResourceManager::acquireFont(ASSETS_FONTS_PATH + "mainfont.ttf");
 
-        int buttonwidth = 500;
-        int buttonheight = 120;
-        int xpos = m_Engine_ref->m_window->getSize().x / 2 - buttonwidth / 2;
+    Button_Colors tempColors;
+    tempColors.pressedColor = sf::Color(0, 0, 0, 200);
+    tempColors.hoverColor = sf::Color(20, 20, 20, 200);
+    tempColors.idleColor = sf::Color(5, 46, 21, 200);
 
-        Button *playButton = new Button();
-        playButton->initButton(xpos, 300, buttonwidth, buttonheight, *menuFont, "PLAY", tempColors, sf::Vector2f(0,-24));
+    int buttonwidth = 500;
+    int buttonheight = 120;
+    int xpos = m_Engine_ref->m_window->getSize().x / 2 - buttonwidth / 2;
 
-        Button *continueButton = new Button();
-        continueButton->initButton(xpos, 450, buttonwidth, buttonheight, *menuFont, "CONTINUE", tempColors, sf::Vector2f(0, -24));
+    Button *playButton = new Button();
+    playButton->initButton(xpos, 300, buttonwidth, buttonheight, *menuFont, "PLAY", tempColors, sf::Vector2f(0, -24));
 
-        Button *optionsButton = new Button();
-        optionsButton->initButton(xpos, 600, buttonwidth, buttonheight, *menuFont, "OPTIONS", tempColors, sf::Vector2f(0, -24));
+    Button *continueButton = new Button();
+    continueButton->initButton(xpos, 450, buttonwidth, buttonheight, *menuFont, "CONTINUE", tempColors, sf::Vector2f(0, -24));
 
-        Button *exitButton = new Button();
-        exitButton->initButton(xpos, 750, buttonwidth, buttonheight, *menuFont, "EXIT", tempColors,  sf::Vector2f(0, -24));
+    Button *optionsButton = new Button();
+    optionsButton->initButton(xpos, 600, buttonwidth, buttonheight, *menuFont, "OPTIONS", tempColors, sf::Vector2f(0, -24));
 
-        m_buttonList.push_back(playButton);
-        m_buttonList.push_back(continueButton);
-        m_buttonList.push_back(optionsButton);
-        m_buttonList.push_back(exitButton);
+    Button *exitButton = new Button();
+    exitButton->initButton(xpos, 750, buttonwidth, buttonheight, *menuFont, "EXIT", tempColors, sf::Vector2f(0, -24));
+
+    m_buttonList.push_back(playButton);
+    m_buttonList.push_back(continueButton);
+    m_buttonList.push_back(optionsButton);
+    m_buttonList.push_back(exitButton);
     
 }
 
@@ -102,6 +105,7 @@ void MainMenuScene::draw(TimeStep deltatime)
 {
     m_Engine_ref->m_window->clear(sf::Color::White);
     m_Engine_ref->m_window->draw(m_backgroundSprite);
+    m_Engine_ref->m_window->draw(m_warSprite);
     for (auto it = m_buttonList.begin(); it < m_buttonList.end(); it++)
     {
         (*it)->ButtonDraw(*m_Engine_ref->m_window);
