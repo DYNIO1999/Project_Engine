@@ -114,6 +114,12 @@ class Object{
     {
         return 0;
     }
+    virtual void setExperience(float experience){
+        
+    }
+    virtual float getExperience(){
+        return 0;
+    }
 
     protected:
     BoxCollider m_colisionBox;

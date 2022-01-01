@@ -16,6 +16,7 @@
 #include "../json.hpp"
 #include "engineconfig.h"
 #include "../resource/resource_manager.h"
+#include "gamesavedata.h"
 
 
 /** Pre-Definicja klasy Scene
@@ -95,6 +96,8 @@ public:
     PrimitiveRenderer* m_primitives_render;
     EngineConfig m_engine_config;
     TimeStep timestep;
+
+    GameSaveData m_gameSaveData;
 
     /**  
     * Metoda zwraca nam deltaTime

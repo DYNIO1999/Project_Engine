@@ -73,6 +73,7 @@ int MainMenuScene::processEvents(TimeStep deltatime){
         if(check==true){
             if(i==MENU_BUTTON_PLAY){
                 check=false;
+                initGameSaveData();
                 m_Engine_ref->m_scene_manager->changeScene(new World_Scene(m_Engine_ref));
                 return 0;
             }
@@ -114,5 +115,10 @@ void MainMenuScene::input()
     {
         (*it)->ButtonInput(m_mousePosition,*m_Engine_ref);
     }
+}
+
+void MainMenuScene::initGameSaveData() 
+{
+    m_Engine_ref->m_gameSaveData.initStartData();
 }
 

@@ -10,6 +10,7 @@ const std::string ASSETS_TILESET_PATH = "../assets/tilesets/";
 const std::string ASSETS_FONTS_PATH = "../assets/fonts/";
 const std::string ASSETS_CHARACTER_BATTLE_PATH = "../assets/char_battle/";
 const std::string ASSETS_ENEMY_BATTLE_PATH = "../assets/enemies/";
+const std::string ASSETS_ITEMS_PATH = "../assets/items/";
 
 class ResourceManager{
     public:

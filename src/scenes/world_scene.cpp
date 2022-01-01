@@ -23,7 +23,7 @@ World_Scene::~World_Scene(){
 void World_Scene::initData(){
     std::shared_ptr<sf::Texture> pPlayerTexture = ResourceManager::acquireTexture(ASSETS_PATH + "token_player.png");
     
-    sf::Vector2f playerPos = sf::Vector2f(900, 200);
+    sf::Vector2f playerPos = m_Engine_ref->m_gameSaveData.getPlayerPosMap(); ///CHANGE THAT
 
     m_entitesPtr->addEntity("PLAYER", new Player(pPlayerTexture, playerPos, sf::Vector2f(40, 40),m_Engine_ref,0));
     if (pPlayerTexture != nullptr)

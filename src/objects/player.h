@@ -4,6 +4,7 @@
 #include "../core/core.h"
 #include "../animation/animation.h"
 #include "../gui/healthbar.h"
+#include "../core/gamesavedata.h"
 
 enum PLAYER_TYPE
 {
@@ -59,6 +60,47 @@ public:
             m_playerCamera.zoom(0.5f);
         }
     }
+
+    Player(std::shared_ptr<sf::Texture> texturePtr, sf::Vector2f pos, sf::Vector2f size, Engine *enginePtr, int engineDemo, GameSaveData* gamesave)
+    {
+        m_gameSaveDataPtr = gamesave;
+        m_enginePtr = enginePtr;
+        m_pos = pos;
+        m_size = size;
+        m_movestate = NO_INPUT;
+        m_pTexture = texturePtr;
+        m_velocity = 300.0f;
+        m_playerSprite.setTexture(*m_pTexture);
+        m_playerSprite.setPosition(m_pos - sf::Vector2f(5, 5));
+        m_playerCamera.setCenter(m_pos);
+        m_playerCamera.setSize(sf::Vector2f(m_enginePtr->m_window->getSize().x, m_enginePtr->m_window->getSize().y));
+
+        // DEBUG
+        m_playerShape.setFillColor(sf::Color::Transparent);
+        m_playerShape.setOutlineColor(sf::Color::Red);
+        m_playerShape.setOutlineThickness(1.0f);
+
+        BoxCollider temp(m_pos.x, m_pos.y, m_size.x, m_size.y);
+        m_colisionBox = temp;
+        enginedemo = engineDemo;
+
+        if (enginedemo == PLAYER_DEMO_TYPE)
+        {
+            m_playerAnimation = new Animation(m_pTexture, sf::Vector2u(4, 1), 0.1f);
+        }
+        else if (enginedemo == PLAYER_BATTLE_TYPE)
+        {
+
+            m_animationstate = PLAYER_ANIMATION_IDLE;
+            m_playerAnimation = new Animation();
+            m_playerHeathBar.init(m_pos.x, m_pos.y, 200, 50);
+            m_playerHealth = 100;
+        }
+        else
+        {
+            m_playerCamera.zoom(0.5f);
+        }
+    }
     ~Player(){
         if ((enginedemo == PLAYER_DEMO_TYPE) || (enginedemo == PLAYER_BATTLE_TYPE))
         {
@@ -85,10 +127,7 @@ public:
         win_ref.draw(m_playerShape);
         if(enginedemo==PLAYER_BATTLE_TYPE){
             m_playerHeathBar.draw(win_ref);
-            sf::Sprite test;
-            test.setPosition(sf::Vector2f(300,300));
-            test.setTexture(*m_pTexture);
-            win_ref.draw(test);
+            
         }
     }
     void setSize(sf::Vector2f size)
@@ -249,17 +288,27 @@ public:
         }
     }
 
+    void setExperience(float experience)
+    {
+        m_playerExperience=experience;
+    }
+    float getExperience()
+    {
+        return m_playerExperience;
+    }
+
     public:
+    GameSaveData* m_gameSaveDataPtr;
     int enginedemo;
     Animation* m_playerAnimation;
     sf::RectangleShape m_playerShape;
     sf::Sprite m_playerSprite;
-    //Animation *m_animation;
     float  m_velocity;
     sf::View m_playerCamera;
     Engine* m_enginePtr;
     float m_playerHealth;
     float m_playerAttack;
+    float m_playerExperience;
     HealthBar m_playerHeathBar;
 };  
 

@@ -34,5 +34,12 @@ struct DiceRoller
         roll = rand() % (max - min + 1) + min;
         return roll;
     }
+    int diceRoll(int n)
+    {
+        min = 0;
+        max = n-1;
+        roll = rand() % (max - min + 1) + min;
+        return roll;
+    }
 };
 
