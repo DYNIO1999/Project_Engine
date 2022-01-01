@@ -153,4 +153,13 @@ Button::Button()
 {
     
 }
+void Button::setTextSize(float size)
+{
+    m_buttonText.setCharacterSize(size);
+}
 
+void Button::setPosition(sf::Vector2f pos)
+{
+m_buttonText.setPosition(m_buttonShape.getPosition().x + (m_buttonShape.getGlobalBounds().width / 2.f) - (m_buttonText.getGlobalBounds().width / 2.f)-pos.x,
+                         m_buttonShape.getPosition().y + (m_buttonShape.getGlobalBounds().height / 2.f) - (m_buttonText.getGlobalBounds().height / 2.f) - pos.y);
+}

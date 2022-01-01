@@ -34,6 +34,8 @@ public:
     bool ButtonUpdate();
     void ButtonDraw(sf::RenderWindow& window);
     void initButton(float x, float y, float width, float height, sf::Font &font, std::string text, Button_Colors &buttoncolors);
-
+    void setTextSize(float size);
     void initButton(float x, float y, float width, float height, sf::Font &font, std::string text, Button_Colors &buttoncolors, sf::Vector2f offset);
+
+    void setPosition(sf::Vector2f pos);
 };
