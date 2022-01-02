@@ -23,13 +23,13 @@ public:
 
         BoxCollider temp(pos.x,pos.y,size.x,size.y);
         m_colisionBox = temp;
-
+        /*
         m_potionShape.setFillColor(sf::Color::Transparent);
         m_potionShape.setOutlineColor(sf::Color::Red);
         m_potionShape.setOutlineThickness(1.0f);
         m_potionShape.setSize(size);
         m_potionShape.setPosition(pos);
-
+        */
     }
     ~Potion(){
 
@@ -43,7 +43,7 @@ public:
     void draw(sf::RenderWindow &win_ref)
     {
         win_ref.draw(m_potionSprite);
-        win_ref.draw(m_potionShape);
+        //win_ref.draw(m_potionShape);
     }
 };
 
