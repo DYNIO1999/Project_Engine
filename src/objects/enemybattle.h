@@ -26,10 +26,10 @@ public:
         m_enemySprite.setTexture(*m_pTexture);
         m_enemySprite.setPosition(m_pos - sf::Vector2f(5, 5));
 
-        // DEBUG
+        /*// DEBUG
         m_enemyShape.setFillColor(sf::Color::Transparent);
         m_enemyShape.setOutlineColor(sf::Color::Red);
-        m_enemyShape.setOutlineThickness(1.0f);
+        m_enemyShape.setOutlineThickness(1.0f);*/
 
         BoxCollider temp(m_pos.x, m_pos.y, m_size.x, m_size.y);
         m_colisionBox = temp;
@@ -71,7 +71,7 @@ public:
     void draw(sf::RenderWindow &win_ref)
     {
         win_ref.draw(m_enemySprite);
-        win_ref.draw(m_enemyShape);
+        //win_ref.draw(m_enemyShape);
         m_enemyHealthBar.draw(win_ref);
     }
 

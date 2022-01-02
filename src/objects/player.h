@@ -75,10 +75,10 @@ public:
         m_playerCamera.setCenter(m_pos);
         m_playerCamera.setSize(sf::Vector2f(m_enginePtr->m_window->getSize().x, m_enginePtr->m_window->getSize().y));
 
-        // DEBUG
+        /*// DEBUG
         m_playerShape.setFillColor(sf::Color::Transparent);
         m_playerShape.setOutlineColor(sf::Color::Red);
-        m_playerShape.setOutlineThickness(1.0f);
+        m_playerShape.setOutlineThickness(1.0f);*/
 
         BoxCollider temp(m_pos.x, m_pos.y, m_size.x, m_size.y);
         m_colisionBox = temp;
@@ -124,7 +124,7 @@ public:
     }
     void draw(sf::RenderWindow &win_ref){
         win_ref.draw(m_playerSprite);
-        win_ref.draw(m_playerShape);
+        //win_ref.draw(m_playerShape);
         if(enginedemo==PLAYER_BATTLE_TYPE){
             m_playerHeathBar.draw(win_ref);
             

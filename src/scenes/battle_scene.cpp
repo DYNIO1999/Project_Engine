@@ -57,7 +57,11 @@ int Battle_Scene::processEvents(TimeStep deltatime)
         m_entitesPtr->getObject("PLAYER_BATTLE")->setAnimationState(PLAYER_ANIMATION_ATTACK);
         if (m_entitesPtr->getObject(currentObjName))
         {      
-            m_entitesPtr->getObject(currentObjName)->setHealth(m_entitesPtr->getObject(currentObjName)->getHealth() -  m_entitesPtr->getObject("PLAYER_BATTLE")->getAttack());
+            float health =m_entitesPtr->getObject(currentObjName)->getHealth() -  m_entitesPtr->getObject("PLAYER_BATTLE")->getAttack();
+            if(health<0){
+                health =0;
+            }
+            m_entitesPtr->getObject(currentObjName)->setHealth(health);
             
             if(m_entitesPtr->getObject(currentObjName)->getHealth()>0){
             m_entitesPtr->getObject(currentObjName)->setTexture(pEnemyHitTexture);
@@ -240,8 +244,9 @@ int Battle_Scene::processEvents(TimeStep deltatime)
         wonTimer.Start();
         float elapsedTime = wonTimer.GetElapsedSeconds();
         m_battleSceneState = BATTLE_WON_STATE;
-        m_Engine_ref->m_gameSaveData.setWonBattles(m_Engine_ref->m_gameSaveData.getWonBattles()+1);
+
         if(elapsedTime>3.0f){
+        m_Engine_ref->m_gameSaveData.setWonBattles(m_Engine_ref->m_gameSaveData.getWonBattles() + 1);
         m_Engine_ref->m_scene_manager->popScene();
         wonTimer.Reset();
         return 0;
@@ -273,14 +278,14 @@ int Battle_Scene::processEvents(TimeStep deltatime)
 void Battle_Scene::draw(TimeStep deltatime) 
 {
     m_Engine_ref->m_window->clear(sf::Color::White);
-    ImGui::Begin("Welcome Battle_Scene");
+    /*ImGui::Begin("Welcome Battle_Scene");
     if (ImGui::Button("Close Battle scene"))
     {
         m_Engine_ref->m_scene_manager->popScene();
         ImGui::End();
         return;
     }
-    ImGui::End();
+    ImGui::End();*/
     m_Engine_ref->m_window->draw(m_background);
     m_Engine_ref->m_window->draw(m_GUIbar);
     
@@ -478,7 +483,6 @@ void Battle_Scene::initData()
     secondTimer.Start();
 
     scorebaord.InitScoreBoard(m_Engine_ref);
-    std::cout<<"CURRENT POTIONS"<<m_Engine_ref->m_gameSaveData.getCurrentNumberPotions()<<'\n';
     scorebaord.SetScore(m_Engine_ref->m_gameSaveData.getCurrentNumberPotions());
     scorebaord.SetMaxScore(5);
     scorebaord.SetScorboardPosition(sf::Vector2f(1300, m_Engine_ref->m_window->getSize().y-70));
@@ -494,7 +498,6 @@ void Battle_Scene::initData()
     m_wonSprite.setScale(sf::Vector2f(2, 2));
 
     
-
     pLostTexture = ResourceManager::acquireTexture(ASSETS_PATH + "lost.png");
     m_lostSprite.setTexture(*pLostTexture);
     m_lostSprite.setPosition(sf::Vector2f(m_Engine_ref->m_window->getSize().x / 2-500, 250));

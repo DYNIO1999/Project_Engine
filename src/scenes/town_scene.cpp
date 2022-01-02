@@ -40,6 +40,7 @@ int Town_Scene::processEvents(TimeStep deltatime)
             }
             else if (i == TOWN_BUTTON_SAVE)
             {
+                m_Engine_ref->m_gameSaveData.saveData();
                 check = false;
                 return 0;
             }
@@ -69,7 +70,7 @@ void Town_Scene::draw(TimeStep deltatime)
 
     m_Engine_ref->m_window->clear(sf::Color::White);
     
-
+    /*
     ImGui::Begin("Welcome Town_Scene");
     if (ImGui::Button("Close Town scene"))
     {
@@ -78,6 +79,7 @@ void Town_Scene::draw(TimeStep deltatime)
         return;
     }
     ImGui::End();
+    */
     m_Engine_ref->m_window->draw(background_sprite);
     m_Engine_ref->m_window->draw(m_inventorySprite);
     m_Engine_ref->m_window->draw(m_attackText);

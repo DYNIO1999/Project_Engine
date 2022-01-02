@@ -82,12 +82,12 @@ int MainMenuScene::processEvents(TimeStep deltatime){
             else if (i==MENU_BUTTON_CONTINUE)
             {
                 check = false;
+                m_Engine_ref->m_gameSaveData.loadData();
+                m_Engine_ref->m_scene_manager->changeScene(new World_Scene(m_Engine_ref));
                 return 0;
             }else if(i==MENU_BUTTON_OPTIONS){
                 check = false;
-                std::cout<<"ADD OPTIONS"<<'\n';
                 m_Engine_ref->m_scene_manager->pushScene(new OptionsScene(m_Engine_ref));
-                std::cout << "HERE" << '\n';
                 return 0;
             }else{
                 check = false;
@@ -124,4 +124,5 @@ void MainMenuScene::initGameSaveData()
 {
     m_Engine_ref->m_gameSaveData.initStartData();
 }
+
 
