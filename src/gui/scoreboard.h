@@ -57,6 +57,9 @@ public:
     {
         m_MaxScore = "|" + std::to_string(x);
     }
+    void setTextSize(float size){
+        m_ScoreBoardText.setCharacterSize(size);
+    }
 private:
     Engine* m_EnginePtr;
     int m_Score;

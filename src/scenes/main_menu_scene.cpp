@@ -23,7 +23,6 @@ void MainMenuScene::initData()
     std::shared_ptr<sf::Texture> backgroundTexture = ResourceManager::acquireTexture(ASSETS_BACKGROUND_PATH + "menu.png");
     m_backgroundSprite.setTexture(*backgroundTexture);
     m_backgroundSprite.setPosition(0,0);
-   // m_backgroundSprite.setScale();
 
     std::shared_ptr<sf::Texture> warTexture = ResourceManager::acquireTexture(ASSETS_PATH + "war.png");
     m_warSprite.setTexture(*warTexture);

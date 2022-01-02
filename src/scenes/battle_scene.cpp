@@ -194,6 +194,7 @@ int Battle_Scene::processEvents(TimeStep deltatime)
         waitToMove =true;
         allowClickOnEnemy=true;
     }
+
     if(waitToMove){
         secondTimer.Start();
         float elapsedTime = secondTimer.GetElapsedSeconds();
@@ -235,11 +236,10 @@ int Battle_Scene::processEvents(TimeStep deltatime)
     if(currentNumberEnemies==0){
         wonTimer.Start();
         float elapsedTime = wonTimer.GetElapsedSeconds();
-        std::cout<<elapsedTime<<'\n';
-        if(elapsedTime>5.0f){
-        m_battleSceneState =BATTLE_WON_STATE;
-        wonTimer.Reset();
+        m_battleSceneState = BATTLE_WON_STATE;
+        if(elapsedTime>3.0f){
         m_Engine_ref->m_scene_manager->popScene();
+        wonTimer.Reset();
         return 0;
         }
     }
@@ -251,20 +251,20 @@ int Battle_Scene::processEvents(TimeStep deltatime)
 
     if(m_battleSceneState==BATTLE_LOST_STATE){
         lostTimer.Start();
-
         float elapsedTime = lostTimer.GetElapsedSeconds();
-        if(elapsedTime>5.0f){
+        if(elapsedTime>2.0f){
             
-            m_Engine_ref->m_scene_manager->popScene();
+            m_Engine_ref->m_window->close();
+            lostTimer.Reset();
             return 0;
         }
-        else
-        {
-            lostTimer.Reset();
-            lostTimer.Pause();
-        }
     }
-    
+    else
+    {
+        lostTimer.Reset();
+        lostTimer.Pause();
+    }
+
     return 0;
     }
 
@@ -487,15 +487,15 @@ void Battle_Scene::initData()
 
     pWonTexture = ResourceManager::acquireTexture(ASSETS_PATH + "won.png");
     m_wonSprite.setTexture(*pWonTexture);
-    m_wonSprite.setPosition(sf::Vector2f(m_Engine_ref->m_window->getSize().x/2-250, 0));
-    m_wonSprite.setScale(sf::Vector2f(1, 1));
+    m_wonSprite.setPosition(sf::Vector2f(m_Engine_ref->m_window->getSize().x/2-500, 250));
+    m_wonSprite.setScale(sf::Vector2f(2, 2));
 
     
 
     pLostTexture = ResourceManager::acquireTexture(ASSETS_PATH + "lost.png");
     m_lostSprite.setTexture(*pLostTexture);
-    m_lostSprite.setPosition(sf::Vector2f(m_Engine_ref->m_window->getSize().x / 2-250, 0));
-    m_lostSprite.setScale(sf::Vector2f(1, 1));
+    m_lostSprite.setPosition(sf::Vector2f(m_Engine_ref->m_window->getSize().x / 2-500, 250));
+    m_lostSprite.setScale(sf::Vector2f(2, 2));
 
     wonTimer.Start();
     lostTimer.Start();
