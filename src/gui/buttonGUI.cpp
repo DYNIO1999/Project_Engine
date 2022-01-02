@@ -20,8 +20,8 @@ Button::Button(float x, float y, float width, float height, sf::Font& font, std:
                              m_buttonShape.getPosition().y + (m_buttonShape.getGlobalBounds().height / 2.f) - (m_buttonText.getGlobalBounds().height / 2.f) - 12.5);
     m_buttonShape.setFillColor(m_buttonColors.idleColor);
     m_buttonState = BUTTON_IDLE;
-
-    //buttonclicked.setBuffer(ResourceManager::acquireSound());
+    buttonclicked.setBuffer(*ResourceManager::acquireSound(ASSETS_SOUNDS_PATH+"button.ogg"));
+    buttonclicked.setVolume(50);
 }
 
 Button::Button(float x, float y, float width, float height, sf::Font &font, std::string text, Button_Colors  &buttoncolors, sf::Vector2f offset)
@@ -44,7 +44,10 @@ Button::Button(float x, float y, float width, float height, sf::Font &font, std:
                              m_buttonShape.getPosition().y + (m_buttonShape.getGlobalBounds().height / 2.f) - (m_buttonText.getGlobalBounds().height / 2.f) - offset.y);
     m_buttonShape.setFillColor(m_buttonColors.idleColor);
     m_buttonState = BUTTON_IDLE;
-    //buttonclicked.setBuffer(ResourceManager::acquireSound());
+
+    buttonclicked.setBuffer(*ResourceManager::acquireSound(ASSETS_SOUNDS_PATH + "button.ogg"));
+    buttonclicked.setVolume(50);
+
 }
 Button::~Button() 
 {
@@ -62,6 +65,7 @@ void Button::ButtonInput(sf::Vector2f mousepos, Engine &engineref)
             if (engineref.event.type == sf::Event::MouseButtonPressed){
                 
                 m_buttonState = BUTTON_PRESSED;
+                buttonclicked.play();
             }
         }
     }
@@ -76,6 +80,7 @@ void Button::ButtonInput(sf::Vector2f mousepos)
         if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
         {
             m_buttonState = BUTTON_PRESSED;
+            buttonclicked.play();
             return;
         }
     }
@@ -129,6 +134,8 @@ void Button::initButton(float x, float y, float width, float height, sf::Font &f
                              m_buttonShape.getPosition().y + (m_buttonShape.getGlobalBounds().height / 2.f) - (m_buttonText.getGlobalBounds().height / 2.f) - 12.5);
     m_buttonShape.setFillColor(m_buttonColors.idleColor);
     m_buttonState = BUTTON_IDLE;
+    buttonclicked.setBuffer(*ResourceManager::acquireSound(ASSETS_SOUNDS_PATH + "button.ogg"));
+    buttonclicked.setVolume(50);
 }
 void Button::initButton(float x, float y, float width, float height, sf::Font &font, std::string text, Button_Colors &buttoncolors, sf::Vector2f offset)
 {
@@ -150,6 +157,8 @@ void Button::initButton(float x, float y, float width, float height, sf::Font &f
                              m_buttonShape.getPosition().y + (m_buttonShape.getGlobalBounds().height / 2.f) - (m_buttonText.getGlobalBounds().height / 2.f) - offset.y);
     m_buttonShape.setFillColor(m_buttonColors.idleColor);
     m_buttonState = BUTTON_IDLE;
+    buttonclicked.setBuffer(*ResourceManager::acquireSound(ASSETS_SOUNDS_PATH+"button.ogg"));
+    buttonclicked.setVolume(50);
 }
 
 Button::Button() 
