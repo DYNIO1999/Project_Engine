@@ -27,7 +27,7 @@ public:
     }
     int getCurrentNumberPotions()
     {
-        return m_wonBattles;
+        return m_currentNumberPotions;
     }
 
     void setCurrentNumberPotions(int currentNumberPotions)

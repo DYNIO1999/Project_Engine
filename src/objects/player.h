@@ -189,6 +189,9 @@ public:
     void setHealth(float health)
     {
         m_playerHealth= health;
+        if(m_playerHealth>100){
+            m_playerHeathBar.setBackBarSize(m_playerHealth);
+        }
     }
     float getHealth()
     {
@@ -263,7 +266,7 @@ public:
         
         float test = m_size.x-100;
         test=test/2;
-        
+
         m_playerHeathBar.update(m_playerHealth*2,m_pos.x-test,m_pos.y-50);
     }
 

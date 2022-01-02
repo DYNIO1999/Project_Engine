@@ -13,7 +13,7 @@
   + Won
 # II KAMIEN
 
-- System doświadczenia i życia bohaterów,
+
 - Zapis stanu gry,
 - Działające menu gry.
 

@@ -2,6 +2,7 @@
 #include "battle_scene.h"
 #include "../objects/player.h"
 #include "../objects/enemybattle.h"
+#include "../scenes/main_menu_scene.h"
 
 Battle_Scene::Battle_Scene(Engine *engine_ref) 
 {
@@ -159,6 +160,7 @@ int Battle_Scene::processEvents(TimeStep deltatime)
                 m_potionList.push_back(temp);
                 m_entitesPtr->removeEntity(currentObjName);
                 currentNumberEnemies--;
+                m_Engine_ref->m_gameSaveData.setPlayerExperience(m_Engine_ref->m_gameSaveData.getPlayerExperience() + 25);
                 isDeath=false;
             }
             if (isPlayerDead){
@@ -224,6 +226,7 @@ int Battle_Scene::processEvents(TimeStep deltatime)
     {
         if(scorebaord.GetScore()>0){
         scorebaord.DecreaseScore(1);
+        m_Engine_ref->m_gameSaveData.setCurrentNumberPotions(m_Engine_ref->m_gameSaveData.getCurrentNumberPotions() - 1);
         m_entitesPtr->getObject("PLAYER_BATTLE")->setHealth(m_entitesPtr->getObject("PLAYER_BATTLE")->getHealth()+20);
         }
         allowUsePotion=false;
@@ -237,6 +240,7 @@ int Battle_Scene::processEvents(TimeStep deltatime)
         wonTimer.Start();
         float elapsedTime = wonTimer.GetElapsedSeconds();
         m_battleSceneState = BATTLE_WON_STATE;
+        m_Engine_ref->m_gameSaveData.setWonBattles(m_Engine_ref->m_gameSaveData.getWonBattles()+1);
         if(elapsedTime>3.0f){
         m_Engine_ref->m_scene_manager->popScene();
         wonTimer.Reset();
@@ -253,8 +257,7 @@ int Battle_Scene::processEvents(TimeStep deltatime)
         lostTimer.Start();
         float elapsedTime = lostTimer.GetElapsedSeconds();
         if(elapsedTime>2.0f){
-            
-            m_Engine_ref->m_window->close();
+            m_Engine_ref->m_scene_manager->changeScene(new MainMenuScene(m_Engine_ref));
             lostTimer.Reset();
             return 0;
         }
@@ -264,7 +267,6 @@ int Battle_Scene::processEvents(TimeStep deltatime)
         lostTimer.Reset();
         lostTimer.Pause();
     }
-
     return 0;
     }
 
@@ -476,6 +478,7 @@ void Battle_Scene::initData()
     secondTimer.Start();
 
     scorebaord.InitScoreBoard(m_Engine_ref);
+    std::cout<<"CURRENT POTIONS"<<m_Engine_ref->m_gameSaveData.getCurrentNumberPotions()<<'\n';
     scorebaord.SetScore(m_Engine_ref->m_gameSaveData.getCurrentNumberPotions());
     scorebaord.SetMaxScore(5);
     scorebaord.SetScorboardPosition(sf::Vector2f(1300, m_Engine_ref->m_window->getSize().y-70));

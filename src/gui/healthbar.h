@@ -10,6 +10,7 @@ public:
 
     void update(float sizeX, float x, float y);
     void draw(sf::RenderWindow &window);
+    void setBackBarSize(float size);
 private:
     sf::RectangleShape m_backHPbar;
     sf::RectangleShape m_frontHPBar;

@@ -22,15 +22,25 @@ int Town_Scene::processEvents(TimeStep deltatime)
         {
             if (i == TOWN_BUTTON_ADD_ATTACK)
             {
+                if (m_Engine_ref->m_gameSaveData.getPlayerExperience()>=50){
+                m_Engine_ref->m_gameSaveData.setPlayerExperience(m_Engine_ref->m_gameSaveData.getPlayerExperience() - 50);
+                m_Engine_ref->m_gameSaveData.setPlayerAttack(m_Engine_ref->m_gameSaveData.getPlayerAttack()+10);
+                }
+                check = false;
                 return 0;
             }
             else if (i == TOWN_BUTTON_ADD_HEALTH)
             {
+                if (m_Engine_ref->m_gameSaveData.getPlayerExperience()>=50){
+                m_Engine_ref->m_gameSaveData.setPlayerExperience(m_Engine_ref->m_gameSaveData.getPlayerExperience() - 50);
+                m_Engine_ref->m_gameSaveData.setPlayerHealth(m_Engine_ref->m_gameSaveData.getPlayerHealth() + 10);
+                }
                 check = false;
                 return 0;
             }
             else if (i == TOWN_BUTTON_SAVE)
             {
+                check = false;
                 return 0;
             }
             else
@@ -42,9 +52,14 @@ int Town_Scene::processEvents(TimeStep deltatime)
         }
     }
 
+    experienceStats.SetScore(m_Engine_ref->m_gameSaveData.getPlayerExperience());
+    healthStats.SetScore(m_Engine_ref->m_gameSaveData.getPlayerHealth());
+    attackStats.SetScore(m_Engine_ref->m_gameSaveData.getPlayerAttack());
+
     experienceStats.Update();
     healthStats.Update();
     attackStats.Update();
+
     m_entitesPtr->processEvents(deltatime);
     return 0;
 }
@@ -165,23 +180,22 @@ void Town_Scene::initData()
     m_experienceText.setString("Exp:");
     m_experienceText.setPosition(sf::Vector2f(490, 300));
 
-    //healthStats.InitScoreBoard(m);
-
     experienceStats.InitScoreBoard(m_Engine_ref);
-    experienceStats.SetScore(100);
+    experienceStats.SetScore(m_Engine_ref->m_gameSaveData.getPlayerExperience());
     experienceStats.SetScorboardPosition(sf::Vector2f(650, 300));
     experienceStats.setTextSize(25);
 
     attackStats.InitScoreBoard(m_Engine_ref);
-    attackStats.SetScore(100);
+    attackStats.SetScore(m_Engine_ref->m_gameSaveData.getPlayerAttack());
     attackStats.SetScorboardPosition(sf::Vector2f(600, 470));
     attackStats.setTextSize(25);
 
 
     healthStats.InitScoreBoard(m_Engine_ref);
-    healthStats.SetScore(100);
+    healthStats.SetScore(m_Engine_ref->m_gameSaveData.getPlayerHealth());
     healthStats.SetScorboardPosition(sf::Vector2f(600, 650));
     healthStats.setTextSize(25);
+
 }
 
 void Town_Scene::input()

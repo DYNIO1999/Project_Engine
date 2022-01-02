@@ -46,6 +46,11 @@ void HealthBar::draw(sf::RenderWindow &window)
     window.draw(m_frontHPBar);
 }
 
+void HealthBar::setBackBarSize(float size) 
+{
+    m_frontHPBar.setSize(sf::Vector2f(size, m_backHPbar.getSize().y));
+}
+
 HealthBar::HealthBar() 
 {
     
