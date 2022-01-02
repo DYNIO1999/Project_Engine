@@ -13,7 +13,7 @@ const std::string ASSETS_FONTS_PATH = "../assets/fonts/";
 const std::string ASSETS_CHARACTER_BATTLE_PATH = "../assets/char_battle/";
 const std::string ASSETS_ENEMY_BATTLE_PATH = "../assets/enemies/";
 const std::string ASSETS_ITEMS_PATH = "../assets/items/";
-const std::string ASSETS_SOUNDS_PATH = "../assets/music/";
+const std::string ASSETS_SOUNDS_PATH = "../assets/Music/";
 
 class ResourceManager{
     public:
