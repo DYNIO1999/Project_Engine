@@ -31,6 +31,9 @@ public:
     {
         m_Score = x;
     }
+    void DecreaseScore(int x){
+        m_Score = m_Score - x;
+    }
     void AddScore(int x)
     {
         m_Score = m_Score + x;
@@ -53,6 +56,9 @@ public:
     void SetMaxScore(int x)
     {
         m_MaxScore = "|" + std::to_string(x);
+    }
+    void setTextSize(float size){
+        m_ScoreBoardText.setCharacterSize(size);
     }
 private:
     Engine* m_EnginePtr;

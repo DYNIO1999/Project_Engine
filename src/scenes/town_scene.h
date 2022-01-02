@@ -1,9 +1,15 @@
 #pragma once
-//#include <SFML/Graphics.hpp>
-//#include <iostream>
-//#include <memory>
 #include "scene.h"
 #include "../gui/buttonGUI.h"
+#include "../gui/scoreboard.h"
+
+enum TOOWN_BUTTON_TYPES
+{
+    TOWN_BUTTON_ADD_ATTACK,
+    TOWN_BUTTON_ADD_HEALTH,
+    TOWN_BUTTON_SAVE,
+    TOWN_BUTTON_EXIT,
+};
 
 class EntityList;
 
@@ -14,13 +20,19 @@ private:
     sf::Sprite background_sprite;
     sf::Sprite m_inventorySprite;
     sf::Clock m_clock;
-    Button attackbutton;
-    Button healthbutton;
     sf::Vector2f m_mousePosition;
-    std::vector<Button *> m_buttonnList;
+    std::vector<Button*> m_buttonList;
+
     sf::Text m_attackText;
     sf::Text m_healthText;
+    sf::Text m_experienceText;
+    
+    Scoreboard healthStats;
+    Scoreboard attackStats;
+    Scoreboard experienceStats;
+
     void initData();
+    void cleanUp();
 public:
     Town_Scene(Engine* engine_ref);
     ~Town_Scene();

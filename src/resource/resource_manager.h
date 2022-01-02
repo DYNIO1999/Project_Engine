@@ -1,9 +1,11 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 #include <string>
 #include <unordered_map>
 #include <memory>
 #include <iostream>
+
 const std::string ASSETS_PATH = "../assets/";
 const std::string ASSETS_BACKGROUND_PATH = "../assets/backgrounds/";
 const std::string ASSETS_TILESET_PATH = "../assets/tilesets/";
@@ -11,6 +13,7 @@ const std::string ASSETS_FONTS_PATH = "../assets/fonts/";
 const std::string ASSETS_CHARACTER_BATTLE_PATH = "../assets/char_battle/";
 const std::string ASSETS_ENEMY_BATTLE_PATH = "../assets/enemies/";
 const std::string ASSETS_ITEMS_PATH = "../assets/items/";
+const std::string ASSETS_SOUNDS_PATH = "../assets/music/";
 
 class ResourceManager{
     public:
@@ -40,6 +43,22 @@ class ResourceManager{
             return pFont;
         }
     }
+    static std::shared_ptr<sf::SoundBuffer> acquireSound(const std::string &path)
+    {
+        const auto it = m_soundsPtr.find(path);
+        if (it != m_soundsPtr.end())
+        {
+            return it->second;
+        }
+        else
+        {
+            auto pSound = std::make_shared<sf::SoundBuffer>();
+            pSound->loadFromFile(path);
+            m_soundsPtr.insert({path, pSound});
+            return pSound;
+        }
+    }
+
     static void cleanUpOrphans(){
         for(auto it = m_texturesPtr.begin();it!=m_texturesPtr.end();  ){
             if(it->second.unique()){
@@ -49,8 +68,20 @@ class ResourceManager{
             }
 
         }
+        for (auto it = m_fonts.begin(); it != m_fonts.end();)
+        {
+            if (it->second.unique())
+            {
+                it = m_fonts.erase(it);
+            }
+            else
+            {
+                it++;
+            }
+        }
     }
     private:
     static std::unordered_map<std::string, std::shared_ptr<sf::Texture>> m_texturesPtr;
     static std::unordered_map<std::string, std::shared_ptr<sf::Font>> m_fonts;
+    static std::unordered_map<std::string, std::shared_ptr<sf::SoundBuffer>> m_soundsPtr;
 };

@@ -62,7 +62,13 @@ void World_Scene::initData(){
     std::shared_ptr<sf::Texture> pforest12 = ResourceManager::acquireTexture(ASSETS_TILESET_PATH + "forest12.png");
     std::shared_ptr<sf::Texture> pforest13 = ResourceManager::acquireTexture(ASSETS_TILESET_PATH + "forest13.png");
     std::shared_ptr<sf::Texture> pwater = ResourceManager::acquireTexture(ASSETS_TILESET_PATH + "water.png");
-    
+
+    std::shared_ptr<sf::Texture> pwonGameSprite = ResourceManager::acquireTexture(ASSETS_PATH + "wongame.png");
+
+    wonGameSprite.setTexture(*pwonGameSprite);
+    wonGameSprite.setScale(sf::Vector2f(1,1));
+    wonGameSprite.setPosition(sf::Vector2f((m_Engine_ref->m_window->getSize().x / 2)-250,(m_Engine_ref->m_window->getSize().y / 2)-59));
+
     background_sprite.setTexture(*background);
     background_sprite.setScale(sf::Vector2f(50,50));
     background_sprite.setPosition(-500,-500);
@@ -102,18 +108,21 @@ void World_Scene::initData(){
 
     m_colisionWithTown = false;
     m_isInBattle = false;
-    std::cout<< "SIZE_TEXTURE_PTR" << testmap->m_terrainPtr.size() << "\n";
-    std::cout<<"SIZE_TILES_SIZE"<<testmap->m_tiles.size()<<"\n";
     
     maxTimeToBattle =2.0f;
     testTimer.Start();
+
+    wonGame=false;
+    wonTimer.Start();
     //ResourceManager::cleanUpOrphans();
 }
 
 int World_Scene::processEvents(TimeStep deltatime)
 {
     testmap->processEvents(m_mapeditor->getMap());
+    if(!wonGame){
     m_entitesPtr->processEvents(deltatime);
+    }
     testmap->checkCollisionTilemap(*m_entitesPtr->getObject("PLAYER"));
     std::string town = "TOWN";
     for(int i=1;i<=2;i++){
@@ -142,6 +151,7 @@ int World_Scene::processEvents(TimeStep deltatime)
             testTimer.Reset();
             testTimer.Pause();
             m_entitesPtr->getObject("PLAYER")->setPosition(m_entitesPtr->getObject("PLAYER")->getPos() + moveplayer);
+            m_Engine_ref->m_gameSaveData.setPlayerPosMap(m_entitesPtr->getObject("PLAYER")->getPos());
             m_Engine_ref->m_scene_manager->pushScene(new Town_Scene(m_Engine_ref));
 
         }else{
@@ -149,10 +159,8 @@ int World_Scene::processEvents(TimeStep deltatime)
             m_colisionWithTown =false;
         }
     }
-    //std::cout << testTimer.GetElapsedSeconds() << '\n';
 
     if(testmap->checkCollsionwithTilesForest(*m_entitesPtr->getObject("PLAYER"))){
-        //std::cout<<"Colision with forest"<<'\n';
         if ((!m_colisionWithTown) && (!m_isInBattle))
         {
 
@@ -162,15 +170,13 @@ int World_Scene::processEvents(TimeStep deltatime)
                 DiceRoller currentDice;
                 int temp;
                 temp = currentDice.diceRoll_1K10();
-                //std::cout << currentDice.roll << '\n';
                 if (temp <=5)
                 {
                     m_isInBattle = true;
                     testTimer.Reset();
                     testTimer.Pause();
-                    m_Engine_ref->m_scene_manager->pushScene(new Battle_Scene(m_Engine_ref, currentDice.diceRoll_1K1(), currentDice.diceRoll_1K3()));
-                    //std::cout<<"Here"<<'\n';
-                   
+                    m_Engine_ref->m_gameSaveData.setPlayerPosMap(m_entitesPtr->getObject("PLAYER")->getPos());
+                    m_Engine_ref->m_scene_manager->pushScene(new Battle_Scene(m_Engine_ref, currentDice.diceRoll_1K1(), currentDice.diceRoll_1K3()));                   
                 }
                 else
                 {
@@ -186,8 +192,25 @@ int World_Scene::processEvents(TimeStep deltatime)
             testTimer.Reset();
         }
         m_isInBattle = false;
+    }
+    
+    if(m_Engine_ref->m_gameSaveData.getWonBattles()>=3){
+        wonTimer.Start();
+        wonGame = true;
+        float elapsedTime = wonTimer.GetElapsedSeconds();
+        std::cout<<elapsedTime<<'\n';
+        if(elapsedTime>3.0f){
+            m_Engine_ref->m_scene_manager->changeScene(new MainMenuScene(m_Engine_ref));
+            wonTimer.Reset();
+            return 0;
+        }
+    }else{
+        wonTimer.Reset();
+        wonTimer.Pause();
+    }
+    if(wonGame){
 
-        //std::cout<<"No collision with forest"<<std::endl;
+        wonGameSprite.setPosition(sf::Vector2f(m_entitesPtr->getObject("PLAYER")->getPos().x - 250, m_entitesPtr->getObject("PLAYER")->getPos().y - 58));
     }
     return 0;
 }
@@ -195,16 +218,12 @@ void World_Scene::draw(TimeStep deltatime)
 {
     m_Engine_ref->m_window->clear(sf::Color::White);
     m_Engine_ref->m_window->draw(background_sprite);
-    //background_sprite.
-    //sf::Texture text;
-    //text.loadFromFile(ASSETS_PATH+"testback.png");
-    //sf::Sprite background;
-    //background.setTexture(text);
-    //background.setPosition(sf::Vector2f(0,0));
-    //m_Engine_ref->m_window->draw(background);
     testmap->draw(*m_Engine_ref->m_window, m_Engine_ref->m_window->getView());
     m_entitesPtr->draw((*m_Engine_ref->m_window));
     //m_mapeditor->drawTileSelector(*m_Engine_ref->m_window);
+    if(wonGame){
+    m_Engine_ref->m_window->draw(wonGameSprite);
+    }
 }
 void World_Scene::input(){
     //m_mapeditor->editInput(m_Engine_ref->event);

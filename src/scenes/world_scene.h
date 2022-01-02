@@ -10,6 +10,7 @@
 #include "../collision/boxcollider.h"
 #include "../core/timer.h"
 #include "../core/diceroller.h"
+
 class World_Scene:public Scene{
 
 public:
@@ -24,14 +25,18 @@ private:
     bool m_isInBattle;
     bool m_colisionWithTown;
 
+    bool wonGame;
+
     Timer testTimer;
-    
+    Timer wonTimer;
+
     sf::Clock m_toBattleClock;
     Tilemap* testmap;
     InputHandler* m_inputhandler;
     EntityList* m_entitesPtr;
     TileMapEditor* m_mapeditor;
     sf::Sprite background_sprite;
+    sf::Sprite wonGameSprite;
     
     void initData();
     void input();

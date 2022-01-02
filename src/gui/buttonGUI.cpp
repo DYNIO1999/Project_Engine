@@ -20,6 +20,8 @@ Button::Button(float x, float y, float width, float height, sf::Font& font, std:
                              m_buttonShape.getPosition().y + (m_buttonShape.getGlobalBounds().height / 2.f) - (m_buttonText.getGlobalBounds().height / 2.f) - 12.5);
     m_buttonShape.setFillColor(m_buttonColors.idleColor);
     m_buttonState = BUTTON_IDLE;
+
+    //buttonclicked.setBuffer(ResourceManager::acquireSound());
 }
 
 Button::Button(float x, float y, float width, float height, sf::Font &font, std::string text, Button_Colors  &buttoncolors, sf::Vector2f offset)
@@ -42,6 +44,7 @@ Button::Button(float x, float y, float width, float height, sf::Font &font, std:
                              m_buttonShape.getPosition().y + (m_buttonShape.getGlobalBounds().height / 2.f) - (m_buttonText.getGlobalBounds().height / 2.f) - offset.y);
     m_buttonShape.setFillColor(m_buttonColors.idleColor);
     m_buttonState = BUTTON_IDLE;
+    //buttonclicked.setBuffer(ResourceManager::acquireSound());
 }
 Button::~Button() 
 {
@@ -57,7 +60,7 @@ void Button::ButtonInput(sf::Vector2f mousepos, Engine &engineref)
         if (engineref.event.mouseButton.button == sf::Mouse::Left)
         {
             if (engineref.event.type == sf::Event::MouseButtonPressed){
-                std::cout << "ONCE" << '\n';
+                
                 m_buttonState = BUTTON_PRESSED;
             }
         }

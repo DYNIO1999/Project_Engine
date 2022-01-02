@@ -53,7 +53,6 @@ class EngineConfig
     bool isSound(){
         return m_soundON;
     }
-
     private:
     int m_engineMode;
     bool m_fullscreenAllowed;

@@ -1,17 +1,22 @@
 # Project_Engine
 
 ### SKONCZYC 2 STYCZNIA GAME ###
-# Potrzebna grafika #
 
+# Potrzebna grafika #
 
 - Sceny Gry
   + Menu Gry // 
   + Opcje //
   + Continue// ZROBIC
-  + Pause + Save
-  + Lost, Won Scene
+  + Save
+  + Lost 
+  + Won
+# II KAMIEN
 
-- Wypadający Loot z przeciwników,
-- System doświadczenia i życia bohaterów,
+
 - Zapis stanu gry,
 - Działające menu gry.
+
+# ROZLICZENIE PROJEKTU
+
+- Udzwiekowienie

@@ -23,7 +23,6 @@ void MainMenuScene::initData()
     std::shared_ptr<sf::Texture> backgroundTexture = ResourceManager::acquireTexture(ASSETS_BACKGROUND_PATH + "menu.png");
     m_backgroundSprite.setTexture(*backgroundTexture);
     m_backgroundSprite.setPosition(0,0);
-   // m_backgroundSprite.setScale();
 
     std::shared_ptr<sf::Texture> warTexture = ResourceManager::acquireTexture(ASSETS_PATH + "war.png");
     m_warSprite.setTexture(*warTexture);
@@ -83,12 +82,12 @@ int MainMenuScene::processEvents(TimeStep deltatime){
             else if (i==MENU_BUTTON_CONTINUE)
             {
                 check = false;
+                m_Engine_ref->m_gameSaveData.loadData();
+                m_Engine_ref->m_scene_manager->changeScene(new World_Scene(m_Engine_ref));
                 return 0;
             }else if(i==MENU_BUTTON_OPTIONS){
                 check = false;
-                std::cout<<"ADD OPTIONS"<<'\n';
                 m_Engine_ref->m_scene_manager->pushScene(new OptionsScene(m_Engine_ref));
-                std::cout << "HERE" << '\n';
                 return 0;
             }else{
                 check = false;
@@ -125,4 +124,5 @@ void MainMenuScene::initGameSaveData()
 {
     m_Engine_ref->m_gameSaveData.initStartData();
 }
+
 

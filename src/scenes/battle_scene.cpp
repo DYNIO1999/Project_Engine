@@ -2,6 +2,7 @@
 #include "battle_scene.h"
 #include "../objects/player.h"
 #include "../objects/enemybattle.h"
+#include "../scenes/main_menu_scene.h"
 
 Battle_Scene::Battle_Scene(Engine *engine_ref) 
 {
@@ -36,7 +37,6 @@ int Battle_Scene::processEvents(TimeStep deltatime)
     if((currentTurn==BATTLE_PLAYER_TURN)&&(clickedOnEnemy==true)){
         
         if(objMoved==false){
-            std::cout << "Player here\n";
             playerstartPos = m_entitesPtr->getObject("PLAYER_BATTLE")->getPos();
 
 
@@ -57,7 +57,11 @@ int Battle_Scene::processEvents(TimeStep deltatime)
         m_entitesPtr->getObject("PLAYER_BATTLE")->setAnimationState(PLAYER_ANIMATION_ATTACK);
         if (m_entitesPtr->getObject(currentObjName))
         {      
-            m_entitesPtr->getObject(currentObjName)->setHealth(m_entitesPtr->getObject(currentObjName)->getHealth() -  m_entitesPtr->getObject("PLAYER_BATTLE")->getAttack());
+            float health =m_entitesPtr->getObject(currentObjName)->getHealth() -  m_entitesPtr->getObject("PLAYER_BATTLE")->getAttack();
+            if(health<0){
+                health =0;
+            }
+            m_entitesPtr->getObject(currentObjName)->setHealth(health);
             
             if(m_entitesPtr->getObject(currentObjName)->getHealth()>0){
             m_entitesPtr->getObject(currentObjName)->setTexture(pEnemyHitTexture);
@@ -66,10 +70,10 @@ int Battle_Scene::processEvents(TimeStep deltatime)
             }else{
             m_entitesPtr->getObject(currentObjName)->setTexture(pEnemyDeathTexture);
             m_entitesPtr->getObject(currentObjName)->setAnimationState(ENEMY_ANIMATION_DEATH);
-            enemyKilledObjName =currentObjName; 
             isDeath=true;
-            allowEndTurn =false;
-            isEnemyDead =true;
+            allowEndTurn =true;
+            enemyKilledObjName = currentObjName;
+            deletedIndex.push_back(enemyKilledObjName.at(enemyKilledObjName.length() - 1)-'0');
             }
         }
         inAnimation=true;
@@ -81,16 +85,25 @@ int Battle_Scene::processEvents(TimeStep deltatime)
             if (objMoved == false)
             {
                 DiceRoller diceRoll;
-                if(isEnemyDead){
-                std::cout << "INDEX" << enemyKilledObjName.at(enemyKilledObjName.length() - 1) << '\n';
-                int temp = enemyKilledObjName.at(enemyKilledObjName.length() - 1) - '0';
-                do{
-                currentEnemyIndex = diceRoll.diceRoll(m_numberEnemies);
-                }
-                while(currentEnemyIndex==temp);
-                isEnemyDead=false;
+                if((currentNumberEnemies<m_numberEnemies)&&(currentNumberEnemies>0)){
+                    bool check = true;
+                    int temp;
+                    do{
+                        temp = diceRoll.diceRoll(m_numberEnemies);
+                        std::cout<<temp;
+                        int j=0;
+                        for(int i=0;i<(int)deletedIndex.size();i++){
+                            if(temp==deletedIndex[i]){
+                                j++;
+                            }
+                        }
+                        if(j==0){
+                            check=false;
+                            currentEnemyIndex=temp;
+                        }
+                    }while(check);
                 }else{
-                currentEnemyIndex = diceRoll.diceRoll(m_numberEnemies);
+                    currentEnemyIndex = diceRoll.diceRoll(m_numberEnemies);
                 }
                 currentObjName= enemyObjName + std::to_string(currentEnemyIndex);
                 
@@ -126,6 +139,7 @@ int Battle_Scene::processEvents(TimeStep deltatime)
         {
             m_entitesPtr->getObject("PLAYER_BATTLE")->setTexture(pPlayerDeathTexture);
             m_entitesPtr->getObject("PLAYER_BATTLE")->setAnimationState(PLAYER_ANIMATION_DEATH);
+            isPlayerDead = true;
         }
         inAnimation = true;
         allowEndTurn =true;
@@ -149,7 +163,12 @@ int Battle_Scene::processEvents(TimeStep deltatime)
                 Potion* temp =  new Potion(pPotionTexture,m_entitesPtr->getObject(currentObjName)->getPos(),sf::Vector2f(60,80),m_Engine_ref,25);
                 m_potionList.push_back(temp);
                 m_entitesPtr->removeEntity(currentObjName);
-                isDeath = false;
+                currentNumberEnemies--;
+                m_Engine_ref->m_gameSaveData.setPlayerExperience(m_Engine_ref->m_gameSaveData.getPlayerExperience() + 25);
+                isDeath=false;
+            }
+            if (isPlayerDead){
+                m_battleSceneState=BATTLE_LOST_STATE;
             }
         }
     }else{
@@ -158,17 +177,19 @@ int Battle_Scene::processEvents(TimeStep deltatime)
     }
 
     if(endTurn&&allowEndTurn){
+      
         m_entitesPtr->getObject("PLAYER_BATTLE")->setPosition(playerstartPos);
+        if( m_entitesPtr->getObject(currentObjName)){
         m_entitesPtr->getObject(currentObjName)->setPosition(enemystartPos);
+        }
         playerstartPos = sf::Vector2f(0, 0);
         enemystartPos = sf::Vector2f(0, 0);
         if(currentTurn ==BATTLE_ENEMY_TURN){
-            std::cout<<"ENEMY TURN";
-            std::cout<<currentObjName<<'\n';
+            
+            std::cout<<"PLAYER TURN_CHNAGE";
             currentTurn = BATTLE_PLAYER_TURN;
         }else if(currentTurn == BATTLE_PLAYER_TURN){
-            std::cout << "PLAYER TURN";
-            std::cout << currentObjName << '\n';
+            std::cout << "ENEMY TURN_CHNAGE";
             currentTurn = BATTLE_ENEMY_TURN;
         }
         currentObjName="";
@@ -177,7 +198,9 @@ int Battle_Scene::processEvents(TimeStep deltatime)
         objMoved =false;
         currentEnemyIndex=-100;
         waitToMove =true;
+        allowClickOnEnemy=true;
     }
+
     if(waitToMove){
         secondTimer.Start();
         float elapsedTime = secondTimer.GetElapsedSeconds();
@@ -195,28 +218,74 @@ int Battle_Scene::processEvents(TimeStep deltatime)
         delete m_potionList[potionIndexToRemove];
         m_potionList.erase(m_potionList.begin() + potionIndexToRemove);
         clickedOnPotion=false;
+        
         potionIndexToRemove=-1;
         scorebaord.AddScore(1);
         m_Engine_ref->m_gameSaveData.setCurrentNumberPotions(m_Engine_ref->m_gameSaveData.getCurrentNumberPotions() + 1);
         }
     }
+
+
+    if (allowUsePotion && (currentTurn == BATTLE_PLAYER_TURN))
+    {
+        if(scorebaord.GetScore()>0){
+        scorebaord.DecreaseScore(1);
+        m_Engine_ref->m_gameSaveData.setCurrentNumberPotions(m_Engine_ref->m_gameSaveData.getCurrentNumberPotions() - 1);
+        m_entitesPtr->getObject("PLAYER_BATTLE")->setHealth(m_entitesPtr->getObject("PLAYER_BATTLE")->getHealth()+20);
+        }
+        allowUsePotion=false;
+    }
+
     m_entitesPtr->processEvents(deltatime);
 
-    scorebaord.Update();    
+    scorebaord.Update();
+
+    if(currentNumberEnemies==0){
+        wonTimer.Start();
+        float elapsedTime = wonTimer.GetElapsedSeconds();
+        m_battleSceneState = BATTLE_WON_STATE;
+
+        if(elapsedTime>3.0f){
+        m_Engine_ref->m_gameSaveData.setWonBattles(m_Engine_ref->m_gameSaveData.getWonBattles() + 1);
+        m_Engine_ref->m_scene_manager->popScene();
+        wonTimer.Reset();
+        return 0;
+        }
+    }
+    else
+    {
+        wonTimer.Reset();
+        wonTimer.Pause();
+    }
+
+    if(m_battleSceneState==BATTLE_LOST_STATE){
+        lostTimer.Start();
+        float elapsedTime = lostTimer.GetElapsedSeconds();
+        if(elapsedTime>2.0f){
+            m_Engine_ref->m_scene_manager->changeScene(new MainMenuScene(m_Engine_ref));
+            lostTimer.Reset();
+            return 0;
+        }
+    }
+    else
+    {
+        lostTimer.Reset();
+        lostTimer.Pause();
+    }
     return 0;
     }
 
 void Battle_Scene::draw(TimeStep deltatime) 
 {
     m_Engine_ref->m_window->clear(sf::Color::White);
-    ImGui::Begin("Welcome Battle_Scene");
+    /*ImGui::Begin("Welcome Battle_Scene");
     if (ImGui::Button("Close Battle scene"))
     {
         m_Engine_ref->m_scene_manager->popScene();
         ImGui::End();
         return;
     }
-    ImGui::End();
+    ImGui::End();*/
     m_Engine_ref->m_window->draw(m_background);
     m_Engine_ref->m_window->draw(m_GUIbar);
     
@@ -232,6 +301,14 @@ void Battle_Scene::draw(TimeStep deltatime)
     }
 
     scorebaord.Draw((*m_Engine_ref->m_window));
+    
+    if(m_battleSceneState==BATTLE_WON_STATE){
+        m_Engine_ref->m_window->draw(m_wonSprite);
+    }
+    else if (m_battleSceneState == BATTLE_LOST_STATE)
+    {
+        m_Engine_ref->m_window->draw(m_lostSprite);
+    }
 }
 
 void Battle_Scene::input() 
@@ -241,7 +318,7 @@ void Battle_Scene::input()
     {
         (*it)->ButtonInput(m_mousePosition, *m_Engine_ref);
     }
-    if(currentTurn==BATTLE_PLAYER_TURN){
+    if((currentTurn==BATTLE_PLAYER_TURN)&&allowClickOnEnemy){
     for (auto it = m_entitesPtr->m_entities.begin(); it != m_entitesPtr->m_entities.end(); it++)
     {
         if (it->first != playerObjName)
@@ -254,7 +331,7 @@ void Battle_Scene::input()
                     {
                         currentObjName = it->first;
                         clickedOnEnemy=true;
-                        std::cout<<"HERE"<<'\n';
+                        allowClickOnEnemy =false;
                         return;
                     }
                 }
@@ -278,6 +355,16 @@ void Battle_Scene::input()
             }
         }
     }
+    }
+    if(currentTurn==BATTLE_PLAYER_TURN){
+        if (m_Engine_ref->event.type == sf::Event::KeyPressed)
+        {
+            if (m_Engine_ref->event.key.code == sf::Keyboard::P)
+            {   
+                allowUsePotion=true;
+                return;
+            }
+        }
     }
 }
 
@@ -388,8 +475,10 @@ void Battle_Scene::initData()
     isDeath =false;
     waitToMove =false;
     clickedOnPotion =false;
-    isEnemyDead =false;
+    allowClickOnEnemy=true;
 
+    allowUsePotion=false;
+    isPlayerDead = false;
     testTimer.Start();
     secondTimer.Start();
 
@@ -397,7 +486,25 @@ void Battle_Scene::initData()
     scorebaord.SetScore(m_Engine_ref->m_gameSaveData.getCurrentNumberPotions());
     scorebaord.SetMaxScore(5);
     scorebaord.SetScorboardPosition(sf::Vector2f(1300, m_Engine_ref->m_window->getSize().y-70));
+    
+    currentNumberEnemies=m_numberEnemies;
+    m_battleSceneState=BATTLE_DEFAULT_STATE;
 
+    
+
+    pWonTexture = ResourceManager::acquireTexture(ASSETS_PATH + "won.png");
+    m_wonSprite.setTexture(*pWonTexture);
+    m_wonSprite.setPosition(sf::Vector2f(m_Engine_ref->m_window->getSize().x/2-500, 250));
+    m_wonSprite.setScale(sf::Vector2f(2, 2));
+
+    
+    pLostTexture = ResourceManager::acquireTexture(ASSETS_PATH + "lost.png");
+    m_lostSprite.setTexture(*pLostTexture);
+    m_lostSprite.setPosition(sf::Vector2f(m_Engine_ref->m_window->getSize().x / 2-500, 250));
+    m_lostSprite.setScale(sf::Vector2f(2, 2));
+
+    wonTimer.Start();
+    lostTimer.Start();
 }
 
 void Battle_Scene::cleanupData() 
