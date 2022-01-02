@@ -12,9 +12,14 @@ class Town_Scene:public Scene
 private:
     EntityList *m_entitesPtr;
     sf::Sprite background_sprite;
+    sf::Sprite m_inventorySprite;
     sf::Clock m_clock;
-    Button testbutton;
+    Button attackbutton;
+    Button healthbutton;
     sf::Vector2f m_mousePosition;
+    std::vector<Button *> m_buttonnList;
+    sf::Text m_attackText;
+    sf::Text m_healthText;
     void initData();
 public:
     Town_Scene(Engine* engine_ref);
