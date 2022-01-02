@@ -36,7 +36,6 @@ int Battle_Scene::processEvents(TimeStep deltatime)
     if((currentTurn==BATTLE_PLAYER_TURN)&&(clickedOnEnemy==true)){
         
         if(objMoved==false){
-            std::cout << "Player here\n";
             playerstartPos = m_entitesPtr->getObject("PLAYER_BATTLE")->getPos();
 
 
@@ -70,7 +69,6 @@ int Battle_Scene::processEvents(TimeStep deltatime)
             allowEndTurn =true;
             enemyKilledObjName = currentObjName;
             deletedIndex.push_back(enemyKilledObjName.at(enemyKilledObjName.length() - 1)-'0');
-
             }
         }
         inAnimation=true;
@@ -82,8 +80,7 @@ int Battle_Scene::processEvents(TimeStep deltatime)
             if (objMoved == false)
             {
                 DiceRoller diceRoll;
-                std::cout<<'\n';
-                if(currentNumberEnemies<m_numberEnemies){
+                if((currentNumberEnemies<m_numberEnemies)&&(currentNumberEnemies>0)){
                     bool check = true;
                     int temp;
                     do{
@@ -96,7 +93,6 @@ int Battle_Scene::processEvents(TimeStep deltatime)
                             }
                         }
                         if(j==0){
-                            std::cout<<"HERE222"<<'\n';
                             check=false;
                             currentEnemyIndex=temp;
                         }
@@ -138,6 +134,7 @@ int Battle_Scene::processEvents(TimeStep deltatime)
         {
             m_entitesPtr->getObject("PLAYER_BATTLE")->setTexture(pPlayerDeathTexture);
             m_entitesPtr->getObject("PLAYER_BATTLE")->setAnimationState(PLAYER_ANIMATION_DEATH);
+            isPlayerDead = true;
         }
         inAnimation = true;
         allowEndTurn =true;
@@ -163,6 +160,9 @@ int Battle_Scene::processEvents(TimeStep deltatime)
                 m_entitesPtr->removeEntity(currentObjName);
                 currentNumberEnemies--;
                 isDeath=false;
+            }
+            if (isPlayerDead){
+                m_battleSceneState=BATTLE_LOST_STATE;
             }
         }
     }else{
@@ -217,9 +217,54 @@ int Battle_Scene::processEvents(TimeStep deltatime)
         m_Engine_ref->m_gameSaveData.setCurrentNumberPotions(m_Engine_ref->m_gameSaveData.getCurrentNumberPotions() + 1);
         }
     }
+
+
+    if (allowUsePotion && (currentTurn == BATTLE_PLAYER_TURN))
+    {
+        if(scorebaord.GetScore()>0){
+        scorebaord.DecreaseScore(1);
+        m_entitesPtr->getObject("PLAYER_BATTLE")->setHealth(m_entitesPtr->getObject("PLAYER_BATTLE")->getHealth()+20);
+        }
+        allowUsePotion=false;
+    }
+
     m_entitesPtr->processEvents(deltatime);
 
-    scorebaord.Update();    
+    scorebaord.Update();
+
+    if(currentNumberEnemies==0){
+        wonTimer.Start();
+        float elapsedTime = wonTimer.GetElapsedSeconds();
+        std::cout<<elapsedTime<<'\n';
+        if(elapsedTime>5.0f){
+        m_battleSceneState =BATTLE_WON_STATE;
+        wonTimer.Reset();
+        m_Engine_ref->m_scene_manager->popScene();
+        return 0;
+        }
+    }
+    else
+    {
+        wonTimer.Reset();
+        wonTimer.Pause();
+    }
+
+    if(m_battleSceneState==BATTLE_LOST_STATE){
+        lostTimer.Start();
+
+        float elapsedTime = lostTimer.GetElapsedSeconds();
+        if(elapsedTime>5.0f){
+            
+            m_Engine_ref->m_scene_manager->popScene();
+            return 0;
+        }
+        else
+        {
+            lostTimer.Reset();
+            lostTimer.Pause();
+        }
+    }
+    
     return 0;
     }
 
@@ -249,6 +294,14 @@ void Battle_Scene::draw(TimeStep deltatime)
     }
 
     scorebaord.Draw((*m_Engine_ref->m_window));
+    
+    if(m_battleSceneState==BATTLE_WON_STATE){
+        m_Engine_ref->m_window->draw(m_wonSprite);
+    }
+    else if (m_battleSceneState == BATTLE_LOST_STATE)
+    {
+        m_Engine_ref->m_window->draw(m_lostSprite);
+    }
 }
 
 void Battle_Scene::input() 
@@ -272,7 +325,6 @@ void Battle_Scene::input()
                         currentObjName = it->first;
                         clickedOnEnemy=true;
                         allowClickOnEnemy =false;
-                        std::cout<<"HERE"<<'\n';
                         return;
                     }
                 }
@@ -296,6 +348,16 @@ void Battle_Scene::input()
             }
         }
     }
+    }
+    if(currentTurn==BATTLE_PLAYER_TURN){
+        if (m_Engine_ref->event.type == sf::Event::KeyPressed)
+        {
+            if (m_Engine_ref->event.key.code == sf::Keyboard::P)
+            {   
+                allowUsePotion=true;
+                return;
+            }
+        }
     }
 }
 
@@ -408,6 +470,8 @@ void Battle_Scene::initData()
     clickedOnPotion =false;
     allowClickOnEnemy=true;
 
+    allowUsePotion=false;
+    isPlayerDead = false;
     testTimer.Start();
     secondTimer.Start();
 
@@ -417,6 +481,24 @@ void Battle_Scene::initData()
     scorebaord.SetScorboardPosition(sf::Vector2f(1300, m_Engine_ref->m_window->getSize().y-70));
     
     currentNumberEnemies=m_numberEnemies;
+    m_battleSceneState=BATTLE_DEFAULT_STATE;
+
+    
+
+    pWonTexture = ResourceManager::acquireTexture(ASSETS_PATH + "won.png");
+    m_wonSprite.setTexture(*pWonTexture);
+    m_wonSprite.setPosition(sf::Vector2f(m_Engine_ref->m_window->getSize().x/2-250, 0));
+    m_wonSprite.setScale(sf::Vector2f(1, 1));
+
+    
+
+    pLostTexture = ResourceManager::acquireTexture(ASSETS_PATH + "lost.png");
+    m_lostSprite.setTexture(*pLostTexture);
+    m_lostSprite.setPosition(sf::Vector2f(m_Engine_ref->m_window->getSize().x / 2-250, 0));
+    m_lostSprite.setScale(sf::Vector2f(1, 1));
+
+    wonTimer.Start();
+    lostTimer.Start();
 }
 
 void Battle_Scene::cleanupData() 

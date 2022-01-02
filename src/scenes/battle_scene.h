@@ -28,6 +28,13 @@ enum BATTLE_MAP_TYPES{
     MOUNTAIN_MAP_TYPE,
 };
 
+enum BATTLE_STATES
+{
+    BATTLE_DEFAULT_STATE,
+    BATTLE_WON_STATE,
+    BATTLE_LOST_STATE,
+};
+
 class Battle_Scene : public Scene
 {
 public:
@@ -69,9 +76,13 @@ private:
     std::vector<int> deletedIndex;
     bool allowClickOnEnemy;
     int currentNumberEnemies;
+    bool allowUsePotion;
+    bool isPlayerDead;
 
     Timer testTimer;
     Timer secondTimer;
+    Timer wonTimer;
+    Timer lostTimer;
 
     sf::Vector2f playerstartPos;
     sf::Vector2f enemystartPos;
@@ -90,7 +101,12 @@ private:
     std::shared_ptr<sf::Texture> pEnemyDeathTexture;
     std::shared_ptr<sf::Texture> pPotionTexture;
 
+    std::shared_ptr<sf::Texture> pWonTexture;
+    std::shared_ptr<sf::Texture> pLostTexture;
+
+    sf::Sprite m_wonSprite;
+    sf::Sprite m_lostSprite;
 
     Scoreboard scorebaord;
-    
+    int m_battleSceneState;
 };

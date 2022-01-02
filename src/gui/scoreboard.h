@@ -31,6 +31,9 @@ public:
     {
         m_Score = x;
     }
+    void DecreaseScore(int x){
+        m_Score = m_Score - x;
+    }
     void AddScore(int x)
     {
         m_Score = m_Score + x;
