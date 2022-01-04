@@ -21,9 +21,10 @@ private:
     sf::Vector2f m_mousePosition;
     std::vector<Button*> m_buttonList;
     sf::Sprite m_warSprite;
+    sf::Music mainMenuMusic;
 
-    void
-    initData();
+
+    void initData();
     void cleanUp();
 public:
     MainMenuScene(Engine *engine_ref);

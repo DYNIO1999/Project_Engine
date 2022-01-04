@@ -98,6 +98,8 @@ public:
     EngineConfig m_engine_config;
     TimeStep timestep;
 
+    bool isMusic;
+
     GameSaveData m_gameSaveData;
 
     /**  

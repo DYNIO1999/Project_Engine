@@ -109,4 +109,9 @@ private:
 
     Scoreboard scorebaord;
     int m_battleSceneState;
+
+    sf::Sound swordHit;
+    sf::Sound deathSound;
+
+    sf::Music battleMusic;
 };

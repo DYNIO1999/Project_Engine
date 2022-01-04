@@ -56,18 +56,24 @@ int Battle_Scene::processEvents(TimeStep deltatime)
         m_entitesPtr->getObject("PLAYER_BATTLE")->setTexture(pPlayerAttackTexture);
         m_entitesPtr->getObject("PLAYER_BATTLE")->setAnimationState(PLAYER_ANIMATION_ATTACK);
         if (m_entitesPtr->getObject(currentObjName))
-        {      
+        {     
+            if(m_Engine_ref->m_engine_config.isSound()){
+            swordHit.play();
+            }
+
             float health =m_entitesPtr->getObject(currentObjName)->getHealth() -  m_entitesPtr->getObject("PLAYER_BATTLE")->getAttack();
             if(health<0){
                 health =0;
             }
             m_entitesPtr->getObject(currentObjName)->setHealth(health);
-            
             if(m_entitesPtr->getObject(currentObjName)->getHealth()>0){
             m_entitesPtr->getObject(currentObjName)->setTexture(pEnemyHitTexture);
             m_entitesPtr->getObject(currentObjName)->setAnimationState(ENEMY_ANIMATION_HIT);
             allowEndTurn = true;
             }else{
+            if(m_Engine_ref->m_engine_config.isSound()){
+            deathSound.play();
+            }
             m_entitesPtr->getObject(currentObjName)->setTexture(pEnemyDeathTexture);
             m_entitesPtr->getObject(currentObjName)->setAnimationState(ENEMY_ANIMATION_DEATH);
             isDeath=true;
@@ -132,11 +138,17 @@ int Battle_Scene::processEvents(TimeStep deltatime)
 
         if (m_entitesPtr->getObject("PLAYER_BATTLE")->getHealth() > 0)
         {
+            if(m_Engine_ref->m_engine_config.isSound()){
+            swordHit.play();
+            }
             m_entitesPtr->getObject("PLAYER_BATTLE")->setTexture(pPlayerHitTexture);
             m_entitesPtr->getObject("PLAYER_BATTLE")->setAnimationState(PLAYER_ANIMATION_HIT);
         }
         else
         {
+            if(m_Engine_ref->m_engine_config.isSound()){
+            deathSound.play();
+            }
             m_entitesPtr->getObject("PLAYER_BATTLE")->setTexture(pPlayerDeathTexture);
             m_entitesPtr->getObject("PLAYER_BATTLE")->setAnimationState(PLAYER_ANIMATION_DEATH);
             isPlayerDead = true;
@@ -247,6 +259,11 @@ int Battle_Scene::processEvents(TimeStep deltatime)
 
         if(elapsedTime>3.0f){
         m_Engine_ref->m_gameSaveData.setWonBattles(m_Engine_ref->m_gameSaveData.getWonBattles() + 1);
+
+        if (m_Engine_ref->m_engine_config.isSound())
+        {
+            m_Engine_ref->isMusic = true;
+        }
         m_Engine_ref->m_scene_manager->popScene();
         wonTimer.Reset();
         return 0;
@@ -505,6 +522,21 @@ void Battle_Scene::initData()
 
     wonTimer.Start();
     lostTimer.Start();
+
+    deathSound.setBuffer(*ResourceManager::acquireSound(ASSETS_SOUNDS_PATH+"death.ogg"));
+    deathSound.setVolume(50);
+
+    swordHit.setBuffer(*ResourceManager::acquireSound(ASSETS_SOUNDS_PATH+"sword.ogg"));
+    swordHit.setVolume(50);
+
+    
+    battleMusic.openFromFile(ASSETS_SOUNDS_PATH + "battle.ogg");
+    battleMusic.setLoop(true);
+    battleMusic.setVolume(20);
+    if (m_Engine_ref->m_engine_config.isSound())
+    {
+        battleMusic.play();
+    }
 }
 
 void Battle_Scene::cleanupData() 

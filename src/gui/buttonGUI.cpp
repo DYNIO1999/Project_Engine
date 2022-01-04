@@ -65,7 +65,9 @@ void Button::ButtonInput(sf::Vector2f mousepos, Engine &engineref)
             if (engineref.event.type == sf::Event::MouseButtonPressed){
                 
                 m_buttonState = BUTTON_PRESSED;
+                if(engineref.m_engine_config.isSound()){
                 buttonclicked.play();
+                }
             }
         }
     }

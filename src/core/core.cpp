@@ -8,6 +8,7 @@ Engine::Engine(){
     m_lasttime.m_time=0.0f;
     m_scene_manager = new SceneManager(this);
     m_primitives_render = new PrimitiveRenderer();
+    isMusic =false;
 }   
 Engine::~Engine(){
 

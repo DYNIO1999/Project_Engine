@@ -47,6 +47,10 @@ int Town_Scene::processEvents(TimeStep deltatime)
             else
             {
                 check = false;
+                if (m_Engine_ref->m_engine_config.isSound())
+                {
+                    m_Engine_ref->isMusic = true;
+                }
                 m_Engine_ref->m_scene_manager->popScene();
                 return 0;
             }
@@ -198,6 +202,13 @@ void Town_Scene::initData()
     healthStats.SetScorboardPosition(sf::Vector2f(600, 650));
     healthStats.setTextSize(25);
 
+    townMusic.openFromFile(ASSETS_SOUNDS_PATH + "town.ogg");
+    townMusic.setLoop(true);
+    townMusic.setVolume(20);
+    if (m_Engine_ref->m_engine_config.isSound())
+    {
+        townMusic.play();
+    }
 }
 
 void Town_Scene::input()

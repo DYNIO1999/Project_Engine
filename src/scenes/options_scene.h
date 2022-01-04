@@ -20,6 +20,8 @@ private:
     sf::Vector2f m_mousePosition;
     std::vector<Button*> m_buttonList;
 
+    sf::Music optionMenuMusic;
+
     void saveOptions();
     void loadOptions();
 

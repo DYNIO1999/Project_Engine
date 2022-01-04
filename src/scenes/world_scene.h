@@ -37,7 +37,8 @@ private:
     TileMapEditor* m_mapeditor;
     sf::Sprite background_sprite;
     sf::Sprite wonGameSprite;
-    
+
+    sf::Music worldMapMusic;
     void initData();
     void input();
     void cleanupData();

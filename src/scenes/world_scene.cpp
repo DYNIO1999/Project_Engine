@@ -109,16 +109,30 @@ void World_Scene::initData(){
     m_colisionWithTown = false;
     m_isInBattle = false;
     
-    maxTimeToBattle =2.0f;
+    maxTimeToBattle =1.0f;
     testTimer.Start();
 
     wonGame=false;
     wonTimer.Start();
     //ResourceManager::cleanUpOrphans();
+
+    worldMapMusic.openFromFile(ASSETS_SOUNDS_PATH + "map.ogg");
+    worldMapMusic.setLoop(true);
+    worldMapMusic.setVolume(20);
+    if (m_Engine_ref->m_engine_config.isSound())
+    {
+        worldMapMusic.play();
+    }
 }
 
 int World_Scene::processEvents(TimeStep deltatime)
 {
+    if (m_Engine_ref->isMusic)
+    {
+        worldMapMusic.play();
+        m_Engine_ref->isMusic = false;
+    }
+
     testmap->processEvents(m_mapeditor->getMap());
     if(!wonGame){
     m_entitesPtr->processEvents(deltatime);
@@ -152,6 +166,7 @@ int World_Scene::processEvents(TimeStep deltatime)
             testTimer.Pause();
             m_entitesPtr->getObject("PLAYER")->setPosition(m_entitesPtr->getObject("PLAYER")->getPos() + moveplayer);
             m_Engine_ref->m_gameSaveData.setPlayerPosMap(m_entitesPtr->getObject("PLAYER")->getPos());
+            worldMapMusic.stop();
             m_Engine_ref->m_scene_manager->pushScene(new Town_Scene(m_Engine_ref));
 
         }else{
@@ -176,6 +191,7 @@ int World_Scene::processEvents(TimeStep deltatime)
                     testTimer.Reset();
                     testTimer.Pause();
                     m_Engine_ref->m_gameSaveData.setPlayerPosMap(m_entitesPtr->getObject("PLAYER")->getPos());
+                    worldMapMusic.stop();
                     m_Engine_ref->m_scene_manager->pushScene(new Battle_Scene(m_Engine_ref, currentDice.diceRoll_1K1(), currentDice.diceRoll_1K3()));                   
                 }
                 else
@@ -200,6 +216,7 @@ int World_Scene::processEvents(TimeStep deltatime)
         float elapsedTime = wonTimer.GetElapsedSeconds();
         std::cout<<elapsedTime<<'\n';
         if(elapsedTime>3.0f){
+            worldMapMusic.stop();
             m_Engine_ref->m_scene_manager->changeScene(new MainMenuScene(m_Engine_ref));
             wonTimer.Reset();
             return 0;

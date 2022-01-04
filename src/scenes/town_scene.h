@@ -31,6 +31,8 @@ private:
     Scoreboard attackStats;
     Scoreboard experienceStats;
 
+    sf::Music townMusic;
+
     void initData();
     void cleanUp();
 public:

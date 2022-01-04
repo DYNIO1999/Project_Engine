@@ -52,6 +52,14 @@ void OptionsScene::initData()
     m_buttonList.push_back(soundONButton);
     m_buttonList.push_back(soundOFFButton);
     m_buttonList.push_back(backButton);
+
+    optionMenuMusic.openFromFile(ASSETS_SOUNDS_PATH + "menu.ogg");
+    optionMenuMusic.setLoop(true);
+    optionMenuMusic.setVolume(20);
+    if (m_Engine_ref->m_engine_config.isSound())
+    {
+        optionMenuMusic.play();
+    }
 }
 
 void OptionsScene::cleanUp()
@@ -65,6 +73,7 @@ void OptionsScene::cleanUp()
 
 int OptionsScene::processEvents(TimeStep deltatime) 
 {
+
     bool check = false;
     for (int i = 0; i < ((int)m_buttonList.size()); i++)
     {
@@ -74,23 +83,26 @@ int OptionsScene::processEvents(TimeStep deltatime)
             if (i == OPTIONS_BUTTON_SOUND_ON)
             {
                 check = false;
+                optionMenuMusic.play();
                 m_Engine_ref->m_engine_config.setSound(true);
                 saveOptions();
-                std::cout << "SOUND ON!" << '\n';
                 return 0;
             }
             else if (i == OPTIONS_BUTTON_SOUND_OFF)
             {
                 check = false;
+                optionMenuMusic.stop();
                 m_Engine_ref->m_engine_config.setSound(false);
                 saveOptions();
-                std::cout << "SOUND OFF!" << '\n';
                 return 0;
             }
             else
             {
-                std::cout << "BACK" << std::endl;
                 check = false;
+                optionMenuMusic.stop();
+                if (m_Engine_ref->m_engine_config.isSound()){
+                m_Engine_ref->isMusic=true;
+                }
                 m_Engine_ref->m_scene_manager->popScene();
                 return 0;
             }

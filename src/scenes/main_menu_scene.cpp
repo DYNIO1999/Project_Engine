@@ -56,7 +56,14 @@ void MainMenuScene::initData()
     m_buttonList.push_back(continueButton);
     m_buttonList.push_back(optionsButton);
     m_buttonList.push_back(exitButton);
-    
+
+    mainMenuMusic.openFromFile(ASSETS_SOUNDS_PATH + "menu.ogg");
+    mainMenuMusic.setLoop(true);
+    mainMenuMusic.setVolume(20);
+    if (m_Engine_ref->m_engine_config.isSound())
+    {
+        mainMenuMusic.play();
+    }
 }
 
 void MainMenuScene::cleanUp() 
@@ -69,6 +76,10 @@ void MainMenuScene::cleanUp()
 }
 
 int MainMenuScene::processEvents(TimeStep deltatime){
+    if( m_Engine_ref->isMusic){
+        mainMenuMusic.play();
+        m_Engine_ref->isMusic=false;
+    }
     bool check = false;
     for(int i=0;i<((int)m_buttonList.size());i++){
         check = m_buttonList[i]->ButtonUpdate();
@@ -76,21 +87,25 @@ int MainMenuScene::processEvents(TimeStep deltatime){
             if(i==MENU_BUTTON_PLAY){
                 check=false;
                 initGameSaveData();
+                mainMenuMusic.stop();
                 m_Engine_ref->m_scene_manager->changeScene(new World_Scene(m_Engine_ref));
                 return 0;
             }
             else if (i==MENU_BUTTON_CONTINUE)
             {
                 check = false;
+                mainMenuMusic.stop();
                 m_Engine_ref->m_gameSaveData.loadData();
                 m_Engine_ref->m_scene_manager->changeScene(new World_Scene(m_Engine_ref));
                 return 0;
             }else if(i==MENU_BUTTON_OPTIONS){
                 check = false;
+                mainMenuMusic.stop();
                 m_Engine_ref->m_scene_manager->pushScene(new OptionsScene(m_Engine_ref));
                 return 0;
             }else{
                 check = false;
+                mainMenuMusic.stop();
                 m_Engine_ref->m_scene_manager->popScene();
                 return 0;
             }
