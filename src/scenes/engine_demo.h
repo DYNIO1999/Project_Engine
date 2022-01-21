@@ -14,6 +14,11 @@ class Engine_Demo : public Scene
 
 private:
 public:
+    /**
+     * @brief Konstruktor klasy 
+     * 
+     * @param engine_ref Wskaznik na silnik gry
+     */
     Engine_Demo(Engine *engine_ref)
     {
         this->m_Engine_ref = engine_ref;
@@ -22,18 +27,39 @@ public:
         initData();
     }
 
-
+    /**
+     * @brief Destruktor
+     * 
+     */
     ~Engine_Demo();
-
+    /**
+     * @brief Metoda aktualizujaca
+     * 
+     * @param deltatime deltatime
+     * @return int 
+     */
     int processEvents(TimeStep deltatime);
+    /**
+     * @brief Metoda rysujaca
+     * 
+     * @param deltatime deltatime
+     */
     void draw(TimeStep deltatime);
 
 private:
+    /**
+     * @brief Metoda inicujaca date
+     * 
+     */
     void initData();
+    /**
+     * @brief Metoda czyszczaca date
+     * 
+     */
     void cleanupData(){
 
     }
-
+    
     EntityList* gameObjectsListPtr;
 
     InputHandler *m_inputhandler;

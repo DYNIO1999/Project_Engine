@@ -33,13 +33,45 @@ private:
 
     sf::Music townMusic;
 
+    /**
+     * @brief Metoda inicujaca scene town
+     *
+     */
     void initData();
+    /**
+     * @brief Metoda czyszczaca scene
+     *
+     */
     void cleanUp();
 public:
+    /**
+     * @brief Konstruktor sceny
+     *
+     * @param engine_ref Wskaznik na silnik gry
+     */
     Town_Scene(Engine* engine_ref);
+    /**
+     * @brief Destruktor sceny
+     *
+     */
     ~Town_Scene();
+    /**
+     * @brief Metoda aktualizujaca scene
+     *
+     * @param deltatime deltatime
+     * @return int
+     */
     int processEvents(TimeStep deltatime) override;
+    /**
+     * @brief Metoda rysujaca scene
+     *
+     * @param deltatime deltatime
+     */
     void draw(TimeStep deltatime) override;
+    /**
+     * @brief Metoda input scene
+     *
+     */
     void input() override;
 };
 

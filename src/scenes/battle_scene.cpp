@@ -96,7 +96,7 @@ int Battle_Scene::processEvents(TimeStep deltatime)
                     int temp;
                     do{
                         temp = diceRoll.diceRoll(m_numberEnemies);
-                        std::cout<<temp;
+                        //std::cout<<temp;
                         int j=0;
                         for(int i=0;i<(int)deletedIndex.size();i++){
                             if(temp==deletedIndex[i]){
@@ -198,10 +198,10 @@ int Battle_Scene::processEvents(TimeStep deltatime)
         enemystartPos = sf::Vector2f(0, 0);
         if(currentTurn ==BATTLE_ENEMY_TURN){
             
-            std::cout<<"PLAYER TURN_CHNAGE";
+            //std::cout<<"PLAYER TURN_CHNAGE";
             currentTurn = BATTLE_PLAYER_TURN;
         }else if(currentTurn == BATTLE_PLAYER_TURN){
-            std::cout << "ENEMY TURN_CHNAGE";
+            //std::cout << "ENEMY TURN_CHNAGE";
             currentTurn = BATTLE_ENEMY_TURN;
         }
         currentObjName="";
@@ -479,9 +479,9 @@ void Battle_Scene::initData()
     }
     
     if(currentTurn==1){
-    std::cout<<"ENEMY_TURN"<<'\n';
+    //std::cout<<"ENEMY_TURN"<<'\n';
     }else{
-    std::cout<<"PLAYER_TURN"<<'\n';
+    //std::cout<<"PLAYER_TURN"<<'\n';
     }
 
     clickedOnEnemy = false;

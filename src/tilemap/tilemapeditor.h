@@ -11,6 +11,10 @@ class TileMapEditor
 private:
 
 public:
+    /**
+     * @brief Konstruktor TileMapEditor
+     *
+     */
     TileMapEditor(){
         m_gridSize =50.f;
         m_tileSelector.setSize(sf::Vector2f(m_gridSize, m_gridSize));
@@ -32,9 +36,18 @@ public:
         
     }
 
+    /**
+     * @brief Destruktor TileMapEditor
+     *
+     */
     ~TileMapEditor(){
     
     }
+    /**
+     * @brief Metoda input
+     *
+     * @param event refernecja
+     */
     void editInput(sf::Event& event){
         if (event.type == sf::Event::KeyPressed)
         {
@@ -55,6 +68,11 @@ public:
         }
     
     }
+    /**
+     * @brief Metoda edytujaca mape
+     *
+     * @param window refernecja obiektu window
+     */
     void editMap(sf::RenderWindow& window){
         float end_x = TILE_MAP_SIZE * m_gridSize;
         float end_y = TILE_MAP_SIZE * m_gridSize;
@@ -90,10 +108,18 @@ public:
         }
         m_tileSelector.setPosition(m_mousePosGrid.x * m_gridSize, m_mousePosGrid.y * m_gridSize);
     }
-    
+    /**
+     * @brief Metoda rysujaca tilemap selector
+     *
+     * @param window referencja window
+     */
     void drawTileSelector(sf::RenderWindow& window){
         window.draw(m_tileSelector);
     }
+    /**
+     * @brief Metoda zapisujaca tilemap
+     *
+     */
     void saveMap(){
         std::ofstream tilemap_saving;
         tilemap_saving.open("../gamedata/tilemap.json");
@@ -113,6 +139,10 @@ public:
         tilemap_saving << tilemap_json;
         tilemap_saving.close();
     }
+    /**
+     * @brief Metoda ladujaca tilemap
+     *
+     */
     void loadMap(){
         std::ifstream tilemap_load;
         tilemap_load.open("../gamedata/tilemap.json");
@@ -132,6 +162,11 @@ public:
             }
         }
     }
+    /**
+     * @brief Metoda podajaca tilemap
+     *
+     * @return std::vector<std::vector<int>>&
+     */
     std::vector<std::vector<int>>& getMap(){
         return m_map;
     }

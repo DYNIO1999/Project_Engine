@@ -12,6 +12,13 @@ public:
     sf::Vector2f m_size;
     Terrain* m_terrainPtr;
     sf::Vector2i m_gridPos;
+    /**
+     * @brief Konstruktor klasy Tile
+     *
+     * @param pos pozycja 
+     * @param size rozmiar
+     * @param terrain wskaznik na teren
+     */
     Tile(sf::Vector2f pos, sf::Vector2f size, Terrain* terrain)
     {
         m_pos = pos;
@@ -31,10 +38,19 @@ public:
         BoxCollider temp(m_pos.x, m_pos.y, m_size.x, m_size.y);
         m_colisionBox=temp; 
     }
+    /**
+     * @brief Metoda aktualizujaca
+     *
+     * @param terrain wskaznik na teren
+     */
     void updateTerrain(Terrain *terrain)
     {
         m_terrainPtr=terrain;
     }
+    /**
+     * @brief Destruktor klasy Tile
+     *
+     */
     ~Tile(){
 
     }

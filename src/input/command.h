@@ -13,6 +13,10 @@ public:
     virtual ~Command(){
 
     }
+    /**
+     * Metoda wykonuje polecenie
+     * \param obj wskaznik na obiekt
+     */
     virtual void execute(Object* obj){
     }
 };
@@ -24,6 +28,10 @@ public:
     ~MoveUpCommand(){
 
     }
+    /**
+     * Metoda wykonuje polecenie poruszania
+     * \param obj wskaznik na obiekt
+     */
     void execute(Object* obj)
     {
         obj->setMoveState(MOVE_UP);
@@ -37,6 +45,10 @@ public:
     ~MoveDownCommand()
     {
     }
+    /**
+     * Metoda wykonuje polecenie poruszania
+     * \param obj wskaznik na obiekt
+     */
     void execute(Object* obj)
     {
         obj->setMoveState(MOVE_DOWN);
@@ -49,6 +61,10 @@ public:
     ~MoveLeftCommand()
     {
     }
+    /**
+     * Metoda wykonuje polecenie poruszania
+     * \param obj wskaznik na obiekt
+     */
     void execute(Object* obj)
     {
         obj->setMoveState(MOVE_LEFT);
@@ -62,6 +78,10 @@ public:
     ~MoveRightCommand()
     {
     }
+    /**
+     * Metoda wykonuje polecenie poruszania
+     * \param obj wskaznik na obiekt
+     */
     void execute(Object* obj)
     {
         obj->setMoveState(MOVE_RIGHT);
@@ -74,6 +94,10 @@ public:
     ~NoInputCommand()
     {
     }
+    /**
+     * Metoda wykonuje polecenie poruszania
+     * \param obj wskaznik na obiekt
+     */
     void execute(Object *obj)
     {
         obj->setMoveState(NO_INPUT);

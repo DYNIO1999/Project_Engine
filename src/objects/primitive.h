@@ -11,6 +11,14 @@
 class Primitive: public  Object
 {
 public:
+    /**
+     * @brief Konstruktor klasy primitve
+     * 
+     * @param type type
+     * @param pos pozycja
+     * @param size szerokosc
+     * @param color kolor
+     */
     Primitive(int type, sf::Vector2f pos, sf::Vector2f size, sf::Color color){
         m_type =type;
         m_pos =pos;

@@ -3,6 +3,9 @@
 #include <iostream>
 #include <fstream>
 
+/**
+ * Klasa game data
+ */
 class GameSaveData
 {
 private:
@@ -13,12 +16,21 @@ private:
     float m_playerExperience;
     int m_currentNumberPotions;
 public:
+    /**
+     * Konstruktor klasy gamedata
+     */
     GameSaveData(){
 
     }
+    /**
+     * Destruktor klasy gamedata
+     */
     ~GameSaveData(){
 
     }
+    /**
+     * Metoda inicjujaca date 
+     */
     void initStartData(){
         m_playerPosMap = sf::Vector2f(900, 200);
         m_wonBattles =0;
@@ -27,55 +39,95 @@ public:
         m_playerExperience =0;
         m_currentNumberPotions =0;
     }
+    /**
+     * Metoda podajaca ilosc potek
+     */
     int getCurrentNumberPotions()
     {
         return m_currentNumberPotions;
     }
-
+    /**
+     * Metoda ustawiajaca ilosc potek
+     * \param currentNumberPotions ilosc potek
+     */
     void setCurrentNumberPotions(int currentNumberPotions)
     {
         m_currentNumberPotions = currentNumberPotions;
     }
-
+    /**
+     * Metoda podajaca pozycje gracza
+     */
     sf::Vector2f getPlayerPosMap(){
         return m_playerPosMap;
     }
+    /**
+     * Metoda usawiajaca pozycje gracza
+     * \param playerPosMap pozycja gracza
+     */
     void setPlayerPosMap(sf::Vector2f playerPosMap){
         m_playerPosMap = playerPosMap;
-    }   
-
+    }
+    /**
+     * Metoda podajaca wygrane bitwy przez gracza
+     */
     int getWonBattles(){
         return m_wonBattles;
     }
+    /**
+     * Metoda usawiajaca wygrane bitwy przez gracza
+     * \param wonBattles wygrane bitwy
+     */
 
     void setWonBattles(int wonBattles){
         m_wonBattles = wonBattles;
     }
-
+    /**
+     * Metoda usawiajaca aktualne zycie gracza
+     * \param  playerhealth zycie gracza
+     */
     void setPlayerHealth(float playerhealth){
         m_playerHealth = playerhealth;
     }
+    /**
+     * Metoda podajaca aktualne zycie gracza
+     */
     float getPlayerHealth(){
         return m_playerHealth;
     }
-
+    /**
+     * Metoda ustawiajaca wartosc ataku gracza
+     * \param  playerattack wartosc ataku
+     */
     void setPlayerAttack(float playerattack)
     {
         m_playerAttack = playerattack;
     }
+    /**
+     * Metoda podajaca wartosc ataku gracza
+     */
     float getPlayerAttack()
     {
         return m_playerAttack;
     }
+    /**
+     * Metoda ustawiajaca doswiadczenie gracza
+     * \param  playerexperience wartosc doswiadczenia
+     */
 
     void setPlayerExperience(float playerexperience)
     {
         m_playerExperience = playerexperience;
     }
+    /**
+     * Metoda podajaca doswiadczenie gracza
+     */
     float getPlayerExperience()
     {
         return m_playerExperience;
     }
+    /**
+     * Metoda zapisujaca gamedata do json
+     */
     void saveData(){
         std::ifstream data_load;
         data_load.open("../gamedata/lastsave.json");
@@ -105,7 +157,10 @@ public:
         }
         saving_file << data_json;
         saving_file.close();
-    }   
+    }
+    /**
+     * Metoda odczytujaca gamedata z json
+     */
     void loadData(){
             std::ifstream data_load;
             data_load.open("../gamedata/lastsave.json");

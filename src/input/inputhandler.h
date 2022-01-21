@@ -9,6 +9,14 @@ class InputHandler
 private:
 
 public:
+    /**
+     * Metoda wykonuje polecenie poruszania
+     * \param obj wskaznik na obiekt
+     */
+
+    /**
+     * Konstruktor klasy InputHandler
+     */
     InputHandler(){
         buttonW = new MoveUpCommand();
         buttonS = new MoveDownCommand();
@@ -16,12 +24,18 @@ public:
         buttonD = new MoveRightCommand();
         noInput = new NoInputCommand();
     }
+    /**
+     * Destruktor klasy InputHandler
+     */
     ~InputHandler(){
         delete buttonW;
         delete buttonS;
         delete buttonA;
         delete buttonD;
     }
+    /**
+     * Metoda realizujaca poruszanie zwraca obiekt Command
+     */
     Command* handleInput(){
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
             {
@@ -40,9 +54,24 @@ public:
             }
             return noInput;
     }
+    /**
+     * Wskanizk na obiekt Command
+     */
     Command *buttonW;
+    /**
+     * Wskanizk na obiekt Command
+     */
     Command *buttonA;
+    /**
+     * Wskanizk na obiekt Command
+     */
     Command *buttonS;
+    /**
+     * Wskanizk na obiekt Command
+     */
     Command *buttonD;
+    /**
+     * Wskanizk na obiekt Command
+     */
     Command *noInput;
 };

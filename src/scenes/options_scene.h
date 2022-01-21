@@ -11,7 +11,9 @@ enum OPTIONS_BUTTON_TYPES
 };
 
 class Button;
-
+/**
+ *  Klasa options
+ */
 class OptionsScene :public Scene
 {
 private:
@@ -22,16 +24,54 @@ private:
 
     sf::Music optionMenuMusic;
 
+    /**
+     * @brief Metoda zapisujace opcje
+     *
+     */
     void saveOptions();
+    /**
+     * @brief Metoda wczytajaca opcje
+     *
+     */
     void loadOptions();
-
+    /**
+     * @brief Metoda inicujaca  dane
+     *
+     */
     void initData();
+    /**
+     * @brief Metoda czyszczaca dane
+     *
+     */
     void cleanUp();
 
-public:                                                         
+public:
+    /**
+     * @brief Konstruktor sceny opcji
+     *
+     * @param engine_ref wskaznik na silnik gry
+     */
     OptionsScene(Engine *engine_ref);
+    /**
+     *  Destruktor sceny opcji
+     */
     ~OptionsScene();
+    /**
+     * @brief Metoda aktualizujaca
+     *
+     * @param deltatime deltatime
+     * @return int
+     */
     int processEvents(TimeStep deltatime) override;
+    /**
+     * @brief Metoda rysujaca
+     *
+     * @param deltatime deltatime
+     */
     void draw(TimeStep deltatime) override;
+    /**
+     * @brief Metoda wejscia
+     *
+     */
     void input() override;
 };

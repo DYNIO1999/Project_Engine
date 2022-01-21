@@ -1,25 +1,36 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+
+/**
+ * Klasa Timer
+ */
 struct Timer
 {
+    
     sf::Clock m_Clock;
     float runTime;
     bool isPaused;
-
+    /**
+     * Konstruktor klasy timer
+     */
     Timer()
     {
         isPaused = false;
         runTime = 0;
         m_Clock.restart();
     }
-
+    /**
+     * Metoda resetujaca timer
+     */
     void Reset()
     {
         m_Clock.restart();
         runTime = 0;
         isPaused = false;
     }
-
+    /**
+     * Metoda uruchamiajaca timer
+     */
     void Start()
     {
         if (isPaused)
@@ -28,7 +39,9 @@ struct Timer
         }
         isPaused = false;
     }
-
+    /**
+     * Metoda pauzujaca timer
+     */
     void Pause()
     {
         if (!isPaused)
@@ -37,7 +50,9 @@ struct Timer
         }
         isPaused = true;
     }
-
+    /**
+     * Metoda podaje czas z timer
+     */
     float GetElapsedSeconds()
     {
         if (!isPaused)

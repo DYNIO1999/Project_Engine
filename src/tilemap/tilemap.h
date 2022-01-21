@@ -11,12 +11,25 @@ public:
     std::vector<Tile> m_tiles;
     std::vector<std::vector<int>>m_map;
 public:
+    /**
+     * @brief Konstruktor klasy Tilemap
+     *
+     * @param map pobiera referencje do wektora 2D INT
+     */
     Tilemap(std::vector<std::vector<int>>& map){
         m_map = map;
     }
+    /**
+     * @brief Destruktor klasy Tilemap
+     *
+     */
     ~Tilemap(){
         cleanUp();
     }
+    /**
+     * @brief Metoda inicujaca tilemap
+     *
+     */
     void initMap(){
         float temp_width =50;
         float temp_height =50;
@@ -185,6 +198,10 @@ public:
             }
         }
     }
+    /**
+     * @brief Metoda aktualizujaca tilemap
+     *
+     */
     void updateTileMap(){
         for(auto it = m_tiles.begin();it<m_tiles.end();it++){
             if (m_map[it->m_gridPos.x][it->m_gridPos.y] == GRASS_TILE)
@@ -298,16 +315,32 @@ public:
             }
         }
     }
+    /**
+     * @brief Metoda dodajaca teren
+     *
+     * @param texture wskaznik na tkesture
+     * @param passable czy jest mozliwe poruszanie sie po niej
+     */
     void addTerrain(std::shared_ptr<sf::Texture> texture, bool passable)
     {
         Terrain* temp = new Terrain(texture,passable);
         m_terrainPtr.push_back(temp);
         temp = nullptr;
-    }  
+    }
+    /**
+     * @brief Metoda aktualizujaca
+     *
+     * @param map pobiera referencje do wektora 2D INT
+     */
     void processEvents(std::vector<std::vector<int>>& map){
         m_map = map;
         updateTileMap();
     }
+    /**
+     * @brief Metoda sprawdzajaca kolizje z tilemap
+     *
+     * @param obj refernecja obiektu
+     */
     void checkCollisionTilemap(Object& obj){
 
         for(auto it = m_tiles.begin();it<m_tiles.end();it++){
@@ -319,6 +352,13 @@ public:
             }
         }
     }
+    /**
+     * @brief  Metoda sprawdzajaca kolizje z lasem
+     *
+     * @param obj refernecja obiektu
+     * @return true
+     * @return false
+     */
     bool checkCollsionwithTilesForest(Object& obj){
         for(auto it = m_tiles.begin();it<m_tiles.end();it++){
             if (obj.getBoxCollider().intersects(it->m_colisionBox))
@@ -333,6 +373,12 @@ public:
         }
     return false;
     }
+    /**
+     * @brief Metoda rysujaca tilemap
+     *
+     * @param win_ref referencja okna
+     * @param gameView referencja gameview 
+     */
     void draw(sf::RenderWindow &win_ref, const sf::View &gameView)
     {
         for (int i = 0; i < ((int)m_tiles.size()); i++)
@@ -350,6 +396,10 @@ public:
             }
         }
     }
+    /**
+     * @brief Metoda czyszczaca tilemap
+     *
+     */
     void cleanUp(){
         for (auto it = m_terrainPtr.begin(); it != m_terrainPtr.end(); it++)
         {

@@ -14,9 +14,29 @@
 class World_Scene:public Scene{
 
 public:
+    /**
+     * @brief Konstruktor world scene
+     *
+     * @param engine_ref Wskaznik na silnik
+     */
     World_Scene(Engine *engine_ref);
+    /**
+     * @brief Destruktor world scene
+     *
+     */
     ~World_Scene();
+    /**
+     * @brief Metoda aktualizujaca scene
+     *
+     * @param deltatime deltatime
+     * @return int
+     */
     int processEvents(TimeStep deltatime) override;
+    /**
+     * @brief Metoda rysujaca scene
+     *
+     * @param deltatime deltatime
+     */
     void draw(TimeStep deltatime) override;
 
 private:
@@ -39,7 +59,19 @@ private:
     sf::Sprite wonGameSprite;
 
     sf::Music worldMapMusic;
+    /**
+     * @brief Metoda inicujaca scene
+     *
+     */
     void initData();
+    /**
+     * @brief Metoda input scene
+     *
+     */
     void input();
+    /**
+     * @brief Metoda czyszczaca scene
+     *
+     */
     void cleanupData();
 };

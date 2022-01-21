@@ -30,9 +30,7 @@ class Scene;
 class Engine
 {
 private:
-
 public:
-
     Engine(const Engine &) = delete;
     Engine &operator=(const Engine &) = delete;
 
@@ -51,25 +49,30 @@ public:
     * Metoda do inicjacji okna
     */
     void initWindow();
-    /** 
-    * Metoda sluzy do pobierania inputu i przeprowadzania update na podstawie odebranych danych 
-    */
+    /**
+     * Metoda sluzy do pobierania inputu i przeprowadzania update na podstawie odebranych danych
+     * \param deltatime deltatime.
+     */
     void proccessEvents(TimeStep deltatime);
-    /** 
-    * Metoda sluzy do renderowania
-    */
+    /**
+     * Metoda sluzy do renderowania
+     * \param deltatime deltatime.
+     */
     void draw(TimeStep deltatime);
     /** 
     * Glowny core aplikacji
     */
     void cleanUp();
-    /**  
-    * Metoda sluzy do zmiany wielkosci okna
-    */
+    /**
+     * Metoda sluzy do zmiany wielkosci okna
+     * \param width szerokosc okna.
+     * \param height wysokosc okna.
+     */
     void changeWinSize(unsigned int width, unsigned int height);
-    /** 
-    * Metoda sluzy do ustawiania pelnego ekranu
-    */
+    /**
+     * Metoda sluzy do ustawiania pelnego ekranu
+     * \param fullscreen zmienna boolowska okreslajaca czy ustawic fullscreen czy nie
+     */
     void setFullScreen(bool fullscreen);
     /**  
     * Sprawdzenie jakie wsparcie ma nasz ekran
@@ -83,25 +86,60 @@ public:
     * Zapisanie danych potrzebny do inicjacji okna
     */
     void saveConfig();
-    
+
+    /**
+     * SceneManager sluzy do obslugi scen gry
+     */
     SceneManager *m_scene_manager;
+    /**
+     * Lasttime odmierzony po przejsciu calej petly gry
+     */
     TimeStep m_lasttime;
-    TimeStep m_currenttime; 
+    /**
+     * CurrentTime aktualny czas
+     */
+    TimeStep m_currenttime;
+    /**
+     * Window czyli glowna klasa odnoszaca sie do okna gry
+     */
     sf::RenderWindow* m_window;
+    /**
+     * Klasa videomode czyli klasa zapisujaca stan okna
+     */
     sf::VideoMode* m_video_mode;
+    /**
+     * Wektro przetrzymujacy dostepne typy okna i rozdzielczosci
+     */
     std::vector<sf::VideoMode> modes;
-    
+
+    /**
+     * Glowny zegar silnika gry
+     */
     sf::Clock m_engineClock;
+    /**
+     * Klasa event sluzy do obslugi eventow pobieranych od gracza czyli input
+     */
     sf::Event event;
-    
+    /**
+     * Primitywny render
+     */
     PrimitiveRenderer* m_primitives_render;
+    /**
+     * Engine config przetrzymujacy informacje o silniku
+     */
     EngineConfig m_engine_config;
+    /**
+     * Obiekt timestep przetrzymuje informajce od deltatime
+     */
     TimeStep timestep;
-
+    /**
+     * Zmienna przetrzymuje informacje czy muzyka wlaczaona czy nie
+     */
     bool isMusic;
-
+    /**
+     * Obiekt przetrzymuje informacje o zapisanej stanie gry
+     */
     GameSaveData m_gameSaveData;
-
     /**  
     * Metoda zwraca nam deltaTime
     */

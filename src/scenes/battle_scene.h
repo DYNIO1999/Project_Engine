@@ -38,17 +38,58 @@ enum BATTLE_STATES
 class Battle_Scene : public Scene
 {
 public:
+    /**
+     * @brief Konstruktor sceny bitwy
+     *
+     * @param engine_ref wskaznik na silnik gry
+     */
     Battle_Scene(Engine *engine_ref);
+    /**
+     * @brief Konstruktor sceny bitwy
+     *
+     * @param engine_ref wskanizk na silnik gry
+     * @param battleMapType typ mapy
+     * @param numberEnemies ilosc przeciwnikow
+     */
     Battle_Scene(Engine *engine_ref, int battleMapType, int numberEnemies);
+    /**
+     * @brief Metoda aktualizujaca scene bitwy
+     *
+     * @param deltatime deltatime
+     * @return int
+     */
     int processEvents(TimeStep deltatime);
+    /**
+     * @brief Metoda rysujaca scene bitwy
+     *
+     * @param deltatime deltatime
+     */
     void draw(TimeStep deltatime);
+    /**
+     * @brief Metoda zbierajaca output od gracza
+     *
+     */
     void input();
+    /**
+     * Destruktor klasy bitwy
+     */
     ~Battle_Scene();
 private:
-
+    /**
+     * Pozycja myszki
+     */
     sf::Vector2f m_mousePosition;
+    /**
+     * Obiekt sprite
+     */
     sf::Sprite m_background;
+    /**
+     * Metoda inicujaca scene bitwy
+     */
     void initData();
+    /**
+     * Metoda czyszczaca scene bitwy
+     */
     void cleanupData();
 
     int m_battleMapType;

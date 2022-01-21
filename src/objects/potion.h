@@ -1,7 +1,9 @@
 #pragma once
 #include "../core/core.h"
 #include "../collision/boxcollider.h"
-
+/**
+ * Klasa Potka
+ */
 class Potion
 {
 private:
@@ -12,6 +14,15 @@ private:
     sf::RectangleShape m_potionShape;
 
 public:
+    /**
+     * Konstruktor klasy Potion
+     * 
+     * @param texturePtr wskaznik na teksture
+     * @param pos pozycja
+     * @param size szerkosc
+     * @param enginePtr wskaznik na silnik
+     * @param boosthealth o ile zwieksza zycie
+     */
     Potion(std::shared_ptr<sf::Texture> texturePtr, sf::Vector2f pos, sf::Vector2f size, Engine *enginePtr, float boosthealth)
     {   
         m_boostHealth=boosthealth;
@@ -31,15 +42,31 @@ public:
         m_potionShape.setPosition(pos);
         */
     }
+    /**
+     * Destruktor klasy potka
+     */
     ~Potion(){
 
     }
+    /**
+     * @brief Metoda zwracaj collidebox
+     * 
+     * @return BoxCollider& 
+     */
     BoxCollider& getBoxCollider(){
         return m_colisionBox;
     }
+    /**
+     * Metoda aktualizuje potke
+     */
     void update(){
 
     }
+    /**
+     * @brief Funkcja rysujaca
+     * 
+     * @param win_ref referencja do renderu 
+     */
     void draw(sf::RenderWindow &win_ref)
     {
         win_ref.draw(m_potionSprite);

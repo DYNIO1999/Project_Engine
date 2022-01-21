@@ -106,7 +106,7 @@ void Engine::draw(TimeStep deltatime)
 
 void Engine::cleanUp(){
     m_primitives_render->cleanUp();
-    std::cout << "Clearing whole Engine!" << '\n';
+    //std::cout << "Clearing whole Engine!" << '\n';
     ImGui::SFML::Shutdown();
     delete m_window;
     delete m_video_mode;

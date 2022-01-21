@@ -15,8 +15,16 @@ const std::string ASSETS_ENEMY_BATTLE_PATH = "../assets/enemies/";
 const std::string ASSETS_ITEMS_PATH = "../assets/items/";
 const std::string ASSETS_SOUNDS_PATH = "../assets/Music/";
 
+/**
+ * Klasa Zarzadca Zasobow
+ */
 class ResourceManager{
     public:
+    /**
+     * Metoda pobiera teksture
+     * @param path sciezka do assetu
+     * @return std::shared_ptr<sf::Texture> 
+     */
     static std::shared_ptr<sf::Texture> acquireTexture(const std::string& path){
         const auto it  = m_texturesPtr.find(path);
         if(it!=m_texturesPtr.end()){
@@ -28,6 +36,11 @@ class ResourceManager{
             return pTexture;
         }
     }
+    /**
+     * Metoda pobiera font
+     * @param path sciezka do assetu
+     * @return std::shared_ptr<sf::Font> 
+     */
     static std::shared_ptr<sf::Font> acquireFont(const std::string &path)
     {
         const auto it = m_fonts.find(path);
@@ -43,6 +56,11 @@ class ResourceManager{
             return pFont;
         }
     }
+    /**
+     * Metoda pobiera SoundBuffer
+     * @param path sciezka do assetu
+     * @return std::shared_ptr<sf::SoundBuffer>
+     */
     static std::shared_ptr<sf::SoundBuffer> acquireSound(const std::string &path)
     {
         const auto it = m_soundsPtr.find(path);
@@ -58,7 +76,10 @@ class ResourceManager{
             return pSound;
         }
     }
-
+    /**
+     * @brief Metoda czyszcaca assety 
+     * 
+     */
     static void cleanUpOrphans(){
         for(auto it = m_texturesPtr.begin();it!=m_texturesPtr.end();  ){
             if(it->second.unique()){
