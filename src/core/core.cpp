@@ -2,7 +2,8 @@
 #include <iostream>
 #include <fstream>
 
-Engine::Engine(){
+Engine::Engine(){  // konstruktor obiektu silnika  ktory ustawia poczatkowe wart zmiennych obiektow zawierajacych sie w silniku
+// i tworzy menager do scen i render do primytywów
     m_window =nullptr;
     m_video_mode =nullptr;
     m_lasttime.m_time=0.0f;
@@ -13,21 +14,21 @@ Engine::Engine(){
 Engine::~Engine(){
 
 }     
-void Engine::run(){
+void Engine::run(){ //inicjuje  okno wykonuje glowna pętle i czysci 
     initWindow();
     mainLoop();
     cleanUp();
 
 }
 
-void Engine::mainLoop(){
+void Engine::mainLoop(){  // wykunuje sie glowna petla gry 
     sf::Clock clock;
     while (m_window->isOpen()){
         float time = clock.getElapsedTime().asSeconds();
         timestep = time - m_lasttime.m_time;
         m_lasttime = time;
-        proccessEvents(timestep);
-        draw(timestep);
+        proccessEvents(timestep); // metoda zbiera input i abdetuje obiekty w grze
+        draw(timestep); // metoda, renderowanie obiektow
     }
 }
 
@@ -59,7 +60,8 @@ else if (m_engine_config.getEngineMode() == ENGINE_GAME)
 }
 }
 
-void Engine::proccessEvents(TimeStep deltatime){
+void Engine::proccessEvents(TimeStep deltatime)
+{ // // metoda zbiera input i abdetuje obiekty w grze
     while (m_window->pollEvent(event))
     {
         
@@ -128,7 +130,7 @@ void Engine::setFullScreen(bool fullscreen){
     m_window->create(m_video_mode->getFullscreenModes()[0], "DEngine", sf::Style::Fullscreen);
     saveConfig();
 }
-void Engine::checkScreenModes(){
+void Engine::checkScreenModes(){ //sprawdza dostepne rozdzielczosci monitora
     modes = sf::VideoMode::getFullscreenModes();
     for (std::size_t i = 0; i < modes.size(); i++)
     {
@@ -138,7 +140,7 @@ void Engine::checkScreenModes(){
                   << mode.bitsPerPixel << " bpp" << std::endl;
     }
 }
-void Engine::loadConfig()
+void Engine::loadConfig() //ładuje konfiguracje silnika
 {
     std::ifstream config_load;
     config_load.open("../config/EngineConfig.json");
@@ -170,7 +172,7 @@ void Engine::loadConfig()
 
     config_load.close();
 }
-void Engine::saveConfig()
+void Engine::saveConfig() //zapisuje konfiguracje
 {
     std::ifstream config_load;
     config_load.open("../config/EngineConfig.json");

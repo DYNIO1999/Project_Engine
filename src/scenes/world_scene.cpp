@@ -5,7 +5,7 @@
 #include "../scenes/town_scene.h"
 #include "../scenes/battle_scene.h"
 
-World_Scene::World_Scene(Engine *engine_ref)
+World_Scene::World_Scene(Engine *engine_ref) //konstruktor, tworzy scene swiata
 {
     this->m_Engine_ref = engine_ref;
     m_entitesPtr =  new EntityList();
@@ -20,7 +20,7 @@ World_Scene::~World_Scene(){
     delete m_mapeditor;
 }
 
-void World_Scene::initData(){
+void World_Scene::initData(){ // inicjuje date do sceny swiata, dodaje gracza, wode, las, miasto, tworzyk olizje, pobiera tekstury
     std::shared_ptr<sf::Texture> pPlayerTexture = ResourceManager::acquireTexture(ASSETS_PATH + "token_player.png");
     
     sf::Vector2f playerPos = m_Engine_ref->m_gameSaveData.getPlayerPosMap(); ///CHANGE THAT

@@ -2,18 +2,18 @@
 #include "../scenes/world_scene.h"
 #include "../scenes/options_scene.h"
 
-MainMenuScene::MainMenuScene(Engine *engine_ref)
+MainMenuScene::MainMenuScene(Engine *engine_ref) //konstruktor menu gry
 {
     m_Engine_ref = engine_ref;
     initData();
 }
 
-MainMenuScene::~MainMenuScene() 
+MainMenuScene::~MainMenuScene() //destruktor  
 {
     cleanUp();
 }
 
-void MainMenuScene::initData()
+void MainMenuScene::initData()  //inicjuje dane w menu 
 {
     sf::View temp = m_Engine_ref->m_window->getView();
     temp.setSize(sf::Vector2f(m_Engine_ref->m_window->getSize().x, m_Engine_ref->m_window->getSize().y));
@@ -75,7 +75,7 @@ void MainMenuScene::cleanUp()
     m_buttonList.clear();
 }
 
-int MainMenuScene::processEvents(TimeStep deltatime){
+int MainMenuScene::processEvents(TimeStep deltatime){ // eventy wywolane przez gracza i aktttualizacja obiektów
     if( m_Engine_ref->isMusic){
         mainMenuMusic.play();
         m_Engine_ref->isMusic=false;
@@ -127,7 +127,7 @@ void MainMenuScene::draw(TimeStep deltatime)
     }
 }
 
-void MainMenuScene::input() 
+void MainMenuScene::input() // wejscie, pobiera pozycje myszki na ekranie
 {
     m_mousePosition = m_Engine_ref->m_window->mapPixelToCoords(sf::Mouse::getPosition(*m_Engine_ref->m_window));
     for (auto it = m_buttonList.begin(); it < m_buttonList.end(); it++)
