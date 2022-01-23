@@ -80,6 +80,7 @@ int MainMenuScene::processEvents(TimeStep deltatime){
         mainMenuMusic.play();
         m_Engine_ref->isMusic=false;
     }
+    
     bool check = false;
     for(int i=0;i<((int)m_buttonList.size());i++){
         check = m_buttonList[i]->ButtonUpdate();
